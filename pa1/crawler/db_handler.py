@@ -25,9 +25,10 @@ class DbHandler:
     # TODO: Threading?, Insertion in bulk?
 
     def get_robots_content(self, domain):
+        # TODO: Tukaj popravi da je domain samo https://www.kulinarika.net brez /recepti/seznam/sladice/ ker drugače ne najde
         try:
             response = requests.get(f"{domain}/robots.txt", timeout=10)
-            print("Response: ", response.text)
+            # print("Response: ", response.text)
             if response.status_code == 200:
                 return response.text
         except requests.RequestException as e:

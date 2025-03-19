@@ -9,3 +9,16 @@ TRUNCATE TABLE crawldb.site RESTART IDENTITY CASCADE;
 -- Truncate tables without serial columns (no need to reset ID counters)
 TRUNCATE TABLE crawldb.data_type CASCADE;
 TRUNCATE TABLE crawldb.page_type CASCADE;
+
+INSERT INTO crawldb.data_type VALUES 
+	('PDF'),
+	('DOC'),
+	('DOCX'),
+	('PPT'),
+	('PPTX');
+
+INSERT INTO crawldb.page_type VALUES 
+	('HTML'),
+	('BINARY'),
+	('DUPLICATE'),
+	('FRONTIER');
