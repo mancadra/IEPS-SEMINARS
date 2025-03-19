@@ -27,6 +27,7 @@ class DbHandler:
     def get_robots_content(self, domain):
         try:
             response = requests.get(f"{domain}/robots.txt", timeout=10)
+            print("Response: ", response.text)
             if response.status_code == 200:
                 return response.text
         except requests.RequestException as e:
@@ -67,7 +68,7 @@ class DbHandler:
             page_type_code = "DUPLICATE"
             # TODO: Ali je to v redu da v html_content dodamo link katerga dupliciramo?
             cur.execute("""INSERT INTO crawldb.page (site_id, page_type_code, url, hash, html_content, http_status_code, accessed_time)
-                                  VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING id""", (site_id, page_type_code, url, hash, duplicate[0],http_status_code, accessed_time,))
+                                  VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING id""", (site_id, page_type_code, url, hash, duplicate[0], http_status_code, accessed_time,))
             to_page = cur.fetchone()[0]
 
         else:
@@ -93,17 +94,10 @@ class DbHandler:
         data_type_code = self.get_data_type_code(data)
         cur.execute("INSERT INTO crawldb.page_data (page_id, data_type_code, data) VALUES (%s,%s,%s)", (page_id,data_type_code,data,))
 
-    # TODO: Function for returning data type code
-    def get_data_type_code(data):
-        return None
-
-    # TODO: A je to tko mišljeno
     def insert_link(self, from_page, to_page):
         cur = self.conn.cursor()
         cur.execute("INSERT INTO crawldb.link (from_page, to_page) VALUES (%s,%s)", (from_page, to_page,))
 
-
-    # TODO: kaj je content_type tuki??? Pod data se mi zdi da vrnemo link slike?
     def insert_image(self, page_id, filename, content_type, data, accessed_time):
         cur = self.conn.cursor()
         cur.execute("INSERT INTO crawldb.image (page_id, filename, content_type, data, accessed_time) VALUES (%s,%s,%s,%s,%s)", (page_id, filename, content_type, data, accessed_time,))
