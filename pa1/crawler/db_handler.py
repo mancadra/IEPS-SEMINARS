@@ -2,6 +2,7 @@ import psycopg2
 import threading
 from helper import Helper
 import requests
+import re
 
 helper = Helper()
 config = helper.get_config()
@@ -26,8 +27,9 @@ class DbHandler:
 
     def get_robots_content(self, domain):
         # TODO: Tukaj popravi da je domain samo https://www.kulinarika.net brez /recepti/seznam/sladice/ ker drugače ne najde
+        # popravljeno z regularnim izrazom: + je da matches one or more, ^ je negacija => [^/]+ matches one or more stvari, ki niso /
         try:
-            response = requests.get(f"{domain}/robots.txt", timeout=10)
+            response = requests.get(f"{re.search(r"https?://[^/]+/", domain).group(0)}/robots.txt", timeout=10)
             # print("Response: ", response.text)
             if response.status_code == 200:
                 return response.text
@@ -37,7 +39,8 @@ class DbHandler:
 
     def get_sitemap_content(self, domain):
         try:
-            response = requests.get(f"{domain}/sitemap.xml", timeout=10)
+            # isto kot zgoraj z regularnimi popravljeno
+            response = requests.get(f"{re.search(r"https?://[^/]+/", domain).group(0)}/sitemap.xml", timeout=10)
             if response.status_code == 200:
                 return response.text
         except requests.RequestException as e:
@@ -87,7 +90,13 @@ class DbHandler:
                 to_page = cur.fetchone()[0]
                 self.insert_page_data(to_page, html_content_or_data)
 
-        self.insert_link(from_page, to_page)
+        # URSA: Before calling insert_link, check if from_page is valid
+        if from_page is not None and from_page != 0:
+            self.insert_link(from_page, to_page)
+        else:
+            helper.log_error(f"Invalid from_page ID: {from_page}. Skipping link insertion.")
+
+        #self.insert_link(from_page, to_page)
         return to_page
 
     def insert_page_data(self, page_id, data):
