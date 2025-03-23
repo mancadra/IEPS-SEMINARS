@@ -19,12 +19,13 @@ helper = Helper()
 config = helper.get_config()
 site_id = None
 current_page_id = None
+max_pages = 10
 
 db_handler = DbHandler()
 
 class PreferentialWebCrawler:
 
-    def __init__(self, seed_url, keyword, max_pages=10):
+    def __init__(self, seed_url, keyword, max_pages=30):
         self.seed_url = seed_url
         self.keyword = keyword
         self.max_pages = max_pages
@@ -110,18 +111,7 @@ class PreferentialWebCrawler:
         return url.startswith(self.domain)
 
 
-    def priority(self, html, link, link_tag):
-        """
-        Compute the priority of a link.
-
-        Args:
-            html (str): HTML content of the page.
-            link (str): Link URL.
-            link_tag (bs4.Tag): BeautifulSoup tag representing the link.
-
-        Returns:
-            float: Priority score (lower number represents high priority).
-        """
+    def priority(self, link):
         priority = 0 if self.keyword in link else 1  # Assign priority (0 = high, 1 = lower)
         return priority
 
@@ -145,7 +135,7 @@ class PreferentialWebCrawler:
             try:
                 fotografije_div = driver.find_element(By.ID, "fotografije")
             except NoSuchElementException:
-                print("No <div id='fotografije'> found. Skipping this page.")
+                print(f"No <div id='fotografije'> found. Skipping this page: {url}.")
                 return []
 
             # Find all <img> tags within the <div id="fotografije">
@@ -217,8 +207,6 @@ class PreferentialWebCrawler:
                     # No canonical URL or it's the same as the current URL
                     self.visited.add(url)
 
-                hash = hashlib.sha256(page.encode('utf-8')).hexdigest() # TODO: BONUS POINTS use Locality-sensitive hashing method
-
                 if page_type_code == 'BINARY':
                     page = url # ne vem kaj je fora
 
@@ -252,7 +240,7 @@ class PreferentialWebCrawler:
             for link, link_tag in links:
                 normalized_link = self.normalize_url(link)
                 if normalized_link not in self.visited:
-                    priority = self.priority(page, normalized_link, link_tag)
+                    priority = self.priority(page)
                     self.queue.put((priority, normalized_link, current_page_id))
 
 
@@ -262,7 +250,7 @@ seed = "https://www.kulinarika.net/recepti/seznam/sladice/"  # Replace with an a
 #site_id = db_handler.insert_or_get_site_id(canonized_seed)
 canonical_seed = PreferentialWebCrawler(seed, "").normalize_url(seed)
 site_id = db_handler.insert_or_get_site_id(canonical_seed)
-keyword = "torta"  # Prioritize links containing this keyword
-crawler = PreferentialWebCrawler(seed, keyword, max_pages=6)
+keyword = "sladice"  # Prioritize links containing this keyword
+crawler = PreferentialWebCrawler(seed, keyword, max_pages)
 crawler.crawl()
 
