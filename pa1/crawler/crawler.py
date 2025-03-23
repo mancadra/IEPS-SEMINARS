@@ -12,6 +12,7 @@ import time
 from selenium.common.exceptions import NoSuchElementException
 from queue import PriorityQueue
 from threading import Lock
+import re
 
 hasher = MinHasher(shingle_size=3, hash_number=250)
 helper = Helper()
@@ -245,6 +246,8 @@ class PreferentialWebCrawler:
                 if normalized_link not in self.visited:
                     priority = self.priority(normalized_link)
                     self.queue.put((priority, normalized_link, current_page_id))
+        time.sleep(5)
+
 
 start_time = time.time()
 seed = "https://www.kulinarika.net/recepti/seznam/sladice/"  # Replace with an actual URL
