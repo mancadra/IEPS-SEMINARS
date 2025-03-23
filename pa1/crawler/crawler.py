@@ -18,7 +18,7 @@ helper = Helper()
 config = helper.get_config()
 site_id = None
 current_page_id = None
-max_pages = 10
+max_pages = 3
 
 db_handler = DbHandler()
 
@@ -209,12 +209,13 @@ class PreferentialWebCrawler:
                     # No canonical URL or it's the same as the current URL
                     self.visited.add(url)
 
-                hash = hasher.min_hash(page)
-
                 if page_type_code == 'BINARY':
                     page = url # ne vem kaj je fora
 
                 current_page_id = db_handler.insert_page(site_id, page_type_code, url, hash, page, status_code, accessed_time, from_page)
+
+                if current_page_id is None:
+                    continue
 
                 # Insert each image into the database
                 image_urls = self.extract_image_urls_with_selenium(url)
@@ -233,7 +234,6 @@ class PreferentialWebCrawler:
                     helper.log_error(f"Invalid page ID for URL: {url}. Skipping...")
                     continue
 
-
             self.visited.add(url)
             pages_crawled += 1
 
@@ -247,14 +247,13 @@ class PreferentialWebCrawler:
                     priority = self.priority(normalized_link)
                     heapq.heappush(self.queue, (priority, normalized_link, current_page_id))
 
-
+start_time = time.time()
 seed = "https://www.kulinarika.net/recepti/seznam/sladice/"  # Replace with an actual URL
-# TODO: Implement canonozation
-#canonized_seed = urlcanon.parse_url(seed)
-#site_id = db_handler.insert_or_get_site_id(canonized_seed)
-canonical_seed = PreferentialWebCrawler(seed, "").normalize_url(seed)
-site_id = db_handler.insert_or_get_site_id(canonical_seed)
+site_id = db_handler.insert_or_get_site_id(seed)
 keyword = "sladice"  # Prioritize links containing this keyword
 crawler = PreferentialWebCrawler(seed, keyword, max_pages)
 crawler.crawl()
+end_time = time.time()
+execution_time = end_time - start_time
+print(f"{max_pages} crawled in {execution_time:.6f} seconds.")
 

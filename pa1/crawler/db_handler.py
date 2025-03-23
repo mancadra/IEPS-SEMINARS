@@ -65,12 +65,18 @@ class DbHandler:
     def insert_page(self, site_id, page_type_code, url, hash, html_content_or_data, http_status_code, accessed_time, from_page):
         to_page = None
         cur = self.conn.cursor()
+
+        cur.execute("SELECT id FROM crawldb.page WHERE url = %s", (url,))
+        identical = cur.fetchone()
+        if identical:
+            helper.log_info(f"This url: {url} has already been processed")
+            return None
+
         cur.execute("SELECT id FROM crawldb.page WHERE hash = %s", (hash,))
         duplicate = cur.fetchone()
         if duplicate:
             helper.log_info(f"Duplicate found for {url}.")
             page_type_code = "DUPLICATE"
-            # TODO: Ali je to v redu da v html_content dodamo link katerga dupliciramo?
             cur.execute("""INSERT INTO crawldb.page (site_id, page_type_code, url, hash, html_content, http_status_code, accessed_time)
                                   VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING id""", (site_id, page_type_code, url, hash, duplicate[0], http_status_code, accessed_time,))
             to_page = cur.fetchone()[0]
