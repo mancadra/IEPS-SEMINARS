@@ -20,6 +20,7 @@ config = helper.get_config()
 site_id = None
 current_page_id = None
 max_pages = 3
+TIMEOUT = 5
 
 db_handler = DbHandler()
 
@@ -31,10 +32,13 @@ class PreferentialWebCrawler:
         url_parts = urlsplit(seed_url)
         self.domain = url_parts.scheme + "://" + url_parts.netloc
         self.visited = set()
+        self.visited_lock = Lock
         self.queue = PriorityQueue()  # Priority queue (min-heap)
         self.queue.put((0, seed_url, 0))  # Start with the seed URL (highest priority)
         self.pages_crawled = 0
         self.pages_crawled_lock = Lock()
+        self.time_last_visited = time.time()
+        self.timeout_lock = Lock()
 
 
     def normalize_url(self, url):
@@ -70,17 +74,22 @@ class PreferentialWebCrawler:
 
 
     def fetch_page(self, url):
-        """Fetch page content from a URL."""
-        try:
-            response = requests.get(url, timeout=5)
-            response.encoding = 'utf-8'
-            if response.status_code == 200:
-                accessed_time = datetime.now()
-                page_type_code = self.get_page_type(response.headers['Content-Type'])
-                return response.text, response.status_code, accessed_time, page_type_code
-        except requests.RequestException as e:
-            helper.log_error(e)
-        return None
+        """Fetch page content from a URL. Only one page can be accessed every TIMEOUT seconds."""
+        with self.timeout_lock():
+            t = time.time()
+            if t - self.time_last_visited < TIMEOUT:
+                time.sleep(TIMEOUT - (t - self.time_last_visited))
+            try:
+                response = requests.get(url)
+                self.time_last_visited = time.time()
+                response.encoding = 'utf-8'
+                if response.status_code == 200:
+                    accessed_time = datetime.now()
+                    page_type_code = self.get_page_type(response.headers['Content-Type'])
+                    return response.text, response.status_code, accessed_time, page_type_code
+            except requests.RequestException as e:
+                helper.log_error(e)
+            return None
 
 
     def get_page_type(self, mime_page_type):
@@ -175,10 +184,10 @@ class PreferentialWebCrawler:
         while self.queue and self.pages_crawled < self.max_pages:
             priority, url, from_page = self.queue.get()  # Get the highest-priority URL
 
-            if url in self.visited: continue
+            with self.visited_lock():   # should be fine
+                if url in self.visited: continue
+            
             if not self.in_domain(url): continue
-
-            #canonical_url = urlcanon.parse_url(url)
 
             print(f"Crawling (Priority {priority}): {url}")
             result = self.fetch_page(url)
@@ -192,20 +201,33 @@ class PreferentialWebCrawler:
                 hash = hasher.min_hash(page)
                 canonical_url = self.get_canonical_url(page, url)   # Get the canonical URL of the page
 
+                # TODO Moremo probat dat vse pod en visited lock, če je možno.
                 # If the canonical URL is different from the current URL, prioritize the canonical URL
-                if canonical_url and canonical_url != url:
-                    print(f"Canonical URL found: {canonical_url}")
-                    if canonical_url in self.visited:
-                        print(f"Skipping already visited canonical URL: {canonical_url}")
-                        continue
+                with self.visited_lock:
+                    if canonical_url and canonical_url != url:
+                        print(f"Canonical URL found: {canonical_url}")
+                        if canonical_url in self.visited:
+                            print(f"Skipping already visited canonical URL: {canonical_url}")
+                            continue
+                        else:
+                            # Mark both the original URL and the canonical URL as visited
+                            self.visited.add(url)
+                            self.visited.add(canonical_url)
+                            url = canonical_url  # Crawl the canonical URL instead
                     else:
-                        # Mark both the original URL and the canonical URL as visited
+                        # No canonical URL or it's the same as the current URL
                         self.visited.add(url)
-                        self.visited.add(canonical_url)
-                        url = canonical_url  # Crawl the canonical URL instead
-                else:
-                    # No canonical URL or it's the same as the current URL
-                    self.visited.add(url)
+
+                    # Add links to frontier if not yet visited
+                    url_parts = urlsplit(url)
+                    base_url = url_parts.scheme + "://" + url_parts.netloc
+                    links = self.extract_links(page, base_url)
+                    print("  - Found", len(links), "links")
+                    for link, _ in links:
+                        normalized_link = self.normalize_url(link)
+                        if normalized_link not in self.visited:
+                            priority = self.priority(normalized_link)
+                            self.queue.put((priority, normalized_link, current_page_id))
 
                 if page_type_code == 'BINARY':
                     page = url # ne vem kaj je fora
@@ -233,20 +255,8 @@ class PreferentialWebCrawler:
                     helper.log_error(f"Invalid page ID for URL: {url}. Skipping...")
                     continue
 
-            self.visited.add(url)
             with self.pages_crawled_lock:
                 self.pages_crawled += 1
-
-            url_parts = urlsplit(url)
-            base_url = url_parts.scheme + "://" + url_parts.netloc
-            links = self.extract_links(page, base_url)
-            print("  - Found", len(links), "links")
-            for link, link_tag in links:
-                normalized_link = self.normalize_url(link)
-                if normalized_link not in self.visited:
-                    priority = self.priority(normalized_link)
-                    self.queue.put((priority, normalized_link, current_page_id))
-        time.sleep(5)
 
 
 start_time = time.time()
