@@ -1,7 +1,6 @@
 from urllib.parse import urlsplit, urlunsplit, urlencode, parse_qsl
 import requests
 from bs4 import BeautifulSoup
-import heapq
 from db_handler import DbHandler
 import hashlib
 from datetime import datetime
@@ -12,6 +11,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
 from selenium.common.exceptions import NoSuchElementException
+from queue import PriorityQueue
+from threading import Lock
 
 hasher = MinHasher(shingle_size=3, hash_number=250)
 helper = Helper()
@@ -22,6 +23,7 @@ current_page_id = None
 db_handler = DbHandler()
 
 class PreferentialWebCrawler:
+
     def __init__(self, seed_url, keyword, max_pages=10):
         self.seed_url = seed_url
         self.keyword = keyword
@@ -29,8 +31,10 @@ class PreferentialWebCrawler:
         url_parts = urlsplit(seed_url)
         self.domain = url_parts.scheme + "://" + url_parts.netloc
         self.visited = set()
-        self.queue = []  # Priority queue (min-heap)
-        heapq.heappush(self.queue, (0, seed_url, 0))  # Start with the seed URL (highest priority)
+        self.queue = PriorityQueue()  # Priority queue (min-heap)
+        self.queue.put((0, seed_url, 0))  # Start with the seed URL (highest priority)
+        self.pages_crawled = 0
+        self.pages_crawled_lock = Lock()
 
     def normalize_url(self, url):
         """Normalize URLs by removing trailing slashes, lowercasing, and sorting query parameters."""
@@ -40,6 +44,7 @@ class PreferentialWebCrawler:
         sorted_query = urlencode(sorted(parse_qsl(parsed.query)))  # Sort query params
 
         return urlunsplit((parsed.scheme, normalized_netloc, normalized_path, sorted_query, ""))
+
 
     def get_canonical_url(self, html, url):
         """Extracts the canonical URL from the page, or returns the original URL if no canonical link exists."""
@@ -62,6 +67,7 @@ class PreferentialWebCrawler:
         print(f"No canonical URL found. Using original: {url}")
         return self.normalize_url(url)
 
+
     def fetch_page(self, url):
         """Fetch page content from a URL."""
         try:
@@ -75,6 +81,7 @@ class PreferentialWebCrawler:
             helper.log_error(e)
         return None
 
+
     def get_page_type(self, mime_page_type):
         if 'text/html' in mime_page_type:
             return 'HTML'
@@ -82,6 +89,7 @@ class PreferentialWebCrawler:
             return 'BINARY'
         else:
             return 'UNKNOWN'
+
 
     def extract_links(self, html, base_url):
         """Extract and return all links from the HTML content."""
@@ -97,8 +105,10 @@ class PreferentialWebCrawler:
                 links.append((base_url + href, a_tag))
         return links
 
+
     def in_domain(self, url):
         return url.startswith(self.domain)
+
 
     def priority(self, html, link, link_tag):
         """
@@ -114,6 +124,7 @@ class PreferentialWebCrawler:
         """
         priority = 0 if self.keyword in link else 1  # Assign priority (0 = high, 1 = lower)
         return priority
+
 
     def extract_image_urls_with_selenium(self, url):
         """
@@ -170,15 +181,12 @@ class PreferentialWebCrawler:
 
     def crawl(self):
         """Crawl pages, prioritizing links containing the keyword."""
-        pages_crawled = 0
 
-        while self.queue and pages_crawled < self.max_pages:
-            priority, url, from_page = heapq.heappop(self.queue)  # Get the highest-priority URL
-            if url in self.visited:
-                continue
-
-            if not self.in_domain(url):
-                continue
+        while self.queue and self.pages_crawled < self.max_pages:
+            priority, url, from_page = self.queue.get()  # Get the highest-priority URL
+            
+            if url in self.visited: continue
+            if not self.in_domain(url): continue
 
             #canonical_url = urlcanon.parse_url(url)
 
@@ -192,8 +200,7 @@ class PreferentialWebCrawler:
 
             if page is not None and status_code == 200:
                 hash = hasher.min_hash(page)
-                # Get the canonical URL of the page
-                canonical_url = self.get_canonical_url(page, url)
+                canonical_url = self.get_canonical_url(page, url)   # Get the canonical URL of the page
 
                 # If the canonical URL is different from the current URL, prioritize the canonical URL
                 if canonical_url and canonical_url != url:
@@ -234,9 +241,9 @@ class PreferentialWebCrawler:
                     helper.log_error(f"Invalid page ID for URL: {url}. Skipping...")
                     continue
 
-
             self.visited.add(url)
-            pages_crawled += 1
+            with self.pages_crawled_lock:
+                self.pages_crawled += 1
 
             url_parts = urlsplit(url)
             base_url = url_parts.scheme + "://" + url_parts.netloc
@@ -246,7 +253,7 @@ class PreferentialWebCrawler:
                 normalized_link = self.normalize_url(link)
                 if normalized_link not in self.visited:
                     priority = self.priority(page, normalized_link, link_tag)
-                    heapq.heappush(self.queue, (priority, normalized_link, current_page_id))
+                    self.queue.put((priority, normalized_link, current_page_id))
 
 
 seed = "https://www.kulinarika.net/recepti/seznam/sladice/"  # Replace with an actual URL
