@@ -6,7 +6,9 @@ from db_handler import DbHandler
 import hashlib
 from datetime import datetime
 from helper import Helper
+from min_hash import MinHasher
 
+hasher = MinHasher(shingle_size=3, hash_number=250)
 helper = Helper()
 config = helper.get_config()
 site_id = None
@@ -29,7 +31,8 @@ class PreferentialWebCrawler:
         """Fetch page content from a URL."""
         try:
             response = requests.get(url, timeout=5)
-            if response.status_code == 200: # TODO: popravi verjetno hranimo tudi tiste, ki vrnejo drugačen status code
+            response.encoding = 'utf-8'
+            if response.status_code == 200:
                 accessed_time = datetime.now()
                 page_type_code = self.get_page_type(response.headers['Content-Type'])
                 return response.text, response.status_code, accessed_time, page_type_code
@@ -99,7 +102,7 @@ class PreferentialWebCrawler:
 
             page, status_code, accessed_time, page_type_code = result
             if page is not None and status_code == 200:
-                hash = hashlib.sha256(page.encode('utf-8')).hexdigest() # TODO: BONUS POINTS use Locality-sensitive hashing method
+                hash = hasher.min_hash(page)
 
                 if page_type_code == 'BINARY':
                     page = url
