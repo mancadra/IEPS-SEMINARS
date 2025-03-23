@@ -12,6 +12,7 @@ import time
 from selenium.common.exceptions import NoSuchElementException
 from queue import PriorityQueue
 from threading import Lock
+import threading
 import re
 
 hasher = MinHasher(shingle_size=3, hash_number=250)
@@ -25,7 +26,8 @@ TIMEOUT = 5
 db_handler = DbHandler()
 
 class PreferentialWebCrawler:
-    def __init__(self, seed_url, keyword, max_pages=30):
+    def __init__(self, seed_url, keyword, max_pages=30, workers=4):
+        self.workers = workers
         self.seed_url = seed_url
         self.keyword = keyword
         self.max_pages = max_pages
@@ -177,6 +179,18 @@ class PreferentialWebCrawler:
 
         finally:
             driver.quit()
+
+
+    # Runs the crawler using multiple threads
+    def run(self):
+        threads = []
+        for _ in range(self.workers):
+            thread = threading.Thread(self.crawl)
+            thread.start()
+            threads.append(thread)
+        for t in threads:
+            t.join()
+
 
     def crawl(self):
         """Crawl pages, prioritizing links containing the keyword."""
