@@ -222,7 +222,7 @@ class PreferentialWebCrawler:
                 for img_url in image_urls:
                     try:
                         # Insert the image URL into the database (page_id, filename, content_type, data, accessed_time)
-                        db_handler.insert_image(current_page_id, "https://www.kulinarika.net"+img_url, "BINARY", None, accessed_time)
+                        db_handler.insert_image(current_page_id, re.search(r'[^/]+$', img_url).group(0), "BINARY", "https://www.kulinarika.net"+img_url, accessed_time)
                         print(f"Inserted image URL: {img_url}")
                     except Exception as e:
                         print(f"Error inserting image URL {img_url}: {e}")
