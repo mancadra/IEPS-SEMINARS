@@ -23,7 +23,7 @@ CREATE TABLE crawldb.page (
 	site_id              integer  ,
 	page_type_code       varchar(20)  ,
 	url                  varchar(3000)  ,
-	hash                 varchar(64),
+	hash                 varchar(10000),
 	html_content         text  ,
 	http_status_code     integer  ,
 	accessed_time        timestamp  ,
