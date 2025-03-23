@@ -49,52 +49,54 @@ class DbHandler:
 
     def insert_or_get_site_id(self,domain):
         cur = self.conn.cursor()
-        cur.execute("SELECT id FROM crawldb.site WHERE domain = %s;", (domain,))
-        result = cur.fetchone()
+        with lock:
+            cur.execute("SELECT id FROM crawldb.site WHERE domain = %s;", (domain,))
+            result = cur.fetchone()
 
-        if result:
-            return result[0]
-        else:
-            robots = self.get_robots_content(domain)
-            sitemap_content = self.get_sitemap_content(domain)
+            if result:
+                return result[0]
+            else:
+                robots = self.get_robots_content(domain)
+                sitemap_content = self.get_sitemap_content(domain)
 
-            cur.execute("INSERT INTO crawldb.site (domain, robots_content, sitemap_content) VALUES (%s,%s,%s) RETURNING id;", (domain, robots, sitemap_content,))
-            return cur.fetchone()[0]
+                cur.execute("INSERT INTO crawldb.site (domain, robots_content, sitemap_content) VALUES (%s,%s,%s) RETURNING id;", (domain, robots, sitemap_content,))
+                return cur.fetchone()[0]
 
     # html_content_or_data hold either everything inside <html>, meanwhile data holds only a link to urls of images and binary data
     def insert_page(self, site_id, page_type_code, url, hash, html_content_or_data, http_status_code, accessed_time, from_page):
         to_page = None
         cur = self.conn.cursor()
 
-        cur.execute("SELECT id FROM crawldb.page WHERE url = %s", (url,))
-        identical = cur.fetchone()
-        if identical:
-            helper.log_info(f"This url: {url} has already been processed")
-            return None
+        with lock:
+            cur.execute("SELECT id FROM crawldb.page WHERE url = %s", (url,))
+            identical = cur.fetchone()
+            if identical:
+                helper.log_info(f"This url: {url} has already been processed")
+                return None
 
-        cur.execute("SELECT id FROM crawldb.page WHERE hash = %s", (hash,))
-        duplicate = cur.fetchone()
-        if duplicate:
-            helper.log_info(f"Duplicate found for {url}.")
-            page_type_code = "DUPLICATE"
-            cur.execute("""INSERT INTO crawldb.page (site_id, page_type_code, url, hash, html_content, http_status_code, accessed_time)
-                                  VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING id""", (site_id, page_type_code, url, hash, duplicate[0], http_status_code, accessed_time,))
-            to_page = cur.fetchone()[0]
-
-        else:
-            if page_type_code == 'HTML' or page_type_code == 'UNKNOWN':
+            cur.execute("SELECT id FROM crawldb.page WHERE hash = %s", (hash,))
+            duplicate = cur.fetchone()
+            if duplicate:
+                helper.log_info(f"Duplicate found for {url}.")
+                page_type_code = "DUPLICATE"
                 cur.execute("""INSERT INTO crawldb.page (site_id, page_type_code, url, hash, html_content, http_status_code, accessed_time)
-                                                  VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING id""",
-                            (site_id, page_type_code, url, hash, html_content_or_data, http_status_code, accessed_time,))
+                                      VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING id""", (site_id, page_type_code, url, hash, duplicate[0], http_status_code, accessed_time,))
                 to_page = cur.fetchone()[0]
 
-            # TODO: Če je binary? Kaj pa če je frontier? (duplicate ne ker to tuki nastavljamo?)
             else:
-                cur.execute("""INSERT INTO crawldb.page (site_id, page_type_code, url, hash, html_content, http_status_code, accessed_time)
-                                                                  VALUES (%s,%s,%s,%s,NULL,%s,%s) RETURNING id""",
-                            (site_id, page_type_code, url, hash, http_status_code, accessed_time,))
-                to_page = cur.fetchone()[0]
-                self.insert_page_data(to_page, html_content_or_data)
+                if page_type_code == 'HTML' or page_type_code == 'UNKNOWN':
+                    cur.execute("""INSERT INTO crawldb.page (site_id, page_type_code, url, hash, html_content, http_status_code, accessed_time)
+                                                    VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING id""",
+                                (site_id, page_type_code, url, hash, html_content_or_data, http_status_code, accessed_time,))
+                    to_page = cur.fetchone()[0]
+
+                # TODO: Če je binary? Kaj pa če je frontier? (duplicate ne ker to tuki nastavljamo?)
+                else:
+                    cur.execute("""INSERT INTO crawldb.page (site_id, page_type_code, url, hash, html_content, http_status_code, accessed_time)
+                                                                    VALUES (%s,%s,%s,%s,NULL,%s,%s) RETURNING id""",
+                                (site_id, page_type_code, url, hash, http_status_code, accessed_time,))
+                    to_page = cur.fetchone()[0]
+                    self.insert_page_data(to_page, html_content_or_data)
 
         # URSA: Before calling insert_link, check if from_page is valid
         if from_page is not None and from_page != 0:
@@ -107,13 +109,16 @@ class DbHandler:
 
     def insert_page_data(self, page_id, data):
         cur = self.conn.cursor()
-        data_type_code = self.get_data_type_code(data)
-        cur.execute("INSERT INTO crawldb.page_data (page_id, data_type_code, data) VALUES (%s,%s,%s)", (page_id,data_type_code,data,))
+        with lock:
+            data_type_code = self.get_data_type_code(data)
+            cur.execute("INSERT INTO crawldb.page_data (page_id, data_type_code, data) VALUES (%s,%s,%s)", (page_id,data_type_code,data,))
 
     def insert_link(self, from_page, to_page):
-        cur = self.conn.cursor()
-        cur.execute("INSERT INTO crawldb.link (from_page, to_page) VALUES (%s,%s)", (from_page, to_page,))
+        with lock:
+            cur = self.conn.cursor()
+            cur.execute("INSERT INTO crawldb.link (from_page, to_page) VALUES (%s,%s)", (from_page, to_page,))
 
     def insert_image(self, page_id, filename, content_type, data, accessed_time):
-        cur = self.conn.cursor()
-        cur.execute("INSERT INTO crawldb.image (page_id, filename, content_type, data, accessed_time) VALUES (%s,%s,%s,%s,%s)", (page_id, filename, content_type, data, accessed_time,))
+        with lock:
+            cur = self.conn.cursor()
+            cur.execute("INSERT INTO crawldb.image (page_id, filename, content_type, data, accessed_time) VALUES (%s,%s,%s,%s,%s)", (page_id, filename, content_type, data, accessed_time,))
