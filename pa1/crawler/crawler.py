@@ -2,7 +2,6 @@ from urllib.parse import urlsplit, urlunsplit, urlencode, parse_qsl
 import requests
 from bs4 import BeautifulSoup
 from db_handler import DbHandler
-import hashlib
 from datetime import datetime
 from helper import Helper
 from min_hash import MinHasher
@@ -212,8 +211,9 @@ class PreferentialWebCrawler:
 
                 current_page_id = db_handler.insert_page(site_id, page_type_code, url, hash, page, status_code, accessed_time, from_page)
 
+                """
                 if current_page_id is None:
-                    continue
+                    continue"""
 
                 # Insert each image into the database
                 image_urls = self.extract_image_urls_with_selenium(url)

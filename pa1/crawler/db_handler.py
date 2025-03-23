@@ -68,11 +68,13 @@ class DbHandler:
         cur = self.conn.cursor()
 
         with lock:
+            """
+            # Already checked in crawler with visited set
             cur.execute("SELECT id FROM crawldb.page WHERE url = %s", (url,))
             identical = cur.fetchone()
             if identical:
                 helper.log_info(f"This url: {url} has already been processed")
-                return None
+                return None"""
 
             cur.execute("SELECT id FROM crawldb.page WHERE hash = %s", (hash,))
             duplicate = cur.fetchone()
