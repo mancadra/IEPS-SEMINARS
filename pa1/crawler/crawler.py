@@ -6,7 +6,8 @@ from datetime import datetime
 from helper import Helper
 from min_hash import MinHasher
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.by import By
 import time
 from selenium.common.exceptions import NoSuchElementException
@@ -24,11 +25,12 @@ max_pages = 3
 TIMEOUT = 5
 
 db_handler = DbHandler()
-#db_handler.clear_db()
+db_handler.clear_db()
 
 class PreferentialWebCrawler:
-    def __init__(self, seed_url, keyword, max_pages=30, workers=4):
+    def __init__(self, seed_url, keyword, max_pages=30, workers=4, image_driver='Chrome'):
         self.workers = workers
+        self.image_driver = image_driver
         self.seed_url = seed_url
         self.keyword = keyword
         self.max_pages = max_pages
@@ -129,14 +131,20 @@ class PreferentialWebCrawler:
         return priority
 
 
-    def extract_image_urls_with_selenium(self, url):
+    def extract_image_urls_with_selenium(self, url, image_driver='Chrome'):
         """
         Extract image URLs using Selenium.
         """
 
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")  # Run in headless mode
-        driver = webdriver.Chrome(options=chrome_options)
+        if image_driver == 'Chrome':
+            options = ChromeOptions()
+            options.add_argument("--headless")  # Run in headless mode
+            driver = webdriver.Chrome(options=options)
+
+        elif image_driver == 'Firefox':
+            options = FirefoxOptions()
+            options.add_argument("--headless")  # Run in headless mode
+            driver = webdriver.Firefox(options=options)
 
         try:
             driver.get(url)
@@ -201,7 +209,9 @@ class PreferentialWebCrawler:
             priority, url, from_page = self.queue.get()  # Get the highest-priority URL
 
             with self.visited_lock:   # should be fine
-                if url in self.visited: continue
+                if url in self.visited: 
+                    print("Already crawled: ", url)
+                    continue
             
             if not self.in_domain(url): continue
 
@@ -251,8 +261,8 @@ class PreferentialWebCrawler:
                             self.queue.put((priority, normalized_link, current_page_id))
 
                 # Insert each image into the database
-                # image_urls = self.extract_image_urls_with_selenium(url)
-                image_urls = [str(time.time())]
+                image_urls = self.extract_image_urls_with_selenium(url, image_driver=self.image_driver)
+                # image_urls = [str(time.time())]
                 print(f"IMG Extracted {len(image_urls)} image URLs from {url}")
 
                 for img_url in image_urls:
