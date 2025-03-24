@@ -15,35 +15,34 @@ from queue import PriorityQueue
 from threading import Lock
 import threading
 import re
+from frontier import Frontier
 
 hasher = MinHasher(shingle_size=3, hash_number=250)
 helper = Helper()
 config = helper.get_config()
 site_id = None
 current_page_id = None
-max_pages = 3
+max_pages = 10
 TIMEOUT = 5
 
 db_handler = DbHandler()
 db_handler.clear_db()
 
 class PreferentialWebCrawler:
-    def __init__(self, seed_url, keyword, max_pages=30, workers=4, image_driver='Chrome'):
+    def __init__(self, seed_url, keywords, max_pages=30, workers=4, image_driver='Chrome', keywords_excluded = ["forumi", "tema"]):
         self.workers = workers
+        self.keywords_excluded = keywords_excluded
         self.image_driver = image_driver
         self.seed_url = seed_url
-        self.keyword = keyword
+        self.keywords = keywords
         self.max_pages = max_pages
         url_parts = urlsplit(seed_url)
         self.domain = url_parts.scheme + "://" + url_parts.netloc
-        self.visited = set()
-        self.visited_lock = Lock()
-        self.queue = PriorityQueue()  # Priority queue (min-heap)
-        self.queue.put((0, seed_url, 0))  # Start with the seed URL (highest priority)
         self.pages_crawled = 0
         self.pages_crawled_lock = Lock()
         self.time_last_visited = time.time()
         self.timeout_lock = Lock()
+        self.frontier = Frontier(seed_url)
 
 
     def normalize_url(self, url):
@@ -71,10 +70,10 @@ class PreferentialWebCrawler:
 
             #return self.normalize_url(canonical_url)
             canonical_url = self.normalize_url(canonical_url)
-            print(f"Extracted canonical URL: {canonical_url} (Original: {url})")
+            #print(f"Extracted canonical URL: {canonical_url} (Original: {url})")
             return canonical_url
 
-        print(f"No canonical URL found. Using original: {url}")
+        #print(f"No canonical URL found. Using original: {url}")
         return self.normalize_url(url)
 
 
@@ -127,8 +126,11 @@ class PreferentialWebCrawler:
 
 
     def priority(self, link):
-        priority = 0 if self.keyword in link else 1  # Assign priority (0 = high, 1 = lower)
-        return priority
+        for k in self.keywords_excluded:
+            if k in link: return 1
+        for k in self.keywords:
+            if k in link: return 0 # Assign priority (0 = high, 1 = lower)
+        return 1
 
 
     def extract_image_urls_with_selenium(self, url, image_driver='Chrome'):
@@ -205,13 +207,8 @@ class PreferentialWebCrawler:
     def crawl(self):
         """Crawl pages, prioritizing links containing the keyword."""
 
-        while self.queue and self.pages_crawled < self.max_pages:
-            priority, url, from_page = self.queue.get()  # Get the highest-priority URL
-
-            with self.visited_lock:   # should be fine
-                if url in self.visited: 
-                    print("Already crawled: ", url)
-                    continue
+        while self.pages_crawled < self.max_pages:
+            priority, url, from_page = self.frontier.get()  # Get the highest-priority URL
             
             if not self.in_domain(url): continue
 
@@ -224,52 +221,53 @@ class PreferentialWebCrawler:
             page, status_code, accessed_time, page_type_code = result
 
             if page is not None and status_code == 200:
+
                 hash = hasher.min_hash(page)
+
                 canonical_url = self.get_canonical_url(page, url)   # Get the canonical URL of the page
 
                 if page_type_code == 'BINARY':
                     page = url # ne vem kaj je fora
 
+                # If the canonical URL is different from the current URL, prioritize the canonical URL
+                if canonical_url and canonical_url != url:
+                    print(f"Canonical URL found: {canonical_url}")
+                    if canonical_url in self.frontier.visited:
+                        print(f"Skipping already visited canonical URL: {canonical_url}")
+                        continue
+                    else:
+                        # Mark both the original URL and the canonical URL as visited
+                        self.frontier.add_visited(canonical_url)
+                        url = canonical_url  # Crawl the canonical URL instead
+                
+                self.frontier.add_hash(url, hash)
+
                 current_page_id = db_handler.insert_page(site_id, page_type_code, url, hash, page, status_code, accessed_time, from_page)
 
-                # TODO Moremo probat dat vse pod en visited lock, če je možno.
-                # If the canonical URL is different from the current URL, prioritize the canonical URL
-                with self.visited_lock:
-                    if canonical_url and canonical_url != url:
-                        print(f"Canonical URL found: {canonical_url}")
-                        if canonical_url in self.visited:
-                            print(f"Skipping already visited canonical URL: {canonical_url}")
-                            continue
-                        else:
-                            # Mark both the original URL and the canonical URL as visited
-                            self.visited.add(url)
-                            self.visited.add(canonical_url)
-                            url = canonical_url  # Crawl the canonical URL instead
-                    else:
-                        # No canonical URL or it's the same as the current URL
-                        self.visited.add(url)
-
-                    # Add links to frontier if not yet visited
-                    url_parts = urlsplit(url)
-                    base_url = url_parts.scheme + "://" + url_parts.netloc
-                    links = self.extract_links(page, base_url)
-                    print("  - Found", len(links), "links")
-                    for link, _ in links:
-                        normalized_link = self.normalize_url(link)
-                        if normalized_link not in self.visited:
-                            priority = self.priority(normalized_link)
-                            self.queue.put((priority, normalized_link, current_page_id))
+                # Add links to frontier
+                url_parts = urlsplit(url)
+                base_url = url_parts.scheme + "://" + url_parts.netloc
+                links = self.extract_links(page, base_url)
+                #print("  - Found", len(links), "links")
+                items = []
+                for link, _ in links:
+                    normalized_link = self.normalize_url(link)
+                    priority = self.priority(normalized_link)
+                    items.append((priority, normalized_link, current_page_id))
+                
+                # nisem ziher če rabimo already visited
+                already_visited = self.frontier.put(items)
 
                 # Insert each image into the database
-                image_urls = self.extract_image_urls_with_selenium(url, image_driver=self.image_driver)
-                # image_urls = [str(time.time())]
-                print(f"IMG Extracted {len(image_urls)} image URLs from {url}")
+                # image_urls = self.extract_image_urls_with_selenium(url, image_driver=self.image_driver)
+                image_urls = [str(time.time())]
+                # print(f"IMG Extracted {len(image_urls)} image URLs from {url}")
 
                 for img_url in image_urls:
                     try:
                         # Insert the image URL into the database (page_id, filename, content_type, data, accessed_time)
                         db_handler.insert_image(current_page_id, re.search(r'[^/]+$', img_url).group(0), "BINARY", "https://www.kulinarika.net" + img_url, accessed_time)
-                        print(f"Inserted image URL: {img_url}")
+                        #print(f"Inserted image URL: {img_url}")
                     except Exception as e:
                         print(f"Error inserting image URL {img_url}: {e}")
 
@@ -281,12 +279,11 @@ class PreferentialWebCrawler:
             with self.pages_crawled_lock:
                 self.pages_crawled += 1
 
-
 start_time = time.time()
 seed = "https://www.kulinarika.net/recepti/seznam/sladice/"  # Replace with an actual URL
 site_id = db_handler.insert_or_get_site_id(seed)
-keyword = "sladice"  # Prioritize links containing this keyword
-crawler = PreferentialWebCrawler(seed, keyword, max_pages)
+keywords = ["sladice"]  # Prioritize links containing this keyword
+crawler = PreferentialWebCrawler(seed, keywords, max_pages)
 crawler.run()
 end_time = time.time()
 execution_time = end_time - start_time
