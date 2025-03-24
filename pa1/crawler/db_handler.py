@@ -29,7 +29,7 @@ class DbHandler:
         # TODO: Tukaj popravi da je domain samo https://www.kulinarika.net brez /recepti/seznam/sladice/ ker drugače ne najde
         # popravljeno z regularnim izrazom: + je da matches one or more, ^ je negacija => [^/]+ matches one or more stvari, ki niso /
         try:
-            response = requests.get(f"{re.search(r"https?://[^/]+/", domain).group(0)}/robots.txt", timeout=10)
+            response = requests.get(f"{re.search(r'https?://[^/]+/', domain).group(0)}/robots.txt", timeout=10)
             # print("Response: ", response.text)
             if response.status_code == 200:
                 return response.text
@@ -40,7 +40,7 @@ class DbHandler:
     def get_sitemap_content(self, domain):
         try:
             # isto kot zgoraj z regularnimi popravljeno
-            response = requests.get(f"{re.search(r"https?://[^/]+/", domain).group(0)}/sitemap.xml", timeout=10)
+            response = requests.get(f"{re.search(r'https?://[^/]+/', domain).group(0)}/sitemap.xml", timeout=10)
             if response.status_code == 200:
                 return response.text
         except requests.RequestException as e:
