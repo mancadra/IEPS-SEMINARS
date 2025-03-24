@@ -1,12 +1,11 @@
 import psycopg2
-import threading
+from threading import Lock
 from helper import Helper
 import requests
 import re
 
 helper = Helper()
 config = helper.get_config()
-lock = threading.Lock()
 
 class DbHandler:
     def __init__(self, dbname='crawl', user='user', password='CrawlPassword', host='localhost', port=5434):
@@ -21,6 +20,7 @@ class DbHandler:
         }
         self.conn = psycopg2.connect(**self.conn_details)
         self.conn.autocommit = True
+        self.lock = Lock()
 
     # TODO: fix the config file
     # TODO: Threading?, Insertion in bulk?
@@ -49,7 +49,7 @@ class DbHandler:
 
     def insert_or_get_site_id(self,domain):
         cur = self.conn.cursor()
-        with lock:
+        with self.lock:
             cur.execute("SELECT id FROM crawldb.site WHERE domain = %s;", (domain,))
             result = cur.fetchone()
 
@@ -67,7 +67,7 @@ class DbHandler:
         to_page = None
         cur = self.conn.cursor()
 
-        with lock:
+        with self.lock:
             """
             # Already checked in crawler with visited set
             cur.execute("SELECT id FROM crawldb.page WHERE url = %s", (url,))
@@ -111,16 +111,37 @@ class DbHandler:
 
     def insert_page_data(self, page_id, data):
         cur = self.conn.cursor()
-        with lock:
+        with self.lock:
             data_type_code = self.get_data_type_code(data)
             cur.execute("INSERT INTO crawldb.page_data (page_id, data_type_code, data) VALUES (%s,%s,%s)", (page_id,data_type_code,data,))
 
     def insert_link(self, from_page, to_page):
-        with lock:
+        with self.lock:
             cur = self.conn.cursor()
             cur.execute("INSERT INTO crawldb.link (from_page, to_page) VALUES (%s,%s)", (from_page, to_page,))
 
     def insert_image(self, page_id, filename, content_type, data, accessed_time):
-        with lock:
+        with self.lock:
             cur = self.conn.cursor()
             cur.execute("INSERT INTO crawldb.image (page_id, filename, content_type, data, accessed_time) VALUES (%s,%s,%s,%s,%s)", (page_id, filename, content_type, data, accessed_time,))
+
+    def clear_db(self):
+        cur = self.conn.cursor()
+        cur.execute("""TRUNCATE TABLE crawldb.link RESTART IDENTITY CASCADE;
+                    TRUNCATE TABLE crawldb.image RESTART IDENTITY CASCADE;
+                    TRUNCATE TABLE crawldb.page_data RESTART IDENTITY CASCADE;
+                    TRUNCATE TABLE crawldb.page RESTART IDENTITY CASCADE;
+                    TRUNCATE TABLE crawldb.site RESTART IDENTITY CASCADE;""")
+        cur.execute("""TRUNCATE TABLE crawldb.data_type CASCADE;
+                    TRUNCATE TABLE crawldb.page_type CASCADE;""")
+        cur.execute("""INSERT INTO crawldb.data_type VALUES 
+	                ('PDF'),
+	                ('DOC'),
+	                ('DOCX'),
+	                ('PPT'),
+	                ('PPTX');""")
+        cur.execute("""INSERT INTO crawldb.page_type VALUES 
+	                ('HTML'),
+	                ('BINARY'),
+	                ('DUPLICATE'),
+	                ('FRONTIER');""")
