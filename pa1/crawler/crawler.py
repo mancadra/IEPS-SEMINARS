@@ -24,6 +24,7 @@ max_pages = 3
 TIMEOUT = 5
 
 db_handler = DbHandler()
+#db_handler.clear_db()
 
 class PreferentialWebCrawler:
     def __init__(self, seed_url, keyword, max_pages=30, workers=4):
@@ -34,7 +35,7 @@ class PreferentialWebCrawler:
         url_parts = urlsplit(seed_url)
         self.domain = url_parts.scheme + "://" + url_parts.netloc
         self.visited = set()
-        self.visited_lock = Lock
+        self.visited_lock = Lock()
         self.queue = PriorityQueue()  # Priority queue (min-heap)
         self.queue.put((0, seed_url, 0))  # Start with the seed URL (highest priority)
         self.pages_crawled = 0
@@ -77,7 +78,7 @@ class PreferentialWebCrawler:
 
     def fetch_page(self, url):
         """Fetch page content from a URL. Only one page can be accessed every TIMEOUT seconds."""
-        with self.timeout_lock():
+        with self.timeout_lock:
             t = time.time()
             if t - self.time_last_visited < TIMEOUT:
                 time.sleep(TIMEOUT - (t - self.time_last_visited))
@@ -85,6 +86,7 @@ class PreferentialWebCrawler:
                 response = requests.get(url)
                 self.time_last_visited = time.time()
                 response.encoding = 'utf-8'
+                print("Fetched page at: ", time.time())
                 if response.status_code == 200:
                     accessed_time = datetime.now()
                     page_type_code = self.get_page_type(response.headers['Content-Type'])
@@ -185,7 +187,7 @@ class PreferentialWebCrawler:
     def run(self):
         threads = []
         for _ in range(self.workers):
-            thread = threading.Thread(self.crawl)
+            thread = threading.Thread(target=self.crawl)
             thread.start()
             threads.append(thread)
         for t in threads:
@@ -198,7 +200,7 @@ class PreferentialWebCrawler:
         while self.queue and self.pages_crawled < self.max_pages:
             priority, url, from_page = self.queue.get()  # Get the highest-priority URL
 
-            with self.visited_lock():   # should be fine
+            with self.visited_lock:   # should be fine
                 if url in self.visited: continue
             
             if not self.in_domain(url): continue
@@ -214,6 +216,11 @@ class PreferentialWebCrawler:
             if page is not None and status_code == 200:
                 hash = hasher.min_hash(page)
                 canonical_url = self.get_canonical_url(page, url)   # Get the canonical URL of the page
+
+                if page_type_code == 'BINARY':
+                    page = url # ne vem kaj je fora
+
+                current_page_id = db_handler.insert_page(site_id, page_type_code, url, hash, page, status_code, accessed_time, from_page)
 
                 # TODO Moremo probat dat vse pod en visited lock, če je možno.
                 # If the canonical URL is different from the current URL, prioritize the canonical URL
@@ -243,23 +250,15 @@ class PreferentialWebCrawler:
                             priority = self.priority(normalized_link)
                             self.queue.put((priority, normalized_link, current_page_id))
 
-                if page_type_code == 'BINARY':
-                    page = url # ne vem kaj je fora
-
-                current_page_id = db_handler.insert_page(site_id, page_type_code, url, hash, page, status_code, accessed_time, from_page)
-
-                """
-                if current_page_id is None:
-                    continue"""
-
                 # Insert each image into the database
-                image_urls = self.extract_image_urls_with_selenium(url)
+                # image_urls = self.extract_image_urls_with_selenium(url)
+                image_urls = [str(time.time())]
                 print(f"IMG Extracted {len(image_urls)} image URLs from {url}")
 
                 for img_url in image_urls:
                     try:
                         # Insert the image URL into the database (page_id, filename, content_type, data, accessed_time)
-                        db_handler.insert_image(current_page_id, re.search(r'[^/]+$', img_url).group(0), "BINARY", "https://www.kulinarika.net"+img_url, accessed_time)
+                        db_handler.insert_image(current_page_id, re.search(r'[^/]+$', img_url).group(0), "BINARY", "https://www.kulinarika.net" + img_url, accessed_time)
                         print(f"Inserted image URL: {img_url}")
                     except Exception as e:
                         print(f"Error inserting image URL {img_url}: {e}")
@@ -278,7 +277,7 @@ seed = "https://www.kulinarika.net/recepti/seznam/sladice/"  # Replace with an a
 site_id = db_handler.insert_or_get_site_id(seed)
 keyword = "sladice"  # Prioritize links containing this keyword
 crawler = PreferentialWebCrawler(seed, keyword, max_pages)
-crawler.crawl()
+crawler.run()
 end_time = time.time()
 execution_time = end_time - start_time
 print(f"{max_pages} crawled in {execution_time:.6f} seconds.")
