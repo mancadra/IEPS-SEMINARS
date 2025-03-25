@@ -10,18 +10,17 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.by import By
 import time
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from queue import PriorityQueue
 from threading import Lock
 import threading
 import re
+import copy
 from frontier import Frontier
 
 hasher = MinHasher(shingle_size=3, hash_number=250)
 helper = Helper()
 config = helper.get_config()
-site_id = None
-current_page_id = None
 max_pages = 10
 TIMEOUT = 5
 
@@ -34,6 +33,7 @@ class PreferentialWebCrawler:
         self.keywords_excluded = keywords_excluded
         self.image_driver = image_driver
         self.seed_url = seed_url
+        self.site_id = db_handler.insert_or_get_site_id(seed_url)
         self.keywords = keywords
         self.max_pages = max_pages
         url_parts = urlsplit(seed_url)
@@ -75,28 +75,73 @@ class PreferentialWebCrawler:
 
         #print(f"No canonical URL found. Using original: {url}")
         return self.normalize_url(url)
+    
+    def extract_urls_bs4(self, page_source):
+        soup = BeautifulSoup(page_source, "html.parser")
+
+        # Locate the <div id="fotografije"> container using BeautifulSoup
+        fotografije_container = soup.find("div", id="fotografije")
+
+        # Extract image URLs using BeautifulSoup
+        bs4_image_urls = set()
+        if fotografije_container:  # Ensure the container exists
+            for img in fotografije_container.find_all("img"):
+                data_default = img.get("data-default")
+                if data_default and data_default.endswith(".webp"):
+                    bs4_image_urls.add(data_default)
+                else:
+                    data_srcset = img.get("srcset")
+                    if data_srcset:
+                        srcset_urls = data_srcset.split(", ")
+                        for url_1 in srcset_urls:
+                            if url_1.strip().endswith(".webp") and "-" not in url_1.split("/")[-1]:
+                                bs4_image_urls.add(url_1)
+                                break
+
+        bs4_image_urls = list(bs4_image_urls)
+        return bs4_image_urls
 
 
     def fetch_page(self, url):
-        """Fetch page content from a URL. Only one page can be accessed every TIMEOUT seconds."""
+        """Fetch page content from a URL. Only one page can be accessed every TIMEOUT seconds.
+            image_urls_list, page_content, 200, accessed_time, page_type_code
+        """
         with self.timeout_lock:
             t = time.time()
             if t - self.time_last_visited < TIMEOUT:
                 time.sleep(TIMEOUT - (t - self.time_last_visited))
+
             try:
-                response = requests.get(url)
+                if self.image_driver == 'Chrome':
+                    options = ChromeOptions()
+                    options.add_argument("--headless")  # Run in headless mode
+                    driver = webdriver.Chrome(options=options)
+
+                elif self.image_driver == 'Firefox':
+                    options = FirefoxOptions()
+                    options.add_argument("--headless")  # Run in headless mode
+                    driver = webdriver.Firefox(options=options)
+
+                driver.get(url)  # Fetch page with Selenium
+                content_type = driver.execute_script("return document.contentType || 'text/html'")
                 self.time_last_visited = time.time()
-                response.encoding = 'utf-8'
-                print("Fetched page at: ", time.time())
-                if response.status_code == 200:
-                    accessed_time = datetime.now()
-                    page_type_code = self.get_page_type(response.headers['Content-Type'])
-                    return response.text, response.status_code, accessed_time, page_type_code
-            except requests.RequestException as e:
+                page_content = copy.deepcopy(driver.page_source.encode('utf-8'))
+                driver.quit()
+
+                accessed_time = datetime.now()
+                page_type_code = self.get_page_type(content_type)
+
+                return page_content, 200, accessed_time, page_type_code
+
+            except WebDriverException as e:
                 helper.log_error(e)
             return None
 
-
+            #finally:
+            #    if 'driver' in locals():
+            #        driver.quit()
+                
+        
     def get_page_type(self, mime_page_type):
         if 'text/html' in mime_page_type:
             return 'HTML'
@@ -131,66 +176,6 @@ class PreferentialWebCrawler:
         for k in self.keywords:
             if k in link: return 0 # Assign priority (0 = high, 1 = lower)
         return 1
-
-
-    def extract_image_urls_with_selenium(self, url, image_driver='Chrome'):
-        """
-        Extract image URLs using Selenium.
-        """
-
-        if image_driver == 'Chrome':
-            options = ChromeOptions()
-            options.add_argument("--headless")  # Run in headless mode
-            driver = webdriver.Chrome(options=options)
-
-        elif image_driver == 'Firefox':
-            options = FirefoxOptions()
-            options.add_argument("--headless")  # Run in headless mode
-            driver = webdriver.Firefox(options=options)
-
-        try:
-            driver.get(url)
-
-            # Wait for the page to fully load
-            time.sleep(5)  # Wait for JavaScript to render the content
-
-            # Locate the <div id="fotografije"> element
-            try:
-                fotografije_div = driver.find_element(By.ID, "fotografije")
-            except NoSuchElementException:
-                print(f"No <div id='fotografije'> found. Skipping this page: {url}.")
-                return []
-
-            # Find all <img> tags within the <div id="fotografije">
-            images = fotografije_div.find_elements(By.TAG_NAME, "img")
-
-            image_urls = []
-            for img in images:
-                # Try to get the URL from the `data-default` attribute first
-                data_default = img.get_attribute("data-default")
-
-                if data_default is not None and data_default.endswith(".webp"):
-                    image_urls.append(data_default)
-                else:
-                    # Fallback to `data-srcset` if `data-default` is not available
-                    data_srcset = img.get_attribute("data-srcset")
-
-                    if data_srcset:
-                        # Extract the highest resolution URL from `data-srcset`
-                        srcset_urls = data_srcset.split(", ")
-                        for url in srcset_urls:
-                            if url.strip().endswith(".webp") and "-" not in url.split("/")[-1]:
-                                image_urls.append(url)
-                                break
-
-            return image_urls
-
-        except Exception as e:
-            print(f"Error while extracting image URLs: {e}")
-            return []
-
-        finally:
-            driver.quit()
 
 
     # Runs the crawler using multiple threads
@@ -242,13 +227,13 @@ class PreferentialWebCrawler:
                 
                 self.frontier.add_hash(url, hash)
 
-                current_page_id = db_handler.insert_page(site_id, page_type_code, url, hash, page, status_code, accessed_time, from_page)
+                current_page_id = db_handler.insert_page(self.site_id, page_type_code, url, hash, page, status_code, accessed_time, from_page)
 
                 # Add links to frontier
                 url_parts = urlsplit(url)
                 base_url = url_parts.scheme + "://" + url_parts.netloc
                 links = self.extract_links(page, base_url)
-                #print("  - Found", len(links), "links")
+                print("  - Found", len(links), "links")
                 items = []
                 for link, _ in links:
                     normalized_link = self.normalize_url(link)
@@ -259,8 +244,8 @@ class PreferentialWebCrawler:
                 already_visited = self.frontier.put(items)
 
                 # Insert each image into the database
-                # image_urls = self.extract_image_urls_with_selenium(url, image_driver=self.image_driver)
-                image_urls = [str(time.time())]
+                image_urls = self.extract_urls_bs4(page)
+                #image_urls = [str(time.time())]
                 # print(f"IMG Extracted {len(image_urls)} image URLs from {url}")
 
                 for img_url in image_urls:
@@ -281,7 +266,7 @@ class PreferentialWebCrawler:
 
 start_time = time.time()
 seed = "https://www.kulinarika.net/recepti/seznam/sladice/"  # Replace with an actual URL
-site_id = db_handler.insert_or_get_site_id(seed)
+# seed = "https://www.kulinarika.net/recepti/sladice/torte/cokoladna-torta-presna-veganska-/16802"
 keywords = ["sladice"]  # Prioritize links containing this keyword
 crawler = PreferentialWebCrawler(seed, keywords, max_pages)
 crawler.run()
