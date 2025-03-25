@@ -22,7 +22,7 @@ helper = Helper()
 config = helper.get_config()
 site_id = None
 current_page_id = None
-max_pages = 10
+max_pages = 20
 TIMEOUT = 5
 
 db_handler = DbHandler()
@@ -227,7 +227,7 @@ class PreferentialWebCrawler:
                 canonical_url = self.get_canonical_url(page, url)   # Get the canonical URL of the page
 
                 if page_type_code == 'BINARY':
-                    page = url # ne vem kaj je fora
+                    page = url # if we have a binary file, instead of storing binary data we store it's link
 
                 # If the canonical URL is different from the current URL, prioritize the canonical URL
                 if canonical_url and canonical_url != url:
@@ -243,6 +243,7 @@ class PreferentialWebCrawler:
                 self.frontier.add_hash(url, hash)
 
                 current_page_id = db_handler.insert_page(site_id, page_type_code, url, hash, page, status_code, accessed_time, from_page)
+                db_handler.insert_link = (current_page_id, from_page)
 
                 # Add links to frontier
                 url_parts = urlsplit(url)

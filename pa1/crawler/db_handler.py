@@ -22,8 +22,6 @@ class DbHandler:
         self.conn.autocommit = True
         self.lock = Lock()
 
-    # TODO: fix the config file
-    # TODO: Threading?, Insertion in bulk?
 
     def get_robots_content(self, domain):
         # TODO: Tukaj popravi da je domain samo https://www.kulinarika.net brez /recepti/seznam/sladice/ ker drugače ne najde
@@ -100,13 +98,6 @@ class DbHandler:
                     to_page = cur.fetchone()[0]
                     self.insert_page_data(to_page, html_content_or_data)
 
-        # URSA: Before calling insert_link, check if from_page is valid
-        if from_page is not None and from_page != 0:
-            self.insert_link(from_page, to_page)
-        else:
-            helper.log_error(f"Invalid from_page ID: {from_page}. Skipping link insertion.")
-
-        #self.insert_link(from_page, to_page)
         return to_page
 
     def insert_page_data(self, page_id, data):
