@@ -1,5 +1,4 @@
 from urllib.parse import urlsplit, urlunsplit, urlencode, parse_qsl
-import requests
 from bs4 import BeautifulSoup
 from db_handler import DbHandler
 from datetime import datetime
@@ -8,10 +7,8 @@ from min_hash import MinHasher
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
-from selenium.webdriver.common.by import By
 import time
-from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from queue import PriorityQueue
+from selenium.common.exceptions import WebDriverException
 from threading import Lock
 import threading
 import re
@@ -125,7 +122,7 @@ class PreferentialWebCrawler:
                 driver.get(url)  # Fetch page with Selenium
                 content_type = driver.execute_script("return document.contentType || 'text/html'")
                 self.time_last_visited = time.time()
-                page_content = copy.deepcopy(driver.page_source.encode('utf-8'))
+                page_content = driver.page_source.encode('utf-8')
                 driver.quit()
 
                 accessed_time = datetime.now()
@@ -192,7 +189,7 @@ class PreferentialWebCrawler:
     def crawl(self):
         """Crawl pages, prioritizing links containing the keyword."""
 
-        while self.pages_crawled < self.max_pages:
+        while self.pages_crawled < self.max_pages - (self.workers - 1):
             priority, url, from_page = self.frontier.get()  # Get the highest-priority URL
             
             if not self.in_domain(url): continue
@@ -227,7 +224,7 @@ class PreferentialWebCrawler:
                 
                 self.frontier.add_hash(url, hash)
 
-                current_page_id = db_handler.insert_page(self.site_id, page_type_code, url, hash, page, status_code, accessed_time, from_page)
+                current_page_id = db_handler.insert_page(self.site_id, page_type_code, url, hash, page.decode('utf-8'), status_code, accessed_time, from_page)
 
                 # Add links to frontier
                 url_parts = urlsplit(url)
