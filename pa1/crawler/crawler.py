@@ -22,25 +22,29 @@ max_pages = 10
 TIMEOUT = 5
 
 db_handler = DbHandler()
-db_handler.clear_db()
 
 class PreferentialWebCrawler:
-    def __init__(self, seed_url, keywords, max_pages=30, workers=4, image_driver='Chrome', keywords_excluded = ["forumi", "tema"]):
+    def __init__(self, seed_url, max_pages=30, workers=4, image_driver='Chrome', keywords = ["sladice"], keywords_excluded = ["forumi", "tema"]):
         self.workers = workers
         self.keywords_excluded = keywords_excluded
         self.image_driver = image_driver
-        self.seed_url = seed_url
-        self.site_id = db_handler.insert_or_get_site_id(seed_url)
         self.keywords = keywords
         self.max_pages = max_pages
-        url_parts = urlsplit(seed_url)
-        self.domain = url_parts.scheme + "://" + url_parts.netloc
         self.pages_crawled = 0
         self.pages_crawled_lock = Lock()
         self.time_last_visited = time.time()
         self.timeout_lock = Lock()
-        self.frontier = Frontier(seed_url)
 
+        if seed_url is None:
+            self.frontier = Frontier("")
+            seed_url = self.frontier.restart()
+        else:
+            self.frontier = Frontier(seed_url)
+        
+        self.site_id = db_handler.insert_or_get_site_id(seed_url)
+        url_parts = urlsplit(seed_url)
+        self.domain = url_parts.scheme + "://" + url_parts.netloc
+        
 
     def normalize_url(self, url):
         """Normalize URLs by removing trailing slashes, lowercasing, and sorting query parameters."""
@@ -73,6 +77,7 @@ class PreferentialWebCrawler:
         #print(f"No canonical URL found. Using original: {url}")
         return self.normalize_url(url)
     
+
     def extract_urls_bs4(self, page_source):
         soup = BeautifulSoup(page_source, "html.parser")
 
@@ -119,13 +124,13 @@ class PreferentialWebCrawler:
                     options.add_argument("--headless")  # Run in headless mode
                     driver = webdriver.Firefox(options=options)
 
+                accessed_time = datetime.now()
                 driver.get(url)  # Fetch page with Selenium
                 content_type = driver.execute_script("return document.contentType || 'text/html'")
                 self.time_last_visited = time.time()
                 page_content = driver.page_source.encode('utf-8')
                 driver.quit()
 
-                accessed_time = datetime.now()
                 page_type_code = self.get_page_type(content_type)
 
                 return page_content, 200, accessed_time, page_type_code
@@ -133,10 +138,6 @@ class PreferentialWebCrawler:
             except WebDriverException as e:
                 helper.log_error(e)
             return None
-
-            #finally:
-            #    if 'driver' in locals():
-            #        driver.quit()
                 
         
     def get_page_type(self, mime_page_type):
@@ -196,6 +197,7 @@ class PreferentialWebCrawler:
 
             print(f"Crawling (Priority {priority}): {url}")
             result = self.fetch_page(url)
+
             if result is None:
                 helper.log_info(f"fFailed to fetch: {url}.")
                 continue
@@ -242,13 +244,11 @@ class PreferentialWebCrawler:
 
                 # Insert each image into the database
                 image_urls = self.extract_urls_bs4(page)
-                #image_urls = [str(time.time())]
-                # print(f"IMG Extracted {len(image_urls)} image URLs from {url}")
 
                 for img_url in image_urls:
                     try:
                         # Insert the image URL into the database (page_id, filename, content_type, data, accessed_time)
-                        db_handler.insert_image(current_page_id, re.search(r'[^/]+$', img_url).group(0), "BINARY", "https://www.kulinarika.net" + img_url, accessed_time)
+                        db_handler.insert_image(current_page_id, "https://www.kulinarika.net" + img_url, "BINARY", None, accessed_time)
                         #print(f"Inserted image URL: {img_url}")
                     except Exception as e:
                         print(f"Error inserting image URL {img_url}: {e}")
@@ -261,11 +261,12 @@ class PreferentialWebCrawler:
             with self.pages_crawled_lock:
                 self.pages_crawled += 1
 
+db_handler.clear_db()
 start_time = time.time()
 seed = "https://www.kulinarika.net/recepti/seznam/sladice/"  # Replace with an actual URL
 # seed = "https://www.kulinarika.net/recepti/sladice/torte/cokoladna-torta-presna-veganska-/16802"
-keywords = ["sladice"]  # Prioritize links containing this keyword
-crawler = PreferentialWebCrawler(seed, keywords, max_pages)
+crawler = PreferentialWebCrawler(seed, max_pages, image_driver='Firefox')
+# crawler = PreferentialWebCrawler(None, max_pages, image_driver='Firefox')
 crawler.run()
 end_time = time.time()
 execution_time = end_time - start_time
