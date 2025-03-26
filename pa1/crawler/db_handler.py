@@ -90,7 +90,6 @@ class DbHandler:
                                 (site_id, page_type_code, url, hash, html_content_or_data, http_status_code, accessed_time,))
                     to_page = cur.fetchone()[0]
 
-                # TODO: Če je binary? Kaj pa če je frontier? (duplicate ne ker to tuki nastavljamo?)
                 else:
                     cur.execute("""INSERT INTO crawldb.page (site_id, page_type_code, url, hash, html_content, http_status_code, accessed_time)
                                                                     VALUES (%s,%s,%s,%s,NULL,%s,%s) RETURNING id""",
