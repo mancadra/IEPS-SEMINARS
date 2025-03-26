@@ -11,8 +11,6 @@ import time
 from selenium.common.exceptions import WebDriverException
 from threading import Lock
 import threading
-import re
-import copy
 from frontier import Frontier
 
 hasher = MinHasher(shingle_size=3, hash_number=250)
@@ -24,7 +22,7 @@ TIMEOUT = 5
 db_handler = DbHandler()
 
 class PreferentialWebCrawler:
-    def __init__(self, seed_url, max_pages=30, workers=4, image_driver='Chrome', keywords = ["sladice"], keywords_excluded = ["forumi", "tema"]):
+    def __init__(self, seed_url, max_pages=30, workers=4, image_driver='Chrome', keywords = ["sladice"], keywords_excluded = ["forumi", "tema", "fotoalbumi", "iskanje", "besede"]):
         self.workers = workers
         self.keywords_excluded = keywords_excluded
         self.image_driver = image_driver
@@ -40,11 +38,11 @@ class PreferentialWebCrawler:
             seed_url = self.frontier.restart()
         else:
             self.frontier = Frontier(seed_url)
-
+        
         self.site_id = db_handler.insert_or_get_site_id(seed_url)
         url_parts = urlsplit(seed_url)
         self.domain = url_parts.scheme + "://" + url_parts.netloc
-
+        
 
     def normalize_url(self, url):
         """Normalize URLs by removing trailing slashes, lowercasing, and sorting query parameters."""
@@ -76,7 +74,7 @@ class PreferentialWebCrawler:
 
         #print(f"No canonical URL found. Using original: {url}")
         return self.normalize_url(url)
-
+    
 
     def extract_urls_bs4(self, page_source):
         soup = BeautifulSoup(page_source, "html.parser")
@@ -105,9 +103,7 @@ class PreferentialWebCrawler:
 
 
     def fetch_page(self, url):
-        """Fetch page content from a URL. Only one page can be accessed every TIMEOUT seconds.
-            image_urls_list, page_content, 200, accessed_time, page_type_code
-        """
+        """Fetch page content from a URL. Only one page can be accessed every TIMEOUT seconds."""
         with self.timeout_lock:
             t = time.time()
             if t - self.time_last_visited < TIMEOUT:
@@ -138,8 +134,8 @@ class PreferentialWebCrawler:
             except WebDriverException as e:
                 helper.log_error(e)
             return None
-
-
+                
+        
     def get_page_type(self, mime_page_type):
         if 'text/html' in mime_page_type:
             return 'HTML'
@@ -169,15 +165,16 @@ class PreferentialWebCrawler:
 
 
     def priority(self, link):
+        """Assigns priority (0 = high, 1 = lower)."""
         for k in self.keywords_excluded:
             if k in link: return 1
         for k in self.keywords:
-            if k in link: return 0 # Assign priority (0 = high, 1 = lower)
+            if k in link: return 0
         return 1
 
 
-    # Runs the crawler using multiple threads
     def run(self):
+        """Runs the crawler using multiple threads."""
         threads = []
         for _ in range(self.workers):
             thread = threading.Thread(target=self.crawl)
@@ -241,8 +238,7 @@ class PreferentialWebCrawler:
                     priority = self.priority(normalized_link)
                     items.append((priority, normalized_link, current_page_id))
                 
-                # nisem ziher če rabimo already visited
-                already_visited = self.frontier.put(items)
+                self.frontier.put(items)
 
                 # Insert each image into the database
                 image_urls = self.extract_urls_bs4(page)
@@ -265,10 +261,8 @@ class PreferentialWebCrawler:
 
 db_handler.clear_db()
 start_time = time.time()
-seed = "https://www.kulinarika.net/recepti/seznam/sladice/"  # Replace with an actual URL
-# seed = "https://www.kulinarika.net/recepti/sladice/torte/cokoladna-torta-presna-veganska-/16802"
-crawler = PreferentialWebCrawler(seed, max_pages, image_driver='Firefox')
-# crawler = PreferentialWebCrawler(None, max_pages, image_driver='Firefox')
+seed = "https://www.kulinarika.net/recepti/seznam/sladice/"
+crawler = PreferentialWebCrawler(seed, max_pages)
 crawler.run()
 end_time = time.time()
 execution_time = end_time - start_time
