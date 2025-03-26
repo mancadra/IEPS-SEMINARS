@@ -43,8 +43,8 @@ class DbHandler:
         return None
 
     def insert_or_get_site_id(self,domain):
-        cur = self.conn.cursor()
         with self.lock:
+            cur = self.conn.cursor()
             cur.execute("SELECT id FROM crawldb.site WHERE domain = %s;", (domain,))
             result = cur.fetchone()
 
@@ -97,20 +97,39 @@ class DbHandler:
         return to_page
 
     def insert_page_data(self, page_id, data):
-        cur = self.conn.cursor()
         with self.lock:
+            cur = self.conn.cursor()
             data_type_code = self.get_data_type_code(data)
             cur.execute("INSERT INTO crawldb.page_data (page_id, data_type_code, data) VALUES (%s,%s,%s)", (page_id,data_type_code,data,))
 
     def insert_link(self, from_page, to_page):
         with self.lock:
             cur = self.conn.cursor()
-            cur.execute("INSERT INTO crawldb.link (from_page, to_page) VALUES (%s,%s)", (from_page, to_page,))
+            cur.execute("SELECT from_page, to_page FROM crawldb.link WHERE from_page=%s AND to_page=%s", (from_page, to_page,))
+            result = cur.fetchone()
+            if result is None:
+                cur.execute("INSERT INTO crawldb.link (from_page, to_page) VALUES (%s,%s)", (from_page, to_page,))
 
     def insert_image(self, page_id, filename, content_type, data, accessed_time):
         with self.lock:
             cur = self.conn.cursor()
             cur.execute("INSERT INTO crawldb.image (page_id, filename, content_type, data, accessed_time) VALUES (%s,%s,%s,%s,%s)", (page_id, filename, content_type, data, accessed_time,))
+
+    def get_page_id(self, url):
+        with self.lock:
+            cur = self.conn.cursor()
+            cur.execute("SELECT id FROM crawldb.page WHERE url=%s", (url,))
+            result = cur.fetchone()
+            if result is None: return result
+            else: return result[0]
+
+    def get_html_content(self, id):
+        with self.lock:
+            cur = self.conn.cursor()
+            cur.execute("SELECT html_content FROM crawldb.page WHERE id=%s", (id,))
+            result = cur.fetchone()
+            if result is None: return result
+            else: return result[0]
 
     def clear_db(self):
         cur = self.conn.cursor()

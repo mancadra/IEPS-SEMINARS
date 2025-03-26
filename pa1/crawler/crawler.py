@@ -45,7 +45,7 @@ class PreferentialWebCrawler:
             self.frontier = Frontier("")
             seed_url = self.frontier.restart()
         else:
-            self.frontier = Frontier(seed_url)
+            self.frontier = Frontier(self.normalize_url(seed_url))
         
         self.site_id = db_handler.insert_or_get_site_id(seed_url)
         url_parts = urlsplit(seed_url)
@@ -180,6 +180,29 @@ class PreferentialWebCrawler:
         return 1
 
 
+    def update_link_table(self):
+        for url in self.frontier.crawled:
+            id = db_handler.get_page_id(url)
+            if id is None: continue
+            print("From: ", id)
+
+            page = db_handler.get_html_content(id)
+
+            url_parts = urlsplit(url)
+            base_url = url_parts.scheme + "://" + url_parts.netloc
+            links = self.extract_links(page, base_url)
+            normalized_links = []
+            for link, _ in links:
+                normalized_links.append(self.normalize_url(link))
+
+            for l in normalized_links:
+                to_page = db_handler.get_page_id(l)
+                if to_page is None: continue
+                else:
+                    print("To: ", to_page)
+                    db_handler.insert_link(id, to_page)
+
+
     def run(self):
         """Runs the crawler using multiple threads."""
         threads = []
@@ -189,13 +212,14 @@ class PreferentialWebCrawler:
             threads.append(thread)
         for t in threads:
             t.join()
+        self.update_link_table()
 
 
     def crawl(self):
         """Crawl pages, prioritizing links containing the keyword."""
 
         while self.pages_crawled < self.max_pages - (self.workers - 1):
-            priority, url, from_page = self.frontier.get()  # Get the highest-priority URL
+            priority, url = self.frontier.get()  # Get the highest-priority URL
             
             if not self.in_domain(url): continue
 
@@ -220,19 +244,17 @@ class PreferentialWebCrawler:
                 # If the canonical URL is different from the current URL, prioritize the canonical URL
                 if canonical_url and canonical_url != url:
                     print(f"Canonical URL found: {canonical_url}")
-                    if canonical_url in self.frontier.visited:
+                    if canonical_url in self.frontier.seen:
                         print(f"Skipping already visited canonical URL: {canonical_url}")
                         continue
                     else:
                         # Mark both the original URL and the canonical URL as visited
-                        self.frontier.add_visited(canonical_url)
+                        self.frontier.add_seen(canonical_url)
                         url = canonical_url  # Crawl the canonical URL instead
                 
                 self.frontier.add_hash(url, hash)
 
                 current_page_id = db_handler.insert_page(self.site_id, page_type_code, url, hash, page.decode('utf-8'), status_code, accessed_time)
-                if from_page != 0:
-                    db_handler.insert_link = (current_page_id, from_page)
 
                 # Add links to frontier
                 url_parts = urlsplit(url)
@@ -243,7 +265,7 @@ class PreferentialWebCrawler:
                 for link, _ in links:
                     normalized_link = self.normalize_url(link)
                     priority = self.priority(normalized_link)
-                    items.append((priority, normalized_link, current_page_id))
+                    items.append((priority, normalized_link))
                 
                 self.frontier.put(items)
 
