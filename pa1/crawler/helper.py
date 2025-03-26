@@ -4,7 +4,7 @@ import configparser
 class Helper:
     def __init__(self):
         self.config = configparser.ConfigParser()
-        self.config.read(os.path.join(os.path.dirname(__file__), '..', '..', 'config.ini'))
+        self.config.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
 
         self.LOG_DIR = os.path.join(os.path.dirname(__file__), '..', '..', "logs")
         self.LOG_FILE = os.path.join(self.LOG_DIR, "app.log")

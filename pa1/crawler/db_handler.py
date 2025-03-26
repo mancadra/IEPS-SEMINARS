@@ -8,9 +8,7 @@ helper = Helper()
 config = helper.get_config()
 
 class DbHandler:
-    def __init__(self, dbname='crawl', user='user', password='CrawlPassword', host='localhost', port=5434):
-        #def __init__(self, dbname='crawl', user='user', password='CrawlPassword', host='localhost', port=5434):
-        #def __init__(self, dbname=config['DATABASE']['DB_NAME'], user=config['DATABASE']['USER'], password=config['DATABASE']['PASSWORD'], host=config['DATABASE']['HOST'], port=['DATABASE']['PORT']):
+    def __init__(self, dbname=config['DATABASE']['DB_NAME'], user=config['DATABASE']['USER'], password=config['DATABASE']['PASSWORD'], host=config['DATABASE']['HOST'], port=config['DATABASE']['PORT']):
         self.conn_details = {
             'dbname': dbname,
             'user': user,
@@ -24,7 +22,6 @@ class DbHandler:
 
 
     def get_robots_content(self, domain):
-        # TODO: Tukaj popravi da je domain samo https://www.kulinarika.net brez /recepti/seznam/sladice/ ker drugače ne najde
         # popravljeno z regularnim izrazom: + je da matches one or more, ^ je negacija => [^/]+ matches one or more stvari, ki niso /
         try:
             response = requests.get(f"{re.search(r'https?://[^/]+/', domain).group(0)}/robots.txt", timeout=10)
@@ -61,7 +58,7 @@ class DbHandler:
                 return cur.fetchone()[0]
 
     # html_content_or_data hold either everything inside <html>, meanwhile data holds only a link to urls of images and binary data
-    def insert_page(self, site_id, page_type_code, url, hash, html_content_or_data, http_status_code, accessed_time, from_page):
+    def insert_page(self, site_id, page_type_code, url, hash, html_content_or_data, http_status_code, accessed_time):
         to_page = None
         cur = self.conn.cursor()
 

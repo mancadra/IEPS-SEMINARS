@@ -13,11 +13,19 @@ from threading import Lock
 import threading
 from frontier import Frontier
 
-hasher = MinHasher(shingle_size=3, hash_number=250)
+#hasher = MinHasher(shingle_size=3, hash_number=250)
 helper = Helper()
 config = helper.get_config()
-max_pages = 10
-TIMEOUT = 5
+shingle_size = int(config['HASH']['SHINGLE_SIZE'])
+hash_number = int(config['HASH']['HASH_NUMBER'])
+hasher = MinHasher(shingle_size, hash_number)
+
+max_pages = int(config['CRAWL']['MAX_PAGES'])
+TIMEOUT = int(config['CRAWL']['TIMEOUT'])
+workers = int(config['CRAWL']['WORKERS'])
+image_driver = config['CRAWL']['IMAGE_DRIVER']
+keywords = config['CRAWL']['KEYWORDS'].split(", ")
+keywords_excluded = config['CRAWL']['KEYWORDS_EXCLUDED'].split(", ")
 
 db_handler = DbHandler()
 
@@ -67,16 +75,15 @@ class PreferentialWebCrawler:
                 parsed_url = urlsplit(url)
                 canonical_url = f"{parsed_url.scheme}://{parsed_url.netloc}{canonical_url}"
 
-            #return self.normalize_url(canonical_url)
             canonical_url = self.normalize_url(canonical_url)
             #print(f"Extracted canonical URL: {canonical_url} (Original: {url})")
             return canonical_url
 
-        #print(f"No canonical URL found. Using original: {url}")
         return self.normalize_url(url)
     
 
     def extract_urls_bs4(self, page_source):
+        """Extracts image URLs from the <div id="fotografije"> container."""
         soup = BeautifulSoup(page_source, "html.parser")
 
         # Locate the <div id="fotografije"> container using BeautifulSoup
@@ -223,7 +230,7 @@ class PreferentialWebCrawler:
                 
                 self.frontier.add_hash(url, hash)
 
-                current_page_id = db_handler.insert_page(self.site_id, page_type_code, url, hash, page.decode('utf-8'), status_code, accessed_time, from_page)
+                current_page_id = db_handler.insert_page(self.site_id, page_type_code, url, hash, page.decode('utf-8'), status_code, accessed_time)
                 if from_page != 0:
                     db_handler.insert_link = (current_page_id, from_page)
 
@@ -262,7 +269,7 @@ class PreferentialWebCrawler:
 db_handler.clear_db()
 start_time = time.time()
 seed = "https://www.kulinarika.net/recepti/seznam/sladice/"
-crawler = PreferentialWebCrawler(seed, max_pages)
+crawler = PreferentialWebCrawler(seed, max_pages, workers, image_driver, keywords, keywords_excluded)
 crawler.run()
 end_time = time.time()
 execution_time = end_time - start_time
