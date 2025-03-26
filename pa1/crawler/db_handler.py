@@ -22,10 +22,8 @@ class DbHandler:
 
 
     def get_robots_content(self, domain):
-        # popravljeno z regularnim izrazom: + je da matches one or more, ^ je negacija => [^/]+ matches one or more stvari, ki niso /
         try:
             response = requests.get(f"{re.search(r'https?://[^/]+/', domain).group(0)}/robots.txt", timeout=10)
-            # print("Response: ", response.text)
             if response.status_code == 200:
                 return response.text
         except requests.RequestException as e:
@@ -34,7 +32,6 @@ class DbHandler:
 
     def get_sitemap_content(self, domain):
         try:
-            # isto kot zgoraj z regularnimi popravljeno
             response = requests.get(f"{re.search(r'https?://[^/]+/', domain).group(0)}/sitemap.xml", timeout=10)
             if response.status_code == 200:
                 return response.text
@@ -63,14 +60,6 @@ class DbHandler:
         cur = self.conn.cursor()
 
         with self.lock:
-            """
-            # Already checked in crawler with visited set
-            cur.execute("SELECT id FROM crawldb.page WHERE url = %s", (url,))
-            identical = cur.fetchone()
-            if identical:
-                helper.log_info(f"This url: {url} has already been processed")
-                return None"""
-
             cur.execute("SELECT id FROM crawldb.page WHERE hash = %s", (hash,))
             duplicate = cur.fetchone()
             if duplicate:

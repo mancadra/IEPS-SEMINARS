@@ -184,7 +184,6 @@ class PreferentialWebCrawler:
         for url in self.frontier.crawled:
             id = db_handler.get_page_id(url)
             if id is None: continue
-            print("From: ", id)
 
             page = db_handler.get_html_content(id)
 
@@ -199,7 +198,6 @@ class PreferentialWebCrawler:
                 to_page = db_handler.get_page_id(l)
                 if to_page is None: continue
                 else:
-                    print("To: ", to_page)
                     db_handler.insert_link(id, to_page)
 
 
