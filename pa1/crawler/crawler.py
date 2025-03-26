@@ -11,8 +11,6 @@ import time
 from selenium.common.exceptions import WebDriverException
 from threading import Lock
 import threading
-import re
-import copy
 from frontier import Frontier
 
 hasher = MinHasher(shingle_size=3, hash_number=250)
@@ -105,9 +103,7 @@ class PreferentialWebCrawler:
 
 
     def fetch_page(self, url):
-        """Fetch page content from a URL. Only one page can be accessed every TIMEOUT seconds.
-            image_urls_list, page_content, 200, accessed_time, page_type_code
-        """
+        """Fetch page content from a URL. Only one page can be accessed every TIMEOUT seconds."""
         with self.timeout_lock:
             t = time.time()
             if t - self.time_last_visited < TIMEOUT:
@@ -169,15 +165,16 @@ class PreferentialWebCrawler:
 
 
     def priority(self, link):
+        """Assigns priority (0 = high, 1 = lower)."""
         for k in self.keywords_excluded:
             if k in link: return 1
         for k in self.keywords:
-            if k in link: return 0 # Assign priority (0 = high, 1 = lower)
+            if k in link: return 0 
         return 1
 
 
-    # Runs the crawler using multiple threads
     def run(self):
+        """Runs the crawler using multiple threads."""
         threads = []
         for _ in range(self.workers):
             thread = threading.Thread(target=self.crawl)
@@ -211,7 +208,7 @@ class PreferentialWebCrawler:
                 canonical_url = self.get_canonical_url(page, url)   # Get the canonical URL of the page
 
                 if page_type_code == 'BINARY':
-                    page = url # ne vem kaj je fora
+                    page = url
 
                 # If the canonical URL is different from the current URL, prioritize the canonical URL
                 if canonical_url and canonical_url != url:
@@ -239,8 +236,7 @@ class PreferentialWebCrawler:
                     priority = self.priority(normalized_link)
                     items.append((priority, normalized_link, current_page_id))
                 
-                # nisem ziher če rabimo already visited
-                already_visited = self.frontier.put(items)
+                self.frontier.put(items)
 
                 # Insert each image into the database
                 image_urls = self.extract_urls_bs4(page)
@@ -263,10 +259,8 @@ class PreferentialWebCrawler:
 
 db_handler.clear_db()
 start_time = time.time()
-seed = "https://www.kulinarika.net/recepti/seznam/sladice/"  # Replace with an actual URL
-# seed = "https://www.kulinarika.net/recepti/sladice/torte/cokoladna-torta-presna-veganska-/16802"
-crawler = PreferentialWebCrawler(seed, max_pages, image_driver='Firefox')
-# crawler = PreferentialWebCrawler(None, max_pages, image_driver='Firefox')
+seed = "https://www.kulinarika.net/recepti/seznam/sladice/"
+crawler = PreferentialWebCrawler(seed, max_pages)
 crawler.run()
 end_time = time.time()
 execution_time = end_time - start_time
