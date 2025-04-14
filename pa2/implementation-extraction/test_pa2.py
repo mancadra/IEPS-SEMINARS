@@ -6205,11 +6205,11 @@ def sestavine(html_content):
   for p in sestavine_vsi_p:
         p0 = p[0].text_content().strip()
         p1 = p[1].text_content().strip()
-        
+
         p0 = p0.replace('\u200b', '').strip()
         p1 = p1.replace('\u200b', '').strip()
-        
-        if 'poglavje' in p.get('class', ''): 
+
+        if 'poglavje' in p.get('class', ''):
             izpis += f"\n{p1}\n"
         else:
             if p0 == "":
@@ -6217,7 +6217,7 @@ def sestavine(html_content):
             else:
                 line = f"{pretvori(p0)} {pretvori(p1)}".replace('  ', ' ')
             izpis += f"{line}\n"
-        
+
   print(izpis.strip())
 
 sestavine(cleaned(html_c))

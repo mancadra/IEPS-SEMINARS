@@ -1,5 +1,8 @@
 import psycopg2
 from threading import Lock
+
+from sentence_transformers import SentenceTransformer
+
 from helper import Helper
 import requests
 import re
@@ -65,3 +68,34 @@ class DbHandler:
             (page_id, page_segment, segment_type, embedding))
         self.conn.commit()
         return cur.rowcount
+
+    def create_segment_index(self):
+        cur = self.conn.cursor()
+        cur.execute('CREATE INDEX ON crawldb.page_segment USING hnsw (embedding vector_cosine_ops) WITH (m = 16, ef_construction = 64);')
+
+    # query using cosine distance
+    def query_db_cosine(self, query, model_name, table_name):
+        """
+        The query_db_cosine function retrieves the top 5 most similar sentences from a pgvector database based on cosine distance.
+        It uses a pre-trained SentenceTransformer model to encode the input query and then searches for the closest embeddings stored in the database.
+
+        Parameters
+        - query (str): The input text query to be searched.
+        - model_name (str): The name of the SentenceTransformer model to be used for encoding the query.
+        - table_name (str): The name of the table containing the stored sentence embeddings. Possible options are showcase.vector_demo and showcase.vector_demo2
+        """
+        model = SentenceTransformer(model_name)
+
+        cur = self.conn.cursor()
+
+        # calculate embedding for the query
+        query_embedding = model.encode(query).tolist()
+
+        # execute the query to fetch the top 5 most similar sentences based on cosine distance
+        result = cur.execute(
+            'SELECT page_segment, 1 - (embedding <=> %s::vector) AS similarity '
+            'FROM ' + table_name + ' ORDER BY similarity DESC LIMIT 1',
+            (query_embedding,)  # pass the embedding twice, once for ordering and once for calculation
+        ).fetchall()
+        cur.close()
+        return result

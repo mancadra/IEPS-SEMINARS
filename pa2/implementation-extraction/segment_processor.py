@@ -2,11 +2,13 @@ from bs4 import BeautifulSoup
 from lxml import html
 import re
 from db_handler import DbHandler
+from sentence_transformers import SentenceTransformer
 
 class SegmentProcessor:
     def __init__(self):
         self.db = DbHandler()
         self.dict_difficulty = {1: 'zelo lahek', 2: 'lahek', 3: 'srednje težek', 4: 'težek', 5: 'zelo težek'}
+        self.model = SentenceTransformer('sentence-transformers/LaBSE')
 
     def process_page(self, page_id):
         html_content = self.db.get_html_content(page_id)
@@ -42,12 +44,13 @@ class SegmentProcessor:
             difficulty = len(tree.xpath('//li[@class="zahtevnost"]/img[@src="/grafika6/ikona-utez.png"]'))
             
             segment_text = f"Opis recepta je '{description}'. Za recept porabimo {time}. Recept je {self.dict_difficulty[difficulty]}."
-            
+            embedding = self.model.encode(segment_text).tolist()
+
             self.db.insert_page_segment(
                 page_id=page_id,
                 page_segment=segment_text,
                 segment_type='OPIS',
-                embedding=None  
+                embedding=embedding
             )
         except Exception as e:
             print(f"Error processing OPIS for page {page_id}: {str(e)}")
@@ -58,12 +61,13 @@ class SegmentProcessor:
         try:
             tree = html.fromstring(html_content)
             p = tree.xpath('//div[@id="postopek"]')[0].text_content().strip()
-            
+            embedding = self.model.encode(p).tolist()
+
             self.db.insert_page_segment(
                 page_id=page_id,
                 page_segment=p,
                 segment_type='POSTOPEK',
-                embedding=None
+                embedding=embedding
             )
         except Exception as e:
             print(f"Error processing POSTOPEK for page {page_id}: {str(e)}")
@@ -97,12 +101,14 @@ class SegmentProcessor:
                 else:
                     line = f"{p0} {p1}" if p0 else p1
                     output += f"{line}\n"
+
+            embedding = self.model.encode(output.strip()).tolist()
             
             self.db.insert_page_segment(
                 page_id=page_id,
                 page_segment=output.strip(),
                 segment_type='SESTAVINE',
-                embedding=None
+                embedding=embedding
             )
         except Exception as e:
             print(f"Error processing SESTAVINE for page {page_id}: {str(e)}")
@@ -112,12 +118,13 @@ class SegmentProcessor:
         try:
             tree = html.fromstring(html_content)
             tags = tree.xpath('//section[@id="recepti"]/ul[@id="servis2"]/span/a/text()')
-            
+            embedding = self.model.encode(", ".join(tags)).tolist()
+
             self.db.insert_page_segment(
                 page_id=page_id,
                 page_segment=", ".join(tags),
                 segment_type='TAGS',
-                embedding=None
+                embedding=embedding
             )
         except Exception as e:
             print(f"Error processing TAGS for page {page_id}: {str(e)}")
@@ -129,12 +136,13 @@ class SegmentProcessor:
             comments = re.findall(r'<div\s+class="msgbody"[^>]*>(?:[^<]|<(?!p\b))*<p>(.*?)<\/p>', html_content)
             
             segment_text = "\n".join([f"{a} je zapisal '{k}'." for a, k in zip(authors, comments)])
-            
+            embedding = self.model.encode(segment_text).tolist()
+
             self.db.insert_page_segment(
                 page_id=page_id,
                 page_segment=segment_text,
                 segment_type='KOMENTARJI',
-                embedding=None
+                embedding=embedding
             )
         except Exception as e:
             print(f"Error processing KOMENTARJI for page {page_id}: {str(e)}")
@@ -142,7 +150,8 @@ class SegmentProcessor:
 db_handler = DbHandler()
 db_handler.clear_page_segment()
 processor = SegmentProcessor()
-processor.process_page(3)
+#processor.process_page(3)
 processor.process_page(2)
 processor.process_page(7332)
+processor.db.create_segment_index()
 print("Processing complete.")
