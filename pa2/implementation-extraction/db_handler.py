@@ -62,10 +62,10 @@ class DbHandler:
         cur = self.conn.cursor()
         cur.execute("""
             INSERT INTO crawldb.page_segment 
-            (page_id, page_segment, segment_type, embedding) 
+            (page_id, segment_type, page_segment, embedding) 
             VALUES (%s, %s, %s, %s)
             """, 
-            (page_id, page_segment, segment_type, embedding))
+            (page_id, segment_type, page_segment, embedding))
         self.conn.commit()
         return cur.rowcount
 
@@ -92,10 +92,11 @@ class DbHandler:
         query_embedding = model.encode(query).tolist()
 
         # execute the query to fetch the top 5 most similar sentences based on cosine distance
-        result = cur.execute(
-            'SELECT page_segment, 1 - (embedding <=> %s::vector) AS similarity '
-            'FROM ' + table_name + ' ORDER BY similarity DESC LIMIT 1',
+        cur.execute(
+            'SELECT segment_type, page_segment, 1 - (embedding <=> %s::vector) AS similarity '
+            'FROM ' + table_name + ' ORDER BY similarity DESC LIMIT 5',
             (query_embedding,)  # pass the embedding twice, once for ordering and once for calculation
-        ).fetchall()
+        )
+        result = cur.fetchall()
         cur.close()
         return result

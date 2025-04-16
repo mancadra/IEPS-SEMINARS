@@ -2,7 +2,7 @@ IVFFLAT vs HNSW.txt
 
 extraction-db/
 
-alter_db.txt
+alter_db.sql
 
 # Virtual Environments
 .env

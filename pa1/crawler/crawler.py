@@ -286,7 +286,7 @@ class PreferentialWebCrawler:
             with self.pages_crawled_lock:
                 self.pages_crawled += 1
 
-db_handler.clear_db()
+#db_handler.clear_db()
 start_time = time.time()
 seed = "https://www.kulinarika.net/recepti/seznam/sladice/"
 crawler = PreferentialWebCrawler(seed, max_pages, workers, image_driver, keywords, keywords_excluded)

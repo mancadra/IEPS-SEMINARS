@@ -48,8 +48,8 @@ class SegmentProcessor:
 
             self.db.insert_page_segment(
                 page_id=page_id,
-                page_segment=segment_text,
                 segment_type='OPIS',
+                page_segment=segment_text,
                 embedding=embedding
             )
         except Exception as e:
@@ -65,8 +65,8 @@ class SegmentProcessor:
 
             self.db.insert_page_segment(
                 page_id=page_id,
-                page_segment=p,
                 segment_type='POSTOPEK',
+                page_segment=p,
                 embedding=embedding
             )
         except Exception as e:
@@ -106,8 +106,8 @@ class SegmentProcessor:
             
             self.db.insert_page_segment(
                 page_id=page_id,
-                page_segment=output.strip(),
                 segment_type='SESTAVINE',
+                page_segment=output.strip(),
                 embedding=embedding
             )
         except Exception as e:
@@ -122,8 +122,8 @@ class SegmentProcessor:
 
             self.db.insert_page_segment(
                 page_id=page_id,
-                page_segment=", ".join(tags),
                 segment_type='TAGS',
+                page_segment=", ".join(tags),
                 embedding=embedding
             )
         except Exception as e:
@@ -140,8 +140,8 @@ class SegmentProcessor:
 
             self.db.insert_page_segment(
                 page_id=page_id,
-                page_segment=segment_text,
                 segment_type='KOMENTARJI',
+                page_segment=segment_text,
                 embedding=embedding
             )
         except Exception as e:
@@ -151,7 +151,9 @@ db_handler = DbHandler()
 db_handler.clear_page_segment()
 processor = SegmentProcessor()
 #processor.process_page(3)
-processor.process_page(2)
-processor.process_page(7332)
+#processor.process_page(2)
+#processor.process_page(7332)
+for i in range(1, 11):
+    processor.process_page(i)
 processor.db.create_segment_index()
 print("Processing complete.")
