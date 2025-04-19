@@ -1,55 +1,35 @@
 from bs4 import BeautifulSoup
 from lxml import html
 import re
+from helper import Helper
+from embeddings import calculate_embedding
 from db_handler import DbHandler
 from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer, AutoModel, GPT2TokenizerFast
-import torch
-import torch.nn.functional as F
+
+helper = Helper()
+config = helper.get_config()
 
 class SegmentProcessor:
-    def __init__(self, model_type):
+    def __init__(self, model_name):
         self.db = DbHandler()
         self.dict_difficulty = {1: 'zelo lahek', 2: 'lahek', 3: 'srednje težek', 4: 'težek', 5: 'zelo težek'}
 
-        if model_type == 'labse':
+        if model_name == 'labse':
             self.model = SentenceTransformer('sentence-transformers/LaBSE')
             self.embedding_fun = lambda text: self.model.encode(text).tolist()
-        elif model_type == 'sloberta':
+        elif model_name == 'sloberta':
             self.tokenizer = AutoTokenizer.from_pretrained("EMBEDDIA/sloberta")
             self.model = AutoModel.from_pretrained("EMBEDDIA/sloberta")
-            self.embedding_fun = self._sloberta_embed
-        elif model_type == 'openai':
-            tokenizer = GPT2TokenizerFast.from_pretrained('Xenova/text-embedding-ada-002')
+            self.embedding_fun = lambda text: calculate_embedding(self.model, self.tokenizer, text)
+        elif model_name == 'openai':
+            #tokenizer = GPT2TokenizerFast.from_pretrained('Xenova/text-embedding-ada-002')
             self.tokenizer = AutoTokenizer.from_pretrained("Xenova/text-embedding-ada-002")
             self.model = AutoModel.from_pretrained("Xenova/text-embedding-ada-002")
-            self.embedding_fun = self._xenova_embed
+            self.embedding_fun = lambda text: calculate_embedding(self.model, self.tokenizer, text)
         else:
-            raise ValueError(f"Unknown model type: {model_type}")
+            raise ValueError(f"Unknown model type: {model_name}")
 
-    def _sloberta_embed(self, text):
-        inputs = self.tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=512)
-        with torch.no_grad():
-            outputs = self.model(**inputs)
-        embeddings = outputs.last_hidden_state
-        attention_mask = inputs['attention_mask'].unsqueeze(-1)
-        masked_embeddings = embeddings * attention_mask
-        sum_embeddings = masked_embeddings.sum(dim=1)
-        sum_mask = attention_mask.sum(dim=1)
-        mean_pooled = sum_embeddings / sum_mask
-        return mean_pooled.squeeze().tolist()
-
-    def _xenova_embed(self, text):
-        inputs = self.tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
-        with torch.no_grad():
-            outputs = self.model(**inputs)
-        embeddings = outputs.last_hidden_state
-        attention_mask = inputs['attention_mask'].unsqueeze(-1)
-        masked_embeddings = embeddings * attention_mask
-        sum_embeddings = masked_embeddings.sum(dim=1)
-        sum_mask = attention_mask.sum(dim=1)
-        mean_pooled = sum_embeddings / sum_mask
-        return mean_pooled.squeeze().tolist()
 
     def process_page(self, page_id):
         html_content = self.db.get_html_content(page_id)
@@ -73,11 +53,13 @@ class SegmentProcessor:
         else:
             return False
 
+
     def clean_html(self, html_content):
         """Extract main recipe section"""
         soup = BeautifulSoup(html_content, 'html.parser')
         section = soup.find('section', id='recepti')
         return str(section)
+
 
     def process_recipe(self, page_id, html_content):
         """Process and store the whole recipe as one segment"""
@@ -223,6 +205,7 @@ class SegmentProcessor:
         except Exception as e:
             print(f"Error processing POSTOPEK for page {page_id}: {str(e)}")
 
+
     def convert_units(self, string):
         """Converts units into whole words."""
         dict_units = {'g': 'gramov', 'mg': 'miligramov', 'kg': 'kilogramov', 'dag': 'dekagramov', 'ml': 'mililitrov',
@@ -235,6 +218,7 @@ class SegmentProcessor:
             else:
                 new.append(n)
         return ' '.join(new)
+
 
     def process_sestavine(self, page_id, html_content):
         """Process and store ingredients segment"""
@@ -264,6 +248,7 @@ class SegmentProcessor:
         except Exception as e:
             print(f"Error processing SESTAVINE for page {page_id}: {str(e)}")
 
+
     def process_tags(self, page_id, html_content):
         """Process and store tags segment"""
         try:
@@ -279,6 +264,7 @@ class SegmentProcessor:
             )
         except Exception as e:
             print(f"Error processing TAGS for page {page_id}: {str(e)}")
+
 
     def process_komentarji(self, page_id, html_content):
         """Process and store comments segment"""
@@ -301,8 +287,9 @@ class SegmentProcessor:
 
 db_handler = DbHandler()
 db_handler.clear_page_segment()
-processor = SegmentProcessor(model_type='labse')  # 'labse' , 'sloberta', 'openai'
-for i in range(579, 7999):
+model_name = config['MODEL']['MODEL_NAME']
+processor = SegmentProcessor(model_name=model_name)
+for i in range(1, 7999):
     processor.process_page(i)
 processor.db.create_segment_index()
 
