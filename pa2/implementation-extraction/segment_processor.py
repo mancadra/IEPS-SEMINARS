@@ -3,12 +3,53 @@ from lxml import html
 import re
 from db_handler import DbHandler
 from sentence_transformers import SentenceTransformer
+from transformers import AutoTokenizer, AutoModel, GPT2TokenizerFast
+import torch
+import torch.nn.functional as F
 
 class SegmentProcessor:
-    def __init__(self):
+    def __init__(self, model_type):
         self.db = DbHandler()
         self.dict_difficulty = {1: 'zelo lahek', 2: 'lahek', 3: 'srednje težek', 4: 'težek', 5: 'zelo težek'}
-        self.model = SentenceTransformer('sentence-transformers/LaBSE')
+
+        if model_type == 'labse':
+            self.model = SentenceTransformer('sentence-transformers/LaBSE')
+            self.embedding_fun = lambda text: self.model.encode(text).tolist()
+        elif model_type == 'sloberta':
+            self.tokenizer = AutoTokenizer.from_pretrained("EMBEDDIA/sloberta")
+            self.model = AutoModel.from_pretrained("EMBEDDIA/sloberta")
+            self.embedding_fun = self._sloberta_embed
+        elif model_type == 'openai':
+            tokenizer = GPT2TokenizerFast.from_pretrained('Xenova/text-embedding-ada-002')
+            self.tokenizer = AutoTokenizer.from_pretrained("Xenova/text-embedding-ada-002")
+            self.model = AutoModel.from_pretrained("Xenova/text-embedding-ada-002")
+            self.embedding_fun = self._xenova_embed
+        else:
+            raise ValueError(f"Unknown model type: {model_type}")
+
+    def _sloberta_embed(self, text):
+        inputs = self.tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=512)
+        with torch.no_grad():
+            outputs = self.model(**inputs)
+        embeddings = outputs.last_hidden_state
+        attention_mask = inputs['attention_mask'].unsqueeze(-1)
+        masked_embeddings = embeddings * attention_mask
+        sum_embeddings = masked_embeddings.sum(dim=1)
+        sum_mask = attention_mask.sum(dim=1)
+        mean_pooled = sum_embeddings / sum_mask
+        return mean_pooled.squeeze().tolist()
+
+    def _xenova_embed(self, text):
+        inputs = self.tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
+        with torch.no_grad():
+            outputs = self.model(**inputs)
+        embeddings = outputs.last_hidden_state
+        attention_mask = inputs['attention_mask'].unsqueeze(-1)
+        masked_embeddings = embeddings * attention_mask
+        sum_embeddings = masked_embeddings.sum(dim=1)
+        sum_mask = attention_mask.sum(dim=1)
+        mean_pooled = sum_embeddings / sum_mask
+        return mean_pooled.squeeze().tolist()
 
     def process_page(self, page_id):
         html_content = self.db.get_html_content(page_id)
@@ -19,12 +60,15 @@ class SegmentProcessor:
         self.db.update_cleaned_content(page_id, cleaned_content)
         
         url = self.db.get_url(page_id)
-        if not '?offset=' in url:
+        if ('?offset=' not in url) and (any(c.isdigit() for c in url)):
+            print("Page id: ", page_id)
+            self.process_recipe(page_id, cleaned_content)
+            """
             self.process_opis(page_id, cleaned_content)
             self.process_postopek(page_id, cleaned_content)
             self.process_sestavine(page_id, cleaned_content)
             self.process_tags(page_id, cleaned_content)
-            self.process_komentarji(page_id, cleaned_content)
+            self.process_komentarji(page_id, cleaned_content)"""
             return True
         else:
             return False
@@ -35,6 +79,113 @@ class SegmentProcessor:
         section = soup.find('section', id='recepti')
         return str(section)
 
+    def process_recipe(self, page_id, html_content):
+        """Process and store the whole recipe as one segment"""
+        tree = html.fromstring(html_content)
+        result_texts = []
+
+        try:
+            # 1. Extract title
+            try:
+                title = tree.xpath('//div[@id="recept-main"]/h1/text()')
+                if title:
+                    title = title[0].strip()
+                    result_texts.append(f"{title}:")
+            except Exception as e:
+                raise Exception(f"Failed to extract title: {str(e)}")
+
+            # 2. Extract description
+            try:
+                description = tree.xpath('//div[@id="recept-main"]/p/text()')
+                if description:
+                    description = description[0].strip()
+                    result_texts.append(f"Opis recepta: {description}")
+            except Exception as e:
+                raise Exception(f"Failed to extract description: {str(e)}")
+
+            # 3. Extract time
+            try:
+                time = re.search(r'<span class="cas">([^<]+)<\/span>', html_content)
+                if time:
+                    time = time.group(1).strip()
+                    result_texts.append(f"Čas priprave: {time}")
+            except Exception as e:
+                raise Exception(f"Failed to extract time: {str(e)}")
+
+            # 4. Extract difficulty
+            try:
+                difficulty = len(tree.xpath('//li[@class="zahtevnost"]/img[@src="/grafika6/ikona-utez.png"]'))
+                if difficulty:
+                    result_texts.append(f"Težavnost: {self.dict_difficulty.get(difficulty, 'neznana')}")
+            except Exception as e:
+                raise Exception(f"Failed to extract difficulty: {str(e)}")
+
+            # 5. Extract procedure
+            try:
+                postopek_text = tree.xpath('//div[@id="postopek"]')
+                if postopek_text:
+                    postopek_text = postopek_text[0].text_content().strip()
+                    result_texts.append(f"\nPostopek:\n{postopek_text}")
+            except Exception as e:
+                raise Exception(f"Failed to extract procedure: {str(e)}")
+
+            # 6. Extract ingredients
+            try:
+                sestavine_text = []
+                ingredients_all_p = tree.xpath(
+                    '//div[@id="sestavine"]/p[@class="cf"] | //div[@id="sestavine"]/p[@class="cf poglavje"]')
+
+                for p in ingredients_all_p:
+                    try:
+                        p0 = self.convert_units(p[0].text_content().strip().replace('\u200b', ''))
+                        p1 = self.convert_units(p[1].text_content().strip().replace('\u200b', ''))
+
+                        if 'poglavje' in p.get('class', ''):
+                            sestavine_text.append(f"\n{p1}")
+                        else:
+                            line = f"{p0} {p1}" if p0 else p1
+                            sestavine_text.append(line)
+                    except Exception as e:
+                        raise Exception(f"Failed to process ingredient line: {str(e)}")
+
+                result_texts.append(f"\nSestavine:\n{'\n'.join(sestavine_text)}")
+            except Exception as e:
+                raise Exception(f"Failed to extract ingredients: {str(e)}")
+
+            # 7. Extract tags
+            try:
+                tags_text = tree.xpath('//section[@id="recepti"]/ul[@id="servis2"]/span/a/text()')
+                if tags_text:
+                    result_texts.append(f"\nOznake: {', '.join(tags_text)}")
+            except Exception as e:
+                raise Exception(f"Failed to extract tags: {str(e)}")
+
+            # 8. Extract comments
+            try:
+                authors = re.findall(r'<a\s+class="avtorMnenja"[^>]*>(.*?)<\/a>', html_content)
+                comments = re.findall(r'<div\s+class="msgbody"[^>]*>(?:[^<]|<(?!p\b))*<p>(.*?)<\/p>', html_content)
+                if authors and comments:
+                    komentarji = [f"{a}: {k}" for a, k in zip(authors, comments)]
+                    result_texts.append(f"\nKomentarji:\n{'\n'.join(komentarji)}")
+            except Exception as e:
+                raise Exception(f"Failed to extract comments: {str(e)}")
+
+            # Join all parts with newlines
+            recept_text = '\n'.join(result_texts)
+            print(recept_text)
+            embedding = self.embedding_fun(recept_text)
+
+            self.db.insert_page_segment(
+                page_id=page_id,
+                page_segment=recept_text,
+                embedding=embedding
+            )
+
+        except Exception as e:
+            print(f"Error processing recipe (page {page_id}) at step: {str(e)}")
+            raise  # Re-raise to see full traceback
+
+
     def process_opis(self, page_id, html_content):
         """Process and store description segment"""
         tree = html.fromstring(html_content)
@@ -44,7 +195,7 @@ class SegmentProcessor:
             difficulty = len(tree.xpath('//li[@class="zahtevnost"]/img[@src="/grafika6/ikona-utez.png"]'))
             
             segment_text = f"Opis recepta je '{description}'. Za recept porabimo {time}. Recept je {self.dict_difficulty[difficulty]}."
-            embedding = self.model.encode(segment_text).tolist()
+            embedding = self.embedding_fun(segment_text)
 
             self.db.insert_page_segment(
                 page_id=page_id,
@@ -61,7 +212,7 @@ class SegmentProcessor:
         try:
             tree = html.fromstring(html_content)
             p = tree.xpath('//div[@id="postopek"]')[0].text_content().strip()
-            embedding = self.model.encode(p).tolist()
+            embedding = self.embedding_fun(p)
 
             self.db.insert_page_segment(
                 page_id=page_id,
@@ -102,7 +253,7 @@ class SegmentProcessor:
                     line = f"{p0} {p1}" if p0 else p1
                     output += f"{line}\n"
 
-            embedding = self.model.encode(output.strip()).tolist()
+            embedding = self.embedding_fun(output.strip())
             
             self.db.insert_page_segment(
                 page_id=page_id,
@@ -118,7 +269,7 @@ class SegmentProcessor:
         try:
             tree = html.fromstring(html_content)
             tags = tree.xpath('//section[@id="recepti"]/ul[@id="servis2"]/span/a/text()')
-            embedding = self.model.encode(", ".join(tags)).tolist()
+            embedding = self.embedding_fun(", ".join(tags))
 
             self.db.insert_page_segment(
                 page_id=page_id,
@@ -136,7 +287,7 @@ class SegmentProcessor:
             comments = re.findall(r'<div\s+class="msgbody"[^>]*>(?:[^<]|<(?!p\b))*<p>(.*?)<\/p>', html_content)
             
             segment_text = "\n".join([f"{a} je zapisal '{k}'." for a, k in zip(authors, comments)])
-            embedding = self.model.encode(segment_text).tolist()
+            embedding = self.embedding_fun(segment_text)
 
             self.db.insert_page_segment(
                 page_id=page_id,
@@ -147,13 +298,12 @@ class SegmentProcessor:
         except Exception as e:
             print(f"Error processing KOMENTARJI for page {page_id}: {str(e)}")
 
+
 db_handler = DbHandler()
 db_handler.clear_page_segment()
-processor = SegmentProcessor()
-#processor.process_page(3)
-#processor.process_page(2)
-#processor.process_page(7332)
-for i in range(1, 11):
+processor = SegmentProcessor(model_type='labse')  # 'labse' , 'sloberta', 'openai'
+for i in range(579, 7999):
     processor.process_page(i)
 processor.db.create_segment_index()
+
 print("Processing complete.")

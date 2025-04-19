@@ -1,5 +1,6 @@
 # A demo script that allows us to test the retriever
 from db_handler import DbHandler
+from transformers import AutoTokenizer, AutoModelForMaskedLM
 
 # TODO: Rešiti problem, da npr. sestavine in priprava ponavadi nista povezana oz. ne vsebujejo ključne besede npr. "potratna rolada" v poizvedbi, ki ločuje recepte med sabo
 # TODO: Popraviti sklanjatev za čas priprave "Za recept porabimo 1 ura."
@@ -60,7 +61,8 @@ queries = [
     'Kako pravilno zviti rolado, da ne razpade?',                   # Na 2. mestu vrača postopek za rogljičke
 ]
 
-model_name = 'sentence-transformers/LaBSE'
+
+model_name = 'labse'                 # 'labse' , 'sloberta' , 'openai'
 table_name = 'crawldb.page_segment'
 for query in queries:
     print(f"\nQuery: {query}")
