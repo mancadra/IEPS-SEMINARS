@@ -1,0 +1,11 @@
+fastapi 
+uvicorn
+dspy
+pydantic
+pathlib
+transformers
+sentence_transformers
+torch
+psycopg2
+logging
+configparser
