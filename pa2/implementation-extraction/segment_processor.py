@@ -154,7 +154,6 @@ class SegmentProcessor:
 
             # Join all parts with newlines
             recept_text = '\n'.join(result_texts)
-            print(recept_text)
             embedding = self.embedding_fun(recept_text)
 
             self.db.insert_page_segment(
@@ -286,10 +285,10 @@ class SegmentProcessor:
 
 
 db_handler = DbHandler()
-db_handler.clear_page_segment()
+#db_handler.clear_page_segment()
 model_name = config['MODEL']['MODEL_NAME']
 processor = SegmentProcessor(model_name=model_name)
-for i in range(1, 7999):
+for i in range(5240, 7999):
     processor.process_page(i)
 processor.db.create_segment_index()
 

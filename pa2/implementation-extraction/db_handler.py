@@ -107,6 +107,7 @@ class DbHandler:
             'L1': ('<->', '-1 * (embedding %s %s::vector)'),
             'inner_product': ('<#>', '(embedding %s %s::vector) * -1')
         }
+
         op, template = metric_ops[similarity_metric]
         similarity_expr = template % (op, '%s')
 

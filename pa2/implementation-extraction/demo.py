@@ -7,53 +7,33 @@ config = helper.get_config()
 db = DbHandler()
 
 queries = [
-    # Time-related questions
-    'Koliko časa traja peka rolade?',
-    'Ali je potrebno rolado ohladiti pred nanosom nadeva?',
-    'Koliko časa vzame priprava rolade od začetka do konca?',
-    'Koliko časa nam vzame priprava rolade?',
-
-    # Ingredient questions
-    'Katere sestavine so potrebne za kremo v roladi?',
-    'Kakšne so sestavine za potratno rolado?',
-    'Kakšne so sestavine za rolado?',
-    'Ali lahko v roladi uporabim brezglutensko moko?',
-    'Kakšne so sestavine za čokoladno rolado?',
-
-    # Process/step questions
-    'Kako narediti kremo za rolado?',
-    'Kakšen je postopek za pripravo biskvita za rolado?',
-    'Kakšen je postopek za pripravo biskvita za potratno rolado?',
-    'Kako pripraviti biskvit za potratno rolado?'                   
-    'Kakšen je postopek za pripravo rolade?',
-    # Difficulty questions
-    'Je rolada primerna za začetnike?',
-    'Kakšna je težavnost priprave rolade?',
-    'Ali je priprava potratne rolade zahtevna?',
-    'Ali je rolado enastavno speči?',
-    'Kako težko je narediti rolado?',
-
-    # General questions
-    'Pri kolikšni temperaturi pečemo rolado?',
-
-    # Specific component questions
-    'Kakšen je idealen čas za stepanje jajc za biskvit?',
-    'Ali moram rolado prevrniti takoj po peki?',
-    'Kako narediti čokoladno glazuro za rolado?',
-
-    # Short keyword queries (relevance testing)
-    'Rolada',
-    'Biskvit',
-    'Krema',
-    'Potratna rolada',
-    'Čokoladna rolada',
-
-    'Kako preveriti, ali je rolada pečena?',
-    'Kakšna je idealna debelina biskvita za rolado?',
-    'Ali je lažje pripraviti rolado ali štrudlji?',
-    'Ali lahko v roladi nadomestim maslo z oljem?',
-    'Kako dolgo mora rolada počivati pred serviranjem?',
-    'Kako pravilno zviti rolado, da ne razpade?',
+    # Relevant
+    'Podaj mi recept za medene rezine',
+    'Recept za skutno lažnivko',
+    'Kako se naredi potratno toro',
+    'Vrni mi recept za sacher torto',
+    'Navodila za zebrino pecivo',
+    
+    # Z besedo sestavine
+    'Podaj mi sestavine za medene rezine',
+    'Sestavine za skutno lažnivko',
+    'Katere sestavine potrebujemo za potratno toro',
+    'Vrni mi sestavine za sacher torto',
+    'Sestavine za zebrino pecivo',
+    
+    # Z besedo postopek
+    'Podaj mi postopek za medene rezine',
+    'Postopek za skutno lažnivko',
+    'Kakšen je postopek potratno torto',
+    'Vrni mi postopek za sacher torto',
+    'Postopek za zebrino pecivo',
+    
+    # Z besedo priprava
+    'Kako se pripravi medene rezine',
+    'Priprava skutne lažnivke',
+    'Kakšna je priprava potratne torte',
+    'Vrni mi pripravo za sacher torto',
+    'Priprava za zebrino pecivo',
 ]
 
 similarity_metric = config['MODEL']['SIMILARITY_METRIC']
