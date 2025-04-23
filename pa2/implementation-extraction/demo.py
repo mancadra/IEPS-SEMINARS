@@ -7,33 +7,38 @@ config = helper.get_config()
 db = DbHandler()
 
 queries = [
-    # Relevant
-    'Podaj mi recept za medene rezine',
-    'Recept za skutno lažnivko',
-    'Kako se naredi potratno toro',
-    'Vrni mi recept za sacher torto',
-    'Navodila za zebrino pecivo',
+    'arašidovčki',
+    'jabolčni kompot',
+    'bananina torta',
+    'bavarska krema',
+    'čokoladni ježki',
+
+    'Podaj mi recept za arašidovčke',
+    'Recept za jabolčni kompot',
+    'Kako se naredi bananino toro',
+    'Vrni mi recept za bavarsko kremo',
+    'Navodila za čokoladne ježke',
     
     # Z besedo sestavine
-    'Podaj mi sestavine za medene rezine',
-    'Sestavine za skutno lažnivko',
-    'Katere sestavine potrebujemo za potratno toro',
-    'Vrni mi sestavine za sacher torto',
-    'Sestavine za zebrino pecivo',
+    'Podaj mi sestavine za arašidovčke',
+    'Sestavine za jabolčni kompot',
+    'Katere sestavine potrebujemo za bananino toro',
+    'Vrni mi sestavine za bavarsko kremo',
+    'Sestavine za čokoladne ježke',
     
     # Z besedo postopek
-    'Podaj mi postopek za medene rezine',
-    'Postopek za skutno lažnivko',
-    'Kakšen je postopek potratno torto',
-    'Vrni mi postopek za sacher torto',
-    'Postopek za zebrino pecivo',
+    'Podaj mi postopek za arašidovčke',
+    'Postopek za jabolčni kompot',
+    'Kakšen je postopek bananino torto',
+    'Vrni mi postopek za bavarsko kremo',
+    'Postopek za čokoladne ježke',
     
     # Z besedo priprava
-    'Kako se pripravi medene rezine',
-    'Priprava skutne lažnivke',
-    'Kakšna je priprava potratne torte',
-    'Vrni mi pripravo za sacher torto',
-    'Priprava za zebrino pecivo',
+    'Kako se pripravi arašidovčke',
+    'Priprava jabolčnega kompota',
+    'Kakšna je priprava bananine torte',
+    'Vrni mi pripravo za bavarsko kremo',
+    'Priprava za čokoladne ježke',
 ]
 
 similarity_metric = config['MODEL']['SIMILARITY_METRIC']

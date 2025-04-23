@@ -1,5 +1,5 @@
 import psycopg2
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModel, DistilBertTokenizer, DistilBertModel
 from sentence_transformers import SentenceTransformer
 from helper import Helper
 import embeddings
@@ -90,9 +90,16 @@ class DbHandler:
         if model_name == 'labse':
             model = SentenceTransformer('sentence-transformers/LaBSE')
             query_embedding = model.encode(query).tolist()
-        elif model_name in ['sloberta', 'openai']:
+        elif model_name == 'distilbert':
+            model_id = 'distilbert-base-uncased'
+            tokenizer = DistilBertTokenizer.from_pretrained(model_id)
+            model = DistilBertModel.from_pretrained(model_id)
+            query_embedding = embeddings.calculate_embedding(model, tokenizer, query)
+        elif model_name in ['sloberta', 'openai', 'croslo']:
             if model_name == 'sloberta':
                 model_id = 'EMBEDDIA/sloberta'
+            elif model_name == 'croslo':
+                model_id = 'EMBEDDIA/crosloengual-bert'
             else:
                 model_id = 'Xenova/text-embedding-ada-002'
 

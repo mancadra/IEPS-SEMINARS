@@ -5,10 +5,11 @@ from helper import Helper
 from embeddings import calculate_embedding
 from db_handler import DbHandler
 from sentence_transformers import SentenceTransformer
-from transformers import AutoTokenizer, AutoModel, GPT2TokenizerFast
+from transformers import AutoTokenizer, AutoModel, GPT2TokenizerFast, DistilBertTokenizer, DistilBertModel
 
 helper = Helper()
 config = helper.get_config()
+recipe_count = 0
 
 class SegmentProcessor:
     def __init__(self, model_name):
@@ -22,10 +23,18 @@ class SegmentProcessor:
             self.tokenizer = AutoTokenizer.from_pretrained("EMBEDDIA/sloberta")
             self.model = AutoModel.from_pretrained("EMBEDDIA/sloberta")
             self.embedding_fun = lambda text: calculate_embedding(self.model, self.tokenizer, text)
+        elif model_name == 'croslo':
+            self.tokenizer = AutoTokenizer.from_pretrained("EMBEDDIA/crosloengual-bert")
+            self.model = AutoModel.from_pretrained("EMBEDDIA/crosloengual-bert")
+            self.embedding_fun = lambda text: calculate_embedding(self.model, self.tokenizer, text)
         elif model_name == 'openai':
             #tokenizer = GPT2TokenizerFast.from_pretrained('Xenova/text-embedding-ada-002')
             self.tokenizer = AutoTokenizer.from_pretrained("Xenova/text-embedding-ada-002")
             self.model = AutoModel.from_pretrained("Xenova/text-embedding-ada-002")
+            self.embedding_fun = lambda text: calculate_embedding(self.model, self.tokenizer, text)
+        elif model_name == 'distilbert':
+            self.tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
+            self.model = DistilBertModel.from_pretrained("distilbert-base-uncased")
             self.embedding_fun = lambda text: calculate_embedding(self.model, self.tokenizer, text)
         else:
             raise ValueError(f"Unknown model type: {model_name}")
@@ -152,15 +161,21 @@ class SegmentProcessor:
             except Exception as e:
                 raise Exception(f"Failed to extract comments: {str(e)}")
 
+
+            print("\n", title)
             # Join all parts with newlines
             recept_text = '\n'.join(result_texts)
-            embedding = self.embedding_fun(recept_text)
+            embedding = self.embedding_fun(title)
+            #embedding = self.embedding_fun(recept_text)
 
             self.db.insert_page_segment(
                 page_id=page_id,
                 page_segment=recept_text,
                 embedding=embedding
             )
+
+            global recipe_count
+            recipe_count += 1
 
         except Exception as e:
             print(f"Error processing recipe (page {page_id}) at step: {str(e)}")
@@ -285,11 +300,13 @@ class SegmentProcessor:
 
 
 db_handler = DbHandler()
-#db_handler.clear_page_segment()
+db_handler.clear_page_segment()
 model_name = config['MODEL']['MODEL_NAME']
 processor = SegmentProcessor(model_name=model_name)
-for i in range(5240, 7999):
+i = 559
+while recipe_count < 50 and i < 7999:
     processor.process_page(i)
+    i += 1
 processor.db.create_segment_index()
 
 print("Processing complete.")
