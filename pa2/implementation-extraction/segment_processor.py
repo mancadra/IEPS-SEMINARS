@@ -162,20 +162,21 @@ class SegmentProcessor:
                 raise Exception(f"Failed to extract comments: {str(e)}")
 
 
-            print("\n", title)
-            # Join all parts with newlines
-            recept_text = '\n'.join(result_texts)
-            embedding = self.embedding_fun(title)
-            #embedding = self.embedding_fun(recept_text)
+            if title != []:
+                print("\n", title)
+                # Join all parts with newlines
+                recept_text = '\n'.join(result_texts)
+                embedding = self.embedding_fun(title)
+                #embedding = self.embedding_fun(recept_text)
 
-            self.db.insert_page_segment(
-                page_id=page_id,
-                page_segment=recept_text,
-                embedding=embedding
-            )
+                self.db.insert_page_segment(
+                    page_id=page_id,
+                    page_segment=recept_text,
+                    embedding=embedding
+                )
 
-            global recipe_count
-            recipe_count += 1
+                global recipe_count
+                recipe_count += 1
 
         except Exception as e:
             print(f"Error processing recipe (page {page_id}) at step: {str(e)}")
@@ -300,13 +301,12 @@ class SegmentProcessor:
 
 
 db_handler = DbHandler()
-db_handler.clear_page_segment()
+#db_handler.clear_page_segment()
 model_name = config['MODEL']['MODEL_NAME']
 processor = SegmentProcessor(model_name=model_name)
-i = 559
-while recipe_count < 50 and i < 7999:
+for i in range(2476, 7999):
     processor.process_page(i)
-    i += 1
+
 processor.db.create_segment_index()
 
 print("Processing complete.")

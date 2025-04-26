@@ -41,6 +41,17 @@ queries = [
     'Priprava za čokoladne ježke',
 ]
 
+queries = [
+    'Podaj mi recepte z malinami',
+    'Podaj mi recepte z bananami',
+    'Podaj mi čokoladna peciva',
+    'Podaj mi recepte s čokolado',
+    'Podaj mi recepte z nutelo',
+    'Podaj mi recepte s kokosom',
+    'Podaj mi recepte za valentinovo',
+    'Podaj mi božične recepte',
+]
+
 similarity_metric = config['MODEL']['SIMILARITY_METRIC']
 table_name = 'crawldb.page_segment'
 for query in queries:
