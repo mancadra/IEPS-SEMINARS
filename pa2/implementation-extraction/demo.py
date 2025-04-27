@@ -15,14 +15,14 @@ queries = [
 
     'Podaj mi recept za arašidovčke',
     'Recept za jabolčni kompot',
-    'Kako se naredi bananino toro',
+    'Kako se naredi bananino torto',
     'Vrni mi recept za bavarsko kremo',
     'Navodila za čokoladne ježke',
     
     # Z besedo sestavine
     'Podaj mi sestavine za arašidovčke',
     'Sestavine za jabolčni kompot',
-    'Katere sestavine potrebujemo za bananino toro',
+    'Katere sestavine potrebujemo za bananino torto',
     'Vrni mi sestavine za bavarsko kremo',
     'Sestavine za čokoladne ježke',
     
@@ -39,9 +39,10 @@ queries = [
     'Kakšna je priprava bananine torte',
     'Vrni mi pripravo za bavarsko kremo',
     'Priprava za čokoladne ježke',
-]
 
-queries = [
+    'Podaj mi recepte, ki porabijo 1 uro',
+    'Podaj mi recepte, ki porabijo 45 min ',
+    'Podaj mi recepte, ki porabijo 15 min ',
     'Podaj mi recepte z malinami',
     'Podaj mi recepte z bananami',
     'Podaj mi čokoladna peciva',
@@ -51,6 +52,14 @@ queries = [
     'Podaj mi recepte za valentinovo',
     'Podaj mi božične recepte',
 ]
+
+
+queries = [
+    'Vrni mi recept za sacher torto',
+    'Navodila za zebrino pecivo',
+    'Podaj mi zdrave recepte',
+]
+
 
 similarity_metric = config['MODEL']['SIMILARITY_METRIC']
 table_name = 'crawldb.page_segment'

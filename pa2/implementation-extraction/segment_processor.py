@@ -111,7 +111,6 @@ class SegmentProcessor:
                 difficulty = len(tree.xpath('//li[@class="zahtevnost"]/img[@src="/grafika6/ikona-utez.png"]'))
                 if difficulty:
                     result_texts.append(f"Težavnost: {self.dict_difficulty.get(difficulty, 'neznana')}")
-                    embedding_text += f"Recept je {self.dict_difficulty[difficulty]}."
             except Exception as e:
                 raise Exception(f"Failed to extract difficulty: {str(e)}")
 
@@ -336,8 +335,14 @@ db_handler = DbHandler()
 #db_handler.clear_page_segment()
 model_name = config['MODEL']['MODEL_NAME']
 processor = SegmentProcessor(model_name=model_name)
-for i in range(2476, 7999):
+"""i = 0
+while recipe_count < 50 and i < 7999:
     processor.process_page(i)
+    i += 1
+"""
+for i in range(1, 7999):
+    processor.process_page(i)
+
 
 processor.db.create_segment_index()
 
