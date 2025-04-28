@@ -335,11 +335,7 @@ db_handler = DbHandler()
 #db_handler.clear_page_segment()
 model_name = config['MODEL']['MODEL_NAME']
 processor = SegmentProcessor(model_name=model_name)
-"""i = 0
-while recipe_count < 50 and i < 7999:
-    processor.process_page(i)
-    i += 1
-"""
+
 for i in range(1, 7999):
     processor.process_page(i)
 

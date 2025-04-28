@@ -3,7 +3,7 @@ import torch
 
 def calculate_embedding(model, tokenizer, text):
     """
-        Used for calculating embedddings for models SloBERTA crosloberta and text-embedding-ada-002
+        Used for calculating embedddings for models SloBERTA, crosloberta and distilbert
     """
     inputs = tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=512)
     with torch.no_grad():

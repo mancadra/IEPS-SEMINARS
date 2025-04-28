@@ -51,10 +51,7 @@ queries = [
     'Podaj mi recepte s kokosom',
     'Podaj mi recepte za valentinovo',
     'Podaj mi božične recepte',
-]
 
-
-queries = [
     'Vrni mi recept za sacher torto',
     'Navodila za zebrino pecivo',
     'Podaj mi zdrave recepte',
