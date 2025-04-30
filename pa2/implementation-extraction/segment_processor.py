@@ -5,10 +5,11 @@ from helper import Helper
 from embeddings import calculate_embedding
 from db_handler import DbHandler
 from sentence_transformers import SentenceTransformer
-from transformers import AutoTokenizer, AutoModel, GPT2TokenizerFast
+from transformers import AutoTokenizer, AutoModel, GPT2TokenizerFast, DistilBertTokenizer, DistilBertModel
 
 helper = Helper()
 config = helper.get_config()
+recipe_count = 0
 
 class SegmentProcessor:
     def __init__(self, model_name):
@@ -22,10 +23,18 @@ class SegmentProcessor:
             self.tokenizer = AutoTokenizer.from_pretrained("EMBEDDIA/sloberta")
             self.model = AutoModel.from_pretrained("EMBEDDIA/sloberta")
             self.embedding_fun = lambda text: calculate_embedding(self.model, self.tokenizer, text)
+        elif model_name == 'croslo':
+            self.tokenizer = AutoTokenizer.from_pretrained("EMBEDDIA/crosloengual-bert")
+            self.model = AutoModel.from_pretrained("EMBEDDIA/crosloengual-bert")
+            self.embedding_fun = lambda text: calculate_embedding(self.model, self.tokenizer, text)
         elif model_name == 'openai':
             #tokenizer = GPT2TokenizerFast.from_pretrained('Xenova/text-embedding-ada-002')
             self.tokenizer = AutoTokenizer.from_pretrained("Xenova/text-embedding-ada-002")
             self.model = AutoModel.from_pretrained("Xenova/text-embedding-ada-002")
+            self.embedding_fun = lambda text: calculate_embedding(self.model, self.tokenizer, text)
+        elif model_name == 'distilbert':
+            self.tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
+            self.model = DistilBertModel.from_pretrained("distilbert-base-uncased")
             self.embedding_fun = lambda text: calculate_embedding(self.model, self.tokenizer, text)
         else:
             raise ValueError(f"Unknown model type: {model_name}")
@@ -65,6 +74,7 @@ class SegmentProcessor:
         """Process and store the whole recipe as one segment"""
         tree = html.fromstring(html_content)
         result_texts = []
+        embedding_text = ""
 
         try:
             # 1. Extract title
@@ -73,6 +83,7 @@ class SegmentProcessor:
                 if title:
                     title = title[0].strip()
                     result_texts.append(f"{title}:")
+                    embedding_text += title + ". "
             except Exception as e:
                 raise Exception(f"Failed to extract title: {str(e)}")
 
@@ -91,6 +102,7 @@ class SegmentProcessor:
                 if time:
                     time = time.group(1).strip()
                     result_texts.append(f"Čas priprave: {time}")
+                    embedding_text += f"Za recept porabimo {time}. "
             except Exception as e:
                 raise Exception(f"Failed to extract time: {str(e)}")
 
@@ -139,6 +151,10 @@ class SegmentProcessor:
                 tags_text = tree.xpath('//section[@id="recepti"]/ul[@id="servis2"]/span/a/text()')
                 if tags_text:
                     result_texts.append(f"\nOznake: {', '.join(tags_text)}")
+                    embedding_text +=  "Tags: "
+                    for tag in tags_text:
+                        embedding_text += "".join(tag[1:]) + ", "
+                    embedding_text += "."
             except Exception as e:
                 raise Exception(f"Failed to extract tags: {str(e)}")
 
@@ -152,21 +168,51 @@ class SegmentProcessor:
             except Exception as e:
                 raise Exception(f"Failed to extract comments: {str(e)}")
 
-            # Join all parts with newlines
-            recept_text = '\n'.join(result_texts)
-            print(recept_text)
-            embedding = self.embedding_fun(recept_text)
 
-            self.db.insert_page_segment(
-                page_id=page_id,
-                page_segment=recept_text,
-                embedding=embedding
-            )
+            if title != []:
+                print("\n", title)
+                # Join all parts with newlines
+                recept_text = '\n'.join(result_texts)
+                embedding = self.embedding_fun(embedding_text)
+                #embedding = self.embedding_fun(recept_text)
+
+                self.db.insert_page_segment(
+                    page_id=page_id,
+                    page_segment=recept_text,
+                    embedding=embedding
+                )
+
+                global recipe_count
+                recipe_count += 1
 
         except Exception as e:
             print(f"Error processing recipe (page {page_id}) at step: {str(e)}")
             raise  # Re-raise to see full traceback
 
+    def process_opis_tags_title(self, page_id, html_content):
+        """Process and store description segment"""
+        tree = html.fromstring(html_content)
+        try:
+            description = tree.xpath('//div[@id="recept-main"]/p/text()')[0].strip()
+            time = re.search(r'<span class="cas">([^<]+)<\/span>', html_content).group(1).strip()
+            difficulty = len(tree.xpath('//li[@class="zahtevnost"]/img[@src="/grafika6/ikona-utez.png"]'))
+            title = tree.xpath('//div[@id="recept-main"]/h1/text()')
+            tags = tree.xpath('//section[@id="recepti"]/ul[@id="servis2"]/span/a/text()')
+
+            segment_text = f"{title}. Za recept porabimo {time}. Recept je {self.dict_difficulty[difficulty]}. Tags: "
+            for tag in tags:
+                segment_text += "".join(tag[1:]) + ", "
+            segment_text += "."
+            embedding = self.embedding_fun(segment_text)
+
+            self.db.insert_page_segment(
+                page_id=page_id,
+                segment_type='OPIS',
+                page_segment=segment_text,
+                embedding=embedding
+            )
+        except Exception as e:
+            print(f"Error processing OPIS for page {page_id}: {str(e)}")
 
     def process_opis(self, page_id, html_content):
         """Process and store description segment"""
@@ -286,11 +332,14 @@ class SegmentProcessor:
 
 
 db_handler = DbHandler()
-db_handler.clear_page_segment()
+#db_handler.clear_page_segment()
 model_name = config['MODEL']['MODEL_NAME']
 processor = SegmentProcessor(model_name=model_name)
+
 for i in range(1, 7999):
     processor.process_page(i)
+
+
 processor.db.create_segment_index()
 
 print("Processing complete.")
