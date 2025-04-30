@@ -7,6 +7,7 @@ import torch
 
 helper = Helper()
 config = helper.get_config()
+context_size = config['MODEL']['CONTEXT_SIZE']
 
 def calculate_embedding(model, tokenizer, text):
     """
@@ -94,7 +95,7 @@ class DbHandler:
         cur.execute('CREATE INDEX ON crawldb.page_segment USING hnsw (embedding vector_cosine_ops) WITH (m = 16, ef_construction = 64);')
 
 
-    def query_similarity(self, query, table_name, similarity_metric, k = 5):
+    def query_similarity(self, query, table_name, similarity_metric, k = context_size):
         """
         The query_similarity function retrieves the top k most similar segments, and their page_id from a pgvector database based on a given similarity_metric.
 

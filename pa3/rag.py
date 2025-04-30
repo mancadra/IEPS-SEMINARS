@@ -6,7 +6,7 @@ helper = helper.Helper()
 config = helper.get_config()
 db = db_handler.DbHandler()
 similarity_metric = config['MODEL']['SIMILARITY_METRIC']
-model_name = config['MODEL']['LLM']
+model_name = config['MODEL']['LANGUAGE_MODEL']
 table_name = 'crawldb.page_segment'
 
 def query_database(query):
