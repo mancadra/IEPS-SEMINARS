@@ -1,0 +1,1439 @@
+Language model: gemma3:latest
+Context size: 10
+
+
+- - - - - - - - - - - - - - -
+Question: Podaj mi recept za arašidovčke
+
+No context:
+**Ingredients:**
+
+*   250g Hazelnut Paste (Hazelnut Butter)
+*   125g Powdered Sugar
+*   125g Butter (softened)
+*   1 tsp Vanilla Extract
+*   1/2 tsp Rum Extract (optional, for flavor)
+*   1/2 - 1 cup All-Purpose Flour (start with 1 cup, add more if needed)
+*   1/2 tsp Baking Powder
+*   1/4 tsp Salt
+*   1 Egg (lightly beaten)
+*   1/2 cup Chocolate Chips (optional)
+
+**Instructions:**
+
+1.  In a large bowl, beat the hazelnut paste, powdered sugar, softened butter, vanilla extract, and rum extract (if using) until well combined.
+2.  In a separate bowl, whisk together the flour, baking powder, and salt.
+3.  Gradually add the dry ingredients to the wet ingredients, mixing until a dough forms. If the dough is too sticky, add a little more flour, 1 tablespoon at a time.
+4.  Add the beaten egg and mix until just combined.
+5.  If using, fold in the chocolate chips.
+6.  Preheat oven to 180°C (350°F).
+7.  Roll out the dough thinly on a lightly floured surface.
+8.  Cut out desired shapes using cookie cutters.
+9.  Place the shapes on a baking sheet lined with parchment paper.
+10. Bake for 8-10 minutes, or until lightly golden brown.
+11. Let cool completely on a wire rack.
+
+With context:
+I couldn't find a specific recipe for peanut butter cookies within the provided text snippets. However, I found recipes for Oreo cookies, Oreo rice, and basic muffins that could be adapted. Here's a combined approach based on the Oreo rice recipe, which seems the closest match:
+
+**Adapted Oreo Rice Recipe for Peanut Butter Cookies**
+
+This recipe uses the core principles of the Oreo rice, adapting it for a cookie texture.
+
+**Ingredients:**
+
+*   1.5 cups (190g) all-purpose flour
+*   1/2 cup (65g) unsweetened cocoa powder (for a richer flavor)
+*   1 1/4 cups (250g) granulated sugar
+*   3/4 teaspoon baking soda
+*   1/2 teaspoon salt
+*   2 large eggs
+*   1/2 cup (110g) melted butter
+*   3/4 cup (185g) hot water
+*   Approximately 15-20 Oreo cookies (whole or coarsely crushed – adjust to your preference)
+
+**Instructions:**
+
+1.  Preheat oven to 180°C (350°F). Line a baking sheet with parchment paper.
+2.  In a large bowl, whisk together the flour, cocoa powder, sugar, baking soda, and salt.
+3.  Add the melted butter and hot water to the dry ingredients and mix until just combined. Don't overmix.
+4.  Fold in the whole or coarsely crushed Oreo cookies.
+5.  Drop by rounded tablespoons onto the prepared baking sheet.
+6.  Bake for 16-18 minutes, or until the edges are golden brown.
+7.  Let cool on the baking sheet for a few minutes before transferring to a wire rack to cool completely.
+
+**Notes:**
+
+*   Adjust the amount of Oreo cookies to your desired level of cookie flavor and texture.
+*   For a smoother cookie, crush the Oreos finely. For a chunkier cookie, use larger pieces.
+
+I apologize that I couldn't provide a dedicated peanut butter cookie recipe from the given text. This adaptation combines elements from the available snippets to create a workable recipe.
+
+
+- - - - - - - - - - - - - - -
+Question: Recept za jabolčni kompot
+
+No context:
+**Recipe for Apple Compote**
+
+**Ingredients:**
+
+*   6-8 apples (such as Granny Smith, Gala, or Fuji)
+*   1/2 cup water
+*   1/4 cup sugar (adjust to taste)
+*   1/2 teaspoon cinnamon
+*   1 tablespoon lemon juice (optional)
+
+**Instructions:**
+
+1.  Peel, core, and chop the apples into bite-sized pieces.
+2.  In a saucepan, combine the chopped apples, water, sugar, and cinnamon.
+3.  Bring the mixture to a boil over medium heat.
+4.  Reduce heat and simmer for 20-30 minutes, or until the apples are soft and the compote has thickened. Stir occasionally.
+5.  If desired, stir in lemon juice before serving.
+6.  Serve warm or cold.
+
+With context:
+Here's the recipe for apple compote based on the provided text:
+
+**Ingredients:**
+
+*   5 large apples
+*   1 - 1.5 liters of water
+*   3 tablespoons of sugar
+*   2 vanilla pudding powders
+*   Lemon peel
+*   Cinnamon
+*   (Optional: baby piñon/Albert cookies)
+
+**Instructions:**
+
+1.  Peel and chop the apples.
+2.  Boil the apples in water with sugar, cinnamon, and lemon peel for about 45 minutes, or until they are soft.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se naredi bananino torto
+
+No context:
+**Simple Banana Cake Recipe**
+
+**Ingredients:**
+
+*   1 1/2 cups all-purpose flour
+*   1 teaspoon baking soda
+*   1/2 teaspoon salt
+*   1/2 cup (1 stick) unsalted butter, softened
+*   3/4 cup granulated sugar
+*   2 large eggs
+*   1 teaspoon vanilla extract
+*   1 1/2 cups mashed bananas (about 3-4 medium bananas)
+*   1/2 cup sour cream or plain yogurt (optional, adds moisture)
+
+**Instructions:**
+
+1.  Preheat oven to 350°F (175°C). Grease and flour a 9x13 inch baking pan.
+2.  In a large bowl, whisk together the flour, baking soda, and salt.
+3.  In a separate bowl, cream together the butter and sugar until light and fluffy.
+4.  Beat in the eggs one at a time, then stir in the vanilla extract.
+5.  Gradually add the dry ingredients to the wet ingredients, mixing until just combined. Do not overmix.
+6.  Stir in the mashed bananas and sour cream (if using).
+7.  Pour the batter into the prepared pan and bake for 30-35 minutes, or until a toothpick inserted into the center comes out clean.
+
+With context:
+Here's how to make banana cake, based on the tenth recipe provided:
+
+**Ingredients:**
+
+*   5 jajc (5 eggs)
+*   5 žlic sladkorja (5 tablespoons sugar)
+*   5 žlic moke (5 tablespoons flour)
+*   2 žlici vode (2 tablespoons water)
+*   marelična marmelada (apricot jam)
+*   3 banane (bananas)
+*   1 vanilin puding (vanilla pudding)
+*   250 mililitrov mascarponeja (250 ml mascarpone)
+*   vsaj 8 želatininih listov (at least 8 gelatin sheets)
+*   sladkor v prahu (powdered sugar)
+*   1 rumenjak (1 egg yolk)
+*   20 dekagramov margarine (20g margarine)
+*   malo ruma (a little rum)
+*   20 dekagramov jedilne čokolade (20g dark chocolate)
+*   1 žlica vode (1 tablespoon water)
+
+**Instructions:**
+
+1.  Spremeš jajca, sladkor in moko.
+2.  Dodajo vodo.
+3.  Spremeš vanilin puding.
+4.  Spremeš margarino in rumenjak ter malo ruma.
+5.  Spremeš ohlajen puding.
+6.  Spremeš ohlajeno čokolado skupaj z vodo.
+7.  Prelijemo pecivo z ohlajeno čokolado.
+
+
+- - - - - - - - - - - - - - -
+Question: Vrni mi recept za bavarsko kremo
+
+No context:
+**Bayerische Creme Recipe**
+
+**Yields:** Approximately 6-8 servings
+**Prep time:** 20 minutes
+**Chill time:** Minimum 4 hours, preferably overnight
+
+**Ingredients:**
+
+*   2 cups (475 ml) Heavy Cream
+*   1/2 cup (100g) Granulated Sugar
+*   1 Vanilla Bean, split and seeds scraped (or 1 tsp vanilla extract)
+*   2 large Egg Yolks
+*   2 tablespoons Unsalted Butter, cut into pieces
+
+**Instructions:**
+
+1.  **Warm the Cream:** In a medium saucepan, combine the heavy cream and sugar. Heat over medium heat until small bubbles form around the edges – *do not boil*. Remove from heat.
+2.  **Infuse the Flavor:** If using a vanilla bean, add the split bean and seeds to the warm cream. Cover and let steep for 15-20 minutes. If using vanilla extract, add it after removing from heat.
+3.  **Temper the Egg Yolks:** In a separate bowl, whisk together the egg yolks. Gradually whisk a small amount (about 1/4 cup) of the warm cream into the egg yolks, whisking constantly to temper them and prevent them from scrambling.
+4.  **Combine and Strain:** Pour the tempered egg yolk mixture back into the saucepan with the remaining cream. Cook over low heat, stirring constantly with a rubber spatula, until the mixture thickens slightly – it should coat the back of a spoon. *Do not boil!* Strain the mixture through a fine-mesh sieve into a clean bowl.
+5.  **Add Butter:** Stir in the butter until it is completely melted and incorporated.
+6.  **Chill:** Cover the bowl with plastic wrap, pressing the wrap directly onto the surface of the cream to prevent a skin from forming. Refrigerate for at least 4 hours, or preferably overnight, until completely chilled and set.
+
+**Notes:**
+
+*   Temperature is crucial. The cream must be warm enough to cook the egg yolks, but not so hot that they curdle.
+*   Don't overcook the cream mixture – it will curdle.
+*   Serve chilled. Bavarian Cream is often used as a filling for cakes and pastries.
+
+With context:
+Here's the recipe for "Vanilijeva krema za torto (crema pasticcera)" which is a good approximation of Bavarian cream:
+
+**Vanilijeva krema za torto (crema pasticcera)**
+
+**Težavnost:** zelo lahek
+
+**Postopek:**
+
+V posodi penasto vmešamo sladkor, vanilijev sladkor in rumenjake. Dodamo moko in ribano limonino lupinico. Prilijemo mleko in postavimo na ogenj ter počasi kuhamo, da se zgosti. Ko zavre, odstavimo od ognja. Postavimo na hladno. Premažemo z maslom. Občasno premešamo, da ne nastane skorjica.
+
+**Sestavine:**
+
+*   75 gramov moke
+*   1 liter mleka
+*   100 gramov sladkorja
+*   1 vanilijev sladkor
+*   3 rumenjaki
+*   ribana limonina lupinica (za okus)
+*   maslo (za premaz)
+
+
+- - - - - - - - - - - - - - -
+Question: Navodila za čokoladne ježke
+
+No context:
+Here are some general instructions for making chocolate hedgehogs:
+
+**Ingredients:**
+
+*   150g Dark Chocolate (or milk chocolate, depending on preference)
+*   100g White Chocolate
+*   100g Butter
+*   100g Icing Sugar
+*   1 tbsp Milk
+*   Small pretzel sticks (for spines)
+*   Miniature marshmallows (for the nose and ears)
+*   Food coloring (optional, for decorating)
+
+**Instructions:**
+
+1.  Melt the dark chocolate and white chocolate together, stirring until smooth.
+2.  Add the butter to the melted chocolate and stir until combined.
+3.  Gradually add the icing sugar, mixing until smooth.
+4.  Add a little milk if needed to adjust the consistency.
+5.  Line a baking tray with parchment paper.
+6.  Using a spoon, drop small mounds of the chocolate mixture onto the parchment paper, creating hedgehog shapes.
+7.  Insert pretzel sticks into the chocolate mounds for the spines.
+8.  Add a miniature marshmallow for the nose and a small piece for the ears.
+9.  If desired, use food coloring to decorate the hedgehogs.
+10. Refrigerate for at least 30 minutes to allow the chocolate to set.
+
+With context:
+Okay, here's a recipe for Chocolate Chip Cookies, combining information from the provided snippets:
+
+**Chocolate Chip Cookies**
+
+**Yields:** Approximately 24 cookies
+**Prep time:** 15 minutes
+**Chill time:** 30 minutes (optional, but recommended)
+**Bake time:** 8-10 minutes
+
+**Ingredients:**
+
+*   14 oz (400g) Butter, softened
+*   7 oz (200g) Granulated Sugar
+*   7 oz (200g) Brown Sugar, packed
+*   2 Large Eggs
+*   1 tsp Vanilla Extract
+*   3 1/2 cups (450g) All-Purpose Flour
+*   1 tsp Baking Soda
+*   1 tsp Salt
+*   2 - 2 1/2 cups (280-350g) Chocolate Chips (or more, to taste)
+*   1/2 cup (60g) Sesame Seeds (optional, for coating)
+
+**Instructions:**
+
+1.  **Cream Butter and Sugars:** In a large bowl, cream together the softened butter, granulated sugar, and brown sugar until light and fluffy.
+2.  **Add Eggs and Vanilla:** Beat in the eggs one at a time, then stir in the vanilla extract.
+3.  **Combine Dry Ingredients:** In a separate bowl, whisk together the flour, baking soda, and salt.
+4.  **Gradually Add Dry Ingredients:** Gradually add the dry ingredients to the wet ingredients, mixing until just combined. Do not overmix.
+5.  **Stir in Chocolate Chips:** Stir in the chocolate chips.
+6.  **Shape Cookies:** Drop by rounded tablespoons onto ungreased baking sheets.
+7.  **Chill (Optional):** For thicker cookies, chill the dough for 30 minutes before baking.
+8.  **Bake:** Bake at 375°F (190°C) for 8-10 minutes, or until the edges are golden brown.
+9.  **Cool:** Let the cookies cool on the baking sheets for a few minutes before transferring them to a wire rack to cool completely.
+
+**Notes:**
+
+*   Many of the snippets mention using a combination of granulated and brown sugar for optimal flavor.
+*   Some snippets suggest chilling the dough for thicker cookies.
+*   Sesame seeds are an optional coating, as mentioned in one snippet.
+*   Adjust baking time based on your oven.
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za arašidovčke?
+
+No context:
+Potrebuješ:
+*   115 g masla, ostanek iz zamrzovalnika je idealen
+*   115 g medenjaka, zdrobljenega
+*   1/2 čajne žlične soli
+*   2 kosovi (po 125 g) moke
+
+With context:
+For the peanut cookies, you need the following ingredients:
+
+*   22 dekagramov moke
+*   14 dekagramov margarine
+*   7 dekagramov sladkorja v prahu
+*   7 dekagramov mletih orehov
+*   5 dekagramov marcipana
+*   2 jajca
+*   1 decilitrov mleka
+*   1 decilitrov smetane
+*   1 žlička grenkega kakava
+*   1/2 decilitrov mleka
+*   200 gramov marcipana
+*   5 dekagramov masla
+*   1 žlička pecilnega praška
+*   1 decilitrov vode
+*   1 decilitrov smetane
+*   1 žlička pecilnega praška
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*   1 decilitrov vode
+*
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za jabolčni kompot?
+
+No context:
+Za jabolčni kompot potrebuješ jabolka, vodo in po želji cimet ali sladkor.
+
+With context:
+Here are the ingredients needed for apple compote, based on the provided text:
+
+*   Jabolka (apples)
+*   Cimet (cinnamon)
+*   Sladkor (sugar) - implied, as it's often added to compotes.
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za bananino torto?
+
+No context:
+Potrebuješ:
+*   Banane
+*   Mokrý šuľka
+*   Cukor
+*   Škorica
+*   Konzervovaná slivky
+*   Odstrek vanilky
+*   Soľ
+
+With context:
+Here's a consolidated list of ingredients needed for the banana-based desserts described in the provided text:
+
+**General Ingredients (appearing in multiple recipes):**
+
+*   Moka (Flour)
+*   Sladkor (Sugar)
+*   Jajca (Eggs)
+*   Maslo (Butter/Fat)
+*   Mleko (Milk)
+*   Pecilni prašek (Baking Powder)
+*   Kakav (Cocoa)
+*   Stopljena jedilna čokolada (Melting Chocolate)
+*   Rjavi sladkor (Brown Sugar)
+*   Malo olja (Little Oil)
+
+**Specific Ingredients (from individual recipes):**
+
+*   **Banoffee Pie:**
+    *   Kondenzirano mleko (Condensed Milk)
+    *   Smetana (Whipped Cream)
+    *   Temna čokolada (Dark Chocolate)
+    *   Marmelada (Jam)
+*   **Bananina torta:**
+    *   Kondenzirano mleko (Condensed Milk)
+    *   Smetana (Whipped Cream)
+    *   Temna čokolada (Dark Chocolate)
+    *   Marmelada (Jam)
+*   **Bananina torta (another version):**
+    *   Kisla smetana (Sour Cream)
+    *   Domača marmelada (Homemade Jam)
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za bavarsko kremo?
+
+No context:
+Osnovne sestavine za bavarsko kremo so mleko, sladkor in vanilja. Pogosto se dodajajo tudi druge dodatke, kot so čokolade, oreščki ali druge začimbe.
+
+With context:
+The following ingredients are needed for the Bavarian cream:
+
+*   4 rumenjaki (4 egg yolks)
+*   12 dekagramov sladkorja (12 decigrams of sugar)
+*   3 decilitrov mleka (3 deciliters of milk)
+*   1 decilitrov vode za želatino (1 deciliter of water for gelatin)
+*   2 dekagramov želatine v prahu (2 decigrams of gelatin in powder)
+*   1 žlica ruma (1 tablespoon of rum)
+*   vanilija, cimet, muškatni orešček (vanilla, cinnamon, nutmeg)
+*   rozine, namočene v likerju (raisins, soaked in liqueur)
+*   čokolada (chocolate)
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za čokoladne ježke?
+
+No context:
+Za čokoladne ježke potrebuješ:
+* Čokolado
+* Biskvit ali vaflji za ogrodje
+* Poslikave iz čokolade
+* Posip
+* Ostale okusne dodatke (npr. oreščki)
+
+With context:
+Here's a list of the ingredients needed to make chocolate hedgehogs, based on the provided text:
+
+*   Maslo (Butter)
+*   Sladkor (Sugar) - both white and brown
+*   Jajca (Eggs)
+*   Moka (Flour)
+*   Pecilni prašek (Baking powder)
+*   Sol (Salt)
+*   Vanilijeva esencia (Vanilla essence)
+*   Čokoladni solze (Chocolate chips) - also known as chocolate drops
+*   Instant ali pravi kakav (Instant or real cocoa)
+*   Mlete pistacije (Ground pistachios)
+*   Javorjev sirup (Maple syrup)
+*   Amareto
+*   Temna čokolada (Dark chocolate)
+*   Olupljeni mandlji (peeled almonds)
+*   Sladkor v prahu (Sugar in powder)
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se naredi arašidovčke?
+
+No context:
+**Ingredients:**
+
+*   125g masla, sobne temperature
+*   100g sladkorja
+*   2 jajca
+*   1 čajna žližica ekstrakta vanilije
+*   250g moke
+*   1/2 čajne žlične soli
+*   100g posnetka arašidov (razžito, če je potrebno)
+
+**Navodila:**
+
+1.  Pred gretjem pečice segrejte pečico na 180°C.
+2.  V veliki skledi zmešajte maslo in sladkor, dokler ne postane svetlo in zmehčano.
+3.  Dodajte jajca in vanilijevo ekstrakto, zmešajte.
+4.  V ločeni skledi zmešajte moko in sol.
+5.  Postopoma dodajajte suhe sestavine v mokre sestavine, dokler ne postane gladka smetana.
+6.  Dodajte razžito arašidovo posnetko in zmešajte.
+7.  Zložite testo na peki za kolač in ga oblikujte v kroglico ali druge oblike.
+8.  Peka 10-12 minut ali dokler ne postane zlato rjave barve.
+
+With context:
+Here's how to make the peanut butter cups based on the provided text:
+
+**Ingredients (from Žepki z avokadom):**
+
+*   1/2 avocado
+*   2 tbsp honey
+*   50g ground almonds
+*   1 tbsp cocoa powder
+*   1 tbsp water
+*   Leafy pastry (275g puff pastry)
+
+**Instructions (from Žepki z avokadom):**
+
+1.  Blend the avocado, honey, ground almonds, cocoa powder, and water until smooth.
+2.  Roll out the puff pastry and cut it into 6 squares.
+3.  Spread the peanut butter mixture onto each square.
+4.  Fold the squares in half to form triangles.
+
+**Ingredients (from Ananas tortice):**
+
+*   300 ml milk
+*   200 ml cream
+*   60g dark sugar
+*   1 tsp vanilla essence
+*   1 tbsp peanut butter
+*   Pineapple rings (340g)
+*   Candied cherries
+*   Icing
+
+**Instructions (from Ananas tortice):**
+
+1.  Prepare the peanut butter filling by blending the avocado, honey, ground almonds, cocoa powder, and water until smooth.
+2.  Assemble the cups by spreading the peanut butter mixture into the pastry squares.
+3.  Cut the pastry squares into triangles and place them on a baking sheet.
+4.  Bake at 180°C for 25 minutes.
+
+Essentially, you'll be making a peanut butter filling (avocado, honey, almonds, cocoa) and using it to fill pastry squares, which you then bake. The Ananas tortice recipe is a similar concept, but with pineapple and a creamy filling.
+
+
+- - - - - - - - - - - - - - -
+Question: Kakšen je postopek za peko arašidovčkov?
+
+No context:
+**Simple Peanut Butter Cookies**
+
+**Ingredients:**
+
+*   1 cup (2 sticks) unsalted butter, softened
+*   3/4 cup granulated sugar
+*   1/2 teaspoon vanilla extract
+*   3 cups peanut butter (creamy or crunchy)
+*   2 1/2 cups all-purpose flour
+*   1 teaspoon baking soda
+*   1/2 teaspoon salt
+
+**Instructions:**
+
+1.  Preheat oven to 375°F (190°C).
+2.  In a large bowl, cream together the butter and sugar until light and fluffy.
+3.  Beat in the vanilla extract.
+4.  Gradually add the peanut butter and mix until well combined.
+5.  In a separate bowl, whisk together the flour, baking soda, and salt.
+6.  Gradually add the dry ingredients to the wet ingredients, mixing until just combined. Do not overmix.
+7.  Drop by rounded tablespoons onto ungreased baking sheets.
+8.  Bake for 8-10 minutes, or until golden brown.
+9.  Let cool on baking sheets for a few minutes before transferring to a wire rack to cool completely.
+
+With context:
+The provided text describes a recipe for chocolate peanut cookies. Here's the baking process as described in snippet 8:
+
+1.  **Zamesimo testo:** Iz vseh sestavin razen čokolade zamesimo testo in na koncu hitro umesimo še čokolado.
+2.  **Oblikujemo kroglice:** Oblikujemo za oreh velike kroglice, ki jih sploščimo.
+3.  **Pečemo:** Pečemo jih okoli 15 minut pri 180 stopinjah.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se naredi jabolčni kompot?
+
+No context:
+Da naredite jabolčni kompot, potrebujete:
+
+*   500g jabolk (npr. Gala, Fuji ali druge vaše najljubše)
+*   100-200 ml vode (odvisno od željene gostobe)
+*   100-200g sladkorja (odvisno od sladke vrste jabolk)
+*   1/2 čajne žličke cimeta (po želji)
+
+**Navodila:**
+
+1.  Jabolka olupite, odmrsljate in narežite na večje kocke.
+2.  V ponvi zmešajte jabolka, vodo in sladkor. Dodajte cimet, če ga želite.
+3.  Pustite, da zavre, nato pa zmanjšajte ognjišče in kuhajte, dokler jabolka ne postanejo mehka.
+4.  Čas kuhanja bo odvisen od vaše želene gostobe.
+
+With context:
+Here's how to make jabolčni kompot based on the provided text:
+
+**Ingredients:**
+
+*   5 jabolk (preferably homemade)
+*   2 žlici rozin
+*   sladkor po okusu (sugar to taste)
+*   1 vanilin sladkor (vanilla sugar)
+*   2 decilitrov vina (2 deciliters of wine)
+*   1/2 limone (1/2 lemon)
+*   olup limone (lemon peel)
+*   večji ščep kandirane pomarančne lupine (larger pinch of candied orange peel)
+*   cimetova skorjica (cinnamon stick)
+*   par kličkov (a few cloves)
+*   2 žlici ruma (2 tablespoons of rum)
+*   1/4 vrečke začimbne mešanice za kuhano vino (1/4 packet of spice mixture for cooked wine)
+
+**Instructions:**
+
+1.  Prepare the liquid: In a pot, combine the wine, lemon juice, lemon peel, cinnamon stick, cloves, and candied orange peel.
+2.  Add the apples: Peel and core the apples, then cut them into quarters. Add them to the pot.
+3.  Simmer: Bring the mixture to a boil, then reduce the heat and simmer, covered, until the apples are soft (approximately 30 minutes).
+4.  Add rum: Stir in the rum.
+5.  Simmer further: Continue to simmer for a few more minutes.
+6.  Serve:  The recipe states to cover the apples for 30 minutes until soft.
+
+
+- - - - - - - - - - - - - - -
+Question: Kakšen je postopek za kuhanje jabolčnega kompota?
+
+No context:
+Here's a basic recipe for apple compote:
+
+**Ingredients:**
+
+*   6-8 medium apples (such as Granny Smith, Gala, or Fuji)
+*   1/4 - 1/2 cup water or apple juice
+*   2-4 tablespoons sugar (adjust to taste)
+*   1/2 teaspoon cinnamon (optional)
+*   1/4 teaspoon nutmeg (optional)
+
+**Instructions:**
+
+1.  **Prepare the Apples:** Peel, core, and chop the apples into bite-sized pieces.
+2.  **Combine Ingredients:** In a saucepan, combine the chopped apples, water or apple juice, sugar, cinnamon, and nutmeg (if using).
+3.  **Simmer:** Bring the mixture to a simmer over medium heat. Reduce the heat to low, cover the saucepan, and simmer for 15-20 minutes, or until the apples are tender. Stir occasionally.
+4.  **Check for Tenderness:** To test for doneness, pierce an apple piece with a fork. It should be easily pierced.
+5.  **Serve:** Serve warm or cold.  It can be served on its own, over pancakes, waffles, yogurt, or ice cream.
+
+With context:
+Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote as described in the "Krema za torto-jagoda" recipe:
+
+"Here's the process for making apple compote
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se speče bananino torto?
+
+No context:
+Evo recepta za bananino torto:
+
+Sastojci:
+* 3 zrela banana
+* 1/2 čaše maslaca, otopljenog
+* 1/2 čaše šećera
+* 1 jaje
+* 1 čaša brašna
+* 1 čašica sodice za pecivo
+* 1/2 čaške praška za pecivo
+* 1/2 čaške ekstrakta vanilije
+
+Upute:
+1. Zagrijte rernu na 175°C.
+2. U velikoj zdjeli izmiksajte banane dok ne postanu glatke.
+3. U maloj zdjeli pomiješajte šećer i prašac za pecivo.
+4. U velikoj zdjeli pomiješajte otopljeni maslac, jaje i ekstrakt vanilije.
+5. U tu smjesu dodajte suhe sastojke i miješajte dok se ne sjedine.
+6. Ulijte smjesu u pripremljenoj kalupu za pečenje i pecite 50-60 minuta, ili dok ne izađe čista gaza.
+
+With context:
+Here's how to bake the ananasova torta (pineapple cake) according to the provided text:
+
+1.  **Testo (Cake):** Preheat the oven to 175 degrees Celsius. Grease and flour a cake pan.
+2.  Beat the eggs and sugar until fluffy.
+3.  Add the flour and baking powder, and mix until combined.
+4.  Gently fold in the beaten egg whites.
+5.  Pour the batter into the prepared pan and bake for 1 hour.
+6.  Once baked, cool the cake in the pan and cut it in half lengthwise.
+
+
+- - - - - - - - - - - - - - -
+Question: Kakšen je postopek peke bananine torte?
+
+No context:
+Seveda, tukaj je osnovni postopek za peko bananine torte:
+
+**Sestavine:**
+*   6 zrelih banan, narezanih
+*   120 g masla, sobne temperature
+*   175 g sladke bele pudinge
+*   2 jajca
+*   200 g sladkorja
+*   200 g moke
+*   1 čajna žlica praška za pecivo
+*   1/2 čajne žlične cimeta (po želji)
+
+**Navodila:**
+1.  Predhodno segrejte pečico na 175°C. Pripravite okroglo ponvi za pečenje (premera 20-23 cm) in jo premažite z maslom in ga pošpricajte s sladico.
+2.  V veliki skledi zmešajte narezane banane z vilko, dokler ne dobite gladke mase.
+3.  V drugi skledi zmešajte maslo in sladkor, dokler ne dobite svetle in rahlo penaste zmesi.
+4.  Dodajte jajca po eno po eno, zmešajte po vsaki dodajani jajci.
+5.  V oddaljenem skledi zmešajte moko in prašek za pecivo. Postopoma dodajajte suhe sestavine v mokre sestavine in zmešajte, dokler ne izginejo moke.
+6.  Dodajte cimet (če ga uporabljate) in zmešajte.
+7.  Premežite testo v pripravljeno ponvi.
+8.  Pecite 50-60 minut ali dokler pribojnik, vstavljen v sredino, ne izstopa čisto čiste.
+9.  Po peki pustite torto ohlajati v ponvi 10 minut, nato pa jo obrnite na rešetko in pustite popolnoma ohlajati, preden jo razrežete in postrezete.
+
+With context:
+Postopek peke bananine torte je:
+
+1.  Stepite beljake v trden sneg.
+2.  Postopoma dodajajte sladkor.
+3.  Dodajte rumenjake, vanilijevo vaniljo in limetin lupino.
+4.  Sijajte moko z pekačnim praškom.
+5.  Mešajte nežno, dokler se sestojine ne povežejo.
+6.  Pecite pri 180°C (356°F) za 30-40 minut, ali dokler ne izpade čopični test.
+7.  Popečeno olupite v dva dela in ga namočite v bananovem soku zmešanem z vodo, da je sočno.
+8.  Razporedite narezane banane po vrhu.
+9.  Premešajte z zbrano kremo.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako bi naredili bavarsko kremo po korakih?
+
+No context:
+**Sestavine:**
+
+*   500 ml polno mleko
+*   100 g sladkorja
+*   4 celica jajca
+*   1 vanilinovo olje ali 1 vaniljev list
+*   30 g moke
+
+**Navodila:**
+
+1.  Obložite posodo z majčnimi soljami.
+2.  Zmešajte mleko, sladkor in jajca.
+3.  Dodajte moko in dobro premešajte.
+4.  Pecite pri 180°C za 45-60 minut ali dokler se krema ne zgosti.
+
+With context:
+Here's a recipe for Bavarian cream based on the Boston Cream Pie cream recipe, adapted for a classic Bavarian cream texture:
+
+**Yields:** Approximately 6-8 servings
+**Prep time:** 15 minutes
+**Chill time:** At least 2 hours
+
+**Ingredients:**
+
+*   2 cups (480 ml) Heavy Cream, very cold
+*   1 teaspoon Vanilla Extract
+*   2-4 tablespoons Powdered Sugar (adjust to taste)
+*   1/2 teaspoon Cream of Tartar (optional, helps stabilize the whipped cream)
+
+**Instructions:**
+
+1.  **Chill Equipment:** Ensure your mixing bowl and whisk/beater are thoroughly chilled. This helps the cream whip up faster and hold its shape better.
+2.  **Whip the Cream:** Pour the cold heavy cream into the chilled mixing bowl.
+3.  **Add Stabilizers (Optional):** If using, add the cream of tartar to the cream.
+4.  **Start Whipping:** Begin whipping the cream on medium speed.
+5.  **Add Sugar Gradually:** Once the cream starts to thicken slightly (soft peaks begin to form), gradually add the powdered sugar, one tablespoon at a time, while continuing to whip.
+6.  **Add Vanilla:**  Once the sugar is incorporated, add the vanilla extract.
+7.  **Whip to Desired Consistency:** Continue whipping until stiff peaks form. Stiff peaks mean that when you lift the whisk, the peaks stand up straight and don't droop. Be careful not to overwhip, as this can turn the cream into butter.
+8.  **Serve Immediately:** Bavarian cream is best served immediately. If not, cover tightly and refrigerate for up to 2 hours.
+
+**Notes:**
+
+*   Using very cold cream is crucial for achieving a stable whipped cream.
+*   Adjust the amount of powdered sugar to your desired sweetness.
+*   For a richer flavor, you can add a tablespoon of rum or other flavoring extract.
+
+
+- - - - - - - - - - - - - - -
+Question: Vrni mi postopek za bavarsko kremo?
+
+No context:
+**Osnovni recept za bavarsko kremo:**
+
+**Sestavki:**
+
+*   1 litra mleka (polno, ne posnetka)
+*   50-60 g kvasa (bavarski kvas ali kvas za kremo)
+*   50-60 g sladkorja (brez dodatkov)
+*   1/4 čajne žličke soli
+*   1 vaniljev list (ali 1/2 čajne žličke vanilinovega ekstrakt)
+
+**Postopek:**
+
+1.  Mleko segrejte na 30-35°C.
+2.  Dodajte kvas in dobro premešajte, da se raztopi.
+3.  Dodajte sladkor in sol ter premešajte, dokler se sladkor popolnoma ne raztopi.
+4.  Dodajte vaniljev list (če ga uporabljate).
+5.  Pokrijte posodo in pustite stati na sobni temperaturi od 8 do 24 ur, dokler se ne ustvari željna tekstura. Čas potrebnih za fermentacijo je odvisen od temperature v prostoru in vrste kvasa.
+6.  Po želeni teksturi kremo presejte, da odstranite trdne delce.
+
+**Nasveti:**
+
+*   Za bolj intenziven okus lahko dodate tudi malo cimeta ali drugih začimb.
+*   Kremo lahko shranjujete v hladilniku do 5 dni.
+
+With context:
+Here's the recipe for Bavarian cream based on the tenth entry:
+
+**Bavarian Cream Recipe**
+
+**Ingredients:**
+
+*   175 grams butter
+*   175 grams sugar
+*   3 eggs
+*   175 grams flour
+*   3 grams (1 teaspoon) baking powder
+*   Zest of 1 lemon
+*   2 deciliters (approximately 8 ounces) heavy cream
+
+**Instructions:**
+
+1.  **Make the Cake:** Cream together the butter and sugar until light and fluffy.
+2.  Add the eggs one at a time, mixing well after each addition.
+3.  Gradually add the flour and baking powder, mixing until just combined.
+4.  Stir in the lemon zest.
+5.  Pour the batter into a greased and floured baking pan (typically a 9-inch round pan).
+6.  Bake at 350°F (175°C) for 30-35 minutes, or until a toothpick inserted into the center comes out clean. Let cool completely.
+7.  **Make the Cream:** While the cake is cooling, prepare the cream.  Beat the heavy cream until stiff peaks form.
+8.  **Assemble:** Slice the cooled cake horizontally.  Spread a thin layer of the whipped cream on the bottom layer. Place the second layer on top. Spread the remaining whipped cream evenly over the top and sides of the cake.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se pripravi arašidovčke?
+
+No context:
+**Ingredients:**
+
+*   1 cup (2 sticks) unsalted butter, softened
+*   3/4 cup granulated sugar
+*   3/4 cup packed brown sugar
+*   1 teaspoon vanilla extract
+*   2 large eggs
+*   3 cups all-purpose flour
+*   1 teaspoon baking soda
+*   1 teaspoon salt
+*   2 cups peanut butter (creamy or crunchy, your preference!)
+
+**Instructions:**
+
+1.  Preheat oven to 375°F (190°C).
+2.  Cream together the butter and sugars until light and fluffy.
+3.  Beat in the vanilla extract.
+4.  Add the eggs one at a time, beating well after each addition.
+5.  In a separate bowl, whisk together the flour, baking soda, and salt.
+6.  Gradually add the dry ingredients to the wet ingredients, mixing until just combined.
+7.  Stir in the peanut butter.
+8.  Drop by rounded tablespoons onto ungreased baking sheets.
+9.  Bake for 9-11 minutes, or until golden brown.
+
+With context:
+Here's how to prepare the peanut cookies (Anakidovčke) based on the provided descriptions:
+
+**Ingredients:**
+
+*   350 gramov moke
+*   60 gramov mletih orehov
+*   1 pecilni prašek
+*   2 jajci
+*   1 žlička vanilijeve esence
+*   80 gramov rjavega sladkorja
+*   200 gramov masla
+*   50 gramov sladke smetane
+*   1 rezino ananasa
+*   Kandirane češnje
+*   Preliv za torte (po navodilih na vrečki)
+
+**Instructions:**
+
+1.  **Make the dough:** Combine the flour, chopped nuts, baking powder, eggs, vanilla essence, brown sugar, and butter. Knead into a dough.
+2.  **Prepare the filling:** Cut up the pineapple and arrange the candied cherries in the center.
+3.  **Bake:** Bake at 170°C until golden brown.
+4.  **Prepare the icing:** Prepare the icing according to the instructions on the icing packet.
+5.  **Assemble:** Once the cookies are cooled, pour the icing over them.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se pripravi jabolčni kompot?
+
+No context:
+**Ingredients:**
+
+*   1 kg apples (a mix of varieties like Granny Smith, Gala, or Fuji works well)
+*   1/2 - 1 cup water (depending on desired consistency)
+*   1/4 - 1/2 cup sugar (adjust to taste)
+*   1/2 teaspoon cinnamon (optional)
+*   1 tablespoon lemon juice (optional, helps prevent browning and adds flavor)
+
+**Instructions:**
+
+1.  **Prepare the Apples:** Wash and core the apples. You can peel them if you prefer, but leaving the skin on adds nutrients and flavor. Chop the apples into bite-sized pieces.
+2.  **Combine Ingredients:** In a saucepan, combine the chopped apples, water, sugar, and cinnamon (if using).
+3.  **Cook:** Bring the mixture to a boil over medium heat. Reduce the heat to low, cover the saucepan, and simmer for 20-30 minutes, or until the apples are soft and tender. Stir occasionally.
+4.  **Add Lemon Juice (Optional):** Stir in the lemon juice during the last 5 minutes of cooking.
+5.  **Cool and Serve:** Let the compote cool slightly before serving. It can be served warm or cold.
+
+With context:
+Here's how to prepare apple compote based on the provided text snippets:
+
+1.  **Ingredients:** The text snippets don't provide a specific list of ingredients, but it implies apples are a key component.
+2.  **Preparation (based on snippet 10):**
+    *   Peel and dice the apples.
+    *   Sauté the diced apples in butter.
+    *   Add sugar and lemon zest to taste.
+    *   Simmer until the apples are soft.
+
+The other snippets don't provide a full recipe, but they offer variations and additional ingredients that could be incorporated into a compote.
+
+
+- - - - - - - - - - - - - - -
+Question: Kakšna je priprava bananine torte?
+
+No context:
+Here's a basic recipe for banana cake:
+
+**Ingredients:**
+
+*   1 1/2 cups (192g) all-purpose flour
+*   1 1/2 teaspoons baking soda
+*   1/2 teaspoon salt
+*   1/2 cup (113g) unsalted butter, softened
+*   3/4 cup (150g) granulated sugar
+*   2 large eggs
+*   1 teaspoon vanilla extract
+*   3-4 ripe bananas, mashed (about 1 1/2 cups)
+*   1/2 cup (120ml) buttermilk (or milk with 1 tbsp lemon juice)
+
+**Instructions:**
+
+1.  Preheat oven to 350°F (175°C). Grease and flour a 9x13 inch baking pan.
+2.  In a large bowl, whisk together the flour, baking soda, and salt.
+3.  In a separate bowl, cream together the butter and sugar until light and fluffy. Beat in the eggs one at a time, then stir in the vanilla.
+4.  Gradually add the dry ingredients to the wet ingredients, alternating with the mashed bananas, beginning and ending with the dry ingredients.
+5.  Stir in the buttermilk.
+6.  Pour batter into the prepared pan and bake for 30-35 minutes, or until a toothpick inserted into the center comes out clean.
+
+Let me know if you'd like a more specific recipe or variations!
+
+With context:
+Here's a summary of the banana cake preparation based on the provided recipes:
+
+**General Steps:**
+
+1.  **Prepare the Cake Base:** Most recipes involve creating a cake base, typically by whisking together eggs and sugar until light and fluffy, then gradually adding flour, cocoa, and baking powder. This mixture is then baked until golden brown.
+2.  **Make the Cream:** The cream is usually made by blending ripe bananas with sugar and whipped cream or sour cream. Some recipes incorporate vanilla extract.
+3.  **Assemble the Cake:** The baked cake base is sliced or layered, and then generously spread with the banana cream.
+4.  **Chill:** The assembled cake is typically chilled for a few hours to allow the flavors to meld and the cream to set.
+
+**Specific Ingredients (Varies by Recipe):**
+
+*   **Eggs:** Essential for a light and airy texture.
+*   **Sugar:** Provides sweetness and helps with browning.
+*   **Flour:** Forms the structure of the cake.
+*   **Cocoa:** Used in some recipes for a chocolate banana cake.
+*   **Baking Powder:** Helps the cake rise.
+*   **Bananas:** The star ingredient, providing flavor and moisture.
+*   **Cream/Sour Cream:** Adds richness and creaminess to the topping.
+*   **Margarine/Butter:** Used for richness and flavor.
+*   **Coconut Flour:** Used in some recipes.
+*   **Food Coloring (Optional):** Used to create colorful banana decorations.
+
+**Note:** The exact proportions and specific steps can vary significantly between the different recipes.
+
+
+- - - - - - - - - - - - - - -
+Question: Vrni mi pripravo za bavarsko kremo?
+
+No context:
+Bayerische Creme Rezept:
+
+Zutaten:
+* 250 ml Sahne
+* 100 ml Milch
+* 1 Vanilleschote (oder 1 TL Vanilleextrakt)
+* 4 Eigelb
+* 50 g Zucker
+
+Zubereitung:
+1. Sahne, Milch und die Schale von der Vanilleschote (oder Vanilleextrakt) in einem Topf erhitzen. Nicht kochen lassen!
+2. Eigelb und Zucker in einer Schüssel schaumig schlagen.
+3. Die schaumigen Eierlöffelweise unter die warme Sahne rühren.
+4. Die Creme durch ein Sieb gießen, um die Vanilleschote zu entfernen.
+5. Die Creme abdecken und mindestens 4 Stunden, besser über Nacht, im Kühlschrank kaltstellen.
+
+Guten Appetit!
+
+With context:
+Here's the recipe for Bavarian cream based on the provided text:
+
+**Vanilijeva krema:**
+
+*   0,5 litrov sladke smetane
+*   1 decilitrov mleka
+*   1 jajce
+*   2 dekagramov mehke moke
+*   4 dekagramov sladkorja
+*   2 vanilina sladkorja
+
+**Postopek:**
+
+1.  Smetano, mleko, jajce, moko, sladkor in vanilijev sladkor zmešamo v gladko maso.
+2.  Mešamo, dokler ne nastane gosta masa.
+
+
+- - - - - - - - - - - - - - -
+Question: Priprava za čokoladne ježke?
+
+No context:
+Here's a simple recipe for chocolate hedgehogs:
+
+**Ingredients:**
+
+*   1 cup of white chocolate
+*   1/2 cup of dark chocolate
+*   1/2 cup of fondant (brown or black)
+*   Small pretzel sticks (for the spines)
+*   Optional: edible eyes
+
+**Instructions:**
+
+1.  Melt the white chocolate and dark chocolate separately, either in a double boiler or in the microwave in short bursts, stirring in between.
+2.  Spoon melted white chocolate into silicone hedgehog molds.
+3.  Let the white chocolate set in the refrigerator for about 15-20 minutes.
+4.  Melt the dark chocolate.
+5.  Use a fork to create spikes on the hedgehog using the melted dark chocolate.
+6.  Attach pretzel sticks to the hedgehog's back as spines.
+7.  Add edible eyes if desired.
+
+With context:
+Here's a summary of how to prepare chocolate treats based on the provided snippets:
+
+**General Steps:**
+
+1.  **Separate Eggs:**  Many recipes (like the chocolate cake and chocolate cookies) involve separating the yolks and whites. The yolks are used in the batter, and the whites are whipped into a meringue (sneg) for added lightness and texture.
+2.  **Creaming:** Cream the yolks with sugar until light and fluffy.
+3.  **Adding Dry Ingredients:** Gradually add the dry ingredients (flour, cocoa, baking powder) to the yolk mixture.
+4.  **Incorporating Whites:** Whip the egg whites into a meringue (sneg) and gently fold it into the batter.
+5.  **Baking:** Bake the batter in a prepared pan (usually lined with parchment paper) until golden brown.
+
+**Specific Ingredients & Techniques (based on snippets):**
+
+*   **Chocolate:** Use melted chocolate, cocoa powder, or a combination.
+*   **Rum:**  Rum is often used to soak the cookies or cake, adding flavor and moisture.
+*   **Margarine/Butter:** Used for richness and texture.
+*   **Sugar:**  Various types of sugar are used (granulated, powdered).
+*   **Egg Whites:** Whipped into meringue for lightness.
+*   **Rum soaked cookies:**  The snippets mention soaking cookies in rum before incorporating them into the batter.
+
+To get a more specific recipe, you'd need to combine the elements from several of these snippets.
+
+
+- - - - - - - - - - - - - - -
+Question: Potrebujem recept, ki traja največ eno uro?
+
+No context:
+Here's a recipe for Garlic Shrimp Scampi that takes about 30 minutes:
+
+**Garlic Shrimp Scampi**
+
+**Prep time:** 10 minutes
+**Cook time:** 20 minutes
+**Serves:** 2
+
+**Ingredients:**
+
+*   1 pound large shrimp, peeled and deveined
+*   4 tablespoons butter
+*   4 cloves garlic, minced
+*   1/4 cup dry white wine (optional)
+*   2 tablespoons lemon juice
+*   1/4 cup chopped fresh parsley
+*   Salt and pepper to taste
+*   Cooked pasta (linguine or spaghetti recommended)
+
+**Instructions:**
+
+1.  Cook pasta according to package directions.
+2.  While pasta is cooking, melt butter in a large skillet over medium heat.
+3.  Add minced garlic and cook for 1 minute, until fragrant.
+4.  Add shrimp and cook for 3-5 minutes, until pink and cooked through.
+5.  Pour in white wine (if using) and lemon juice. Simmer for 2 minutes.
+6.  Season with salt and pepper.
+7.  Serve over cooked pasta, garnished with fresh parsley.
+
+With context:
+Here are the recipes from the provided text that take one hour or less to prepare:
+
+*   **Muffini:** (Preparation time: 1 hour)
+*   **Baklava po moje:** (Preparation time: 1 hour)
+*   **Baklava po moje:** (Preparation time: 1 hour)
+*   **Muffini:** (Preparation time: 1 hour)
+
+
+- - - - - - - - - - - - - - -
+Question: Mi lahko svetuješ kaj pripraviti za praznike?
+
+No context:
+Here are some ideas for preparing for holidays:
+
+*   **Food:** Plan your holiday meals and start gathering ingredients. Consider traditional dishes or new recipes you'd like to try.
+*   **Decorations:** Start decorating your home with festive lights, ornaments, and other holiday decorations.
+*   **Gifts:** Begin shopping for gifts for loved ones.
+*   **Activities:** Plan holiday-themed activities, such as decorating cookies, attending holiday events, or volunteering.
+*   **Travel:** If you're traveling, book flights and accommodations.
+
+To give you more specific advice, could you tell me which holiday you're referring to?
+
+With context:
+Okay, let’s brainstorm some ideas for your upcoming holidays! Here’s a breakdown of suggestions, categorized by holiday and with varying levels of effort:
+
+**Christmas & New Year’s:**
+
+*   **Ruske Kape (Šubariče):** (Recipe #10) – A classic, rich, and impressive cake perfect for Christmas or New Year’s. It’s a bit involved but worth the effort.
+*   **Biskvitna Rolada:** (Recipe #10) – A simpler, still delicious cake option, great for a crowd.
+*   **Gingerbread Cookies:** (I can provide a recipe if you'd like – a fun activity for families!)
+*   **Roasted Turkey or Chicken:** (A traditional centerpiece for Christmas dinner)
+
+**Halloween:**
+
+*   **Zabavni Kozarčki:** (Recipe #9) – These are fantastic for Halloween parties – colorful, layered, and easy to make.
+*   **Spiderweb Cupcakes:** (I can provide a recipe – a simple and spooky treat)
+
+**Valentine’s Day:**
+
+*   **Chocolate Lava Cakes:** (I can provide a recipe – decadent and romantic)
+*   **Strawberry Cheesecakes:** (Another good option for a romantic dessert)
+
+**General Holiday Treats (Suitable for many occasions):**
+
+*   **Gingerbread Cookies:** (I can provide a recipe – a fun activity for families!)
+*   **Brownies or Blondies:** (Always a crowd-pleaser)
+*   **Fruit Tart:** (Elegant and refreshing)
+
+**Resources for Recipes:**
+
+I can provide you with the full recipes for any of these suggestions. Would you like me to share the recipe for:
+
+*   Ruske Kape (Šubariče)?
+*   Zabavni Kozarčki?
+*   Gingerbread Cookies?
+*   Any other specific recipe you’re interested in?
+
+To help me narrow down the best suggestions for *you*, could you tell me:
+
+*   What kind of holidays are you planning to celebrate?
+*   What’s your baking skill level (beginner, intermediate, advanced)?
+*   Are there any dietary restrictions or preferences (e.g., gluten-free, vegan)?
+
+
+- - - - - - - - - - - - - - -
+Question: Mi lahko svetuješ kaj pripraviti za božič?
+
+No context:
+Seveda! Za božič je veliko stvari, ki jih lahko pripraviš. Tukaj je nekaj idej, razvrstitev po kategorijah:
+
+**Pravi:**
+
+*   **Praznične jedi:** Postrezite tradicionalne božične jedi, kot so pečeni piščanec, gobica, klobasa, kruh, klobasice, kruh, sadje (joga, grozdje, hruška), piškoti in palačinke.
+*   **Praznični kolač:** Pečite ali kupite prazni kolač in ga okrasite s čokolade, sadjem ali drugim okusom.
+*   **Praznične piškote:** Pečite različne oblike in okuse piškotov.
+
+**Dekoracije:**
+
+*   **Božični jelka:** Okrasite jelko z božičnimi okraski, luči in zabavno ogrnjenimi v papir.
+*   **Božični okraski:** Razporedite božične okraske po domu, kot so božični angel, božični medvedek, božični jelen, božični angel, božični medvedek, božični jelen.
+*   **Božični luči:** Okrasite z božičnimi luči na oknih, balkonu ali v okolju.
+*   **Božični vencevi:** Naredite ali kupite božični vencev in jih obesite na vhodnih vratih.
+
+**Druge dejavnosti:**
+
+*   **Priprava božičnih daril:** Izpolnite božična darila za družino in prijatelje.
+*   **Priprava božične večere:** Organizirajte božične igre, gledate božično filmsko zgodbo ali se udeležite božične prireditve.
+*   **Priprava božične pesmi:** Pesnite božično pesem.
+
+Upam, da ti bodo ti priporočila pomagali pri pripravah za božič!
+
+With context:
+Okay, based on the recipes provided, here are some ideas for what to prepare for Christmas, categorized by type:
+
+**Desserts:**
+
+*   **Norwegian Christmas Cake:** This recipe (snippet 10) is a straightforward cake with dried fruit, perfect for a festive dessert.
+*   **Božični Kolač (Christmas Cake - Norway):**  Similar to the above, a great option.
+*   **Norveški božični kolač:** (snippet 10) - A good choice for a festive cake.
+*   **Piškoti (Cookies):** Several snippets mention cookies – the Norwegian cookie recipe (snippet 9) is a good starting point, and you could easily adapt other recipes.
+*   **Božični kolač (Christmas Cake - general):** (snippet 1) - A classic choice.
+
+**Main Courses/Sides (Implied - based on context):**
+
+While the snippets don't provide main course recipes, the context of a Christmas meal suggests you could consider traditional dishes like roast meats (turkey, ham), potatoes, vegetables, and gravy.
+
+**Tips & Considerations:**
+
+*   **Variety:**  Choose a mix of sweet and savory dishes.
+*   **Ease of Preparation:**  Select recipes that fit your time and skill level.
+*   **Family Favorites:**  Include recipes that your family enjoys.
+
+To help me narrow down recommendations further, could you tell me:
+
+*   What kind of cooking experience do you have? (e.g., beginner, intermediate, advanced)
+*   Are there any specific types of desserts or main courses you're interested in? (e.g., cakes, pies, cookies, roasts, etc.)
+
+
+- - - - - - - - - - - - - - -
+Question: Mi lahko svetuješ kaj pripraviti za piknik?
+
+No context:
+Seveda! Tukaj je nekaj idej za piknik:
+
+**Hrana:**
+*   Sandviči ali sendviči z različnimi nadevoma (meso, piščanec, tofu, zelenjava)
+*   Salata (tuna, krilati, zelenjava)
+*   Tortice ali druge prigrizke
+*   Sadje (jabolka, banane, jagode, melone)
+*   Kolač ali piškotji
+*   Popcorn
+
+**Pijača:**
+*   Voda
+*   Sok
+*   Pivo ali vino (če je dovoljeno)
+*   Kava ali čaj
+
+**Oprema:**
+*   Pladja in posodice
+*   Ščetke in papirni servili
+*   Šivalna nit in igla (za popravke)
+*   Križanko, kartze ali druge igre
+*   Sončna očala in narejena zaščita pred soncem
+*   Plena ali odeje
+*   Žar (če želite kuhati na žaru)
+
+Uživajte v pikniku!
+
+With context:
+Based on the provided recipes, here are some suggestions for a picnic, categorized by effort and appeal:
+
+**Easy & Highly Recommended:**
+
+*   **Muffins:** (Multiple variations - chocolate, coconut, etc.) - These are easy to transport, eat, and offer a good variety of flavors. The comments indicate they are very popular.
+*   **Jagodec:** (Fruit & Yogurt Dessert) - This is a refreshing and easy-to-eat dessert, especially good for a warm day.
+
+**Slightly More Involved (but still good options):**
+
+*   **Muffins:** (Multiple variations - chocolate, coconut, etc.) - These are easy to transport, eat, and offer a good variety of flavors. The comments indicate they are very popular.
+
+**Consider these based on the text:**
+
+*   **Fruit & Yogurt Dessert (Jagodec):** This is a refreshing and easy-to-eat dessert, especially good for a warm day.
+
+To make it a complete picnic, you could also add things like sandwiches or wraps (though the text doesn't provide recipes for these).
+
+
+- - - - - - - - - - - - - - -
+Question: Mi lahko svetuješ kaj pripraviti za veliko noč?
+
+No context:
+Za veliko noč lahko pripravite naslednje:
+
+**Pite:**
+*   **Kvašna pita:** Tradicionalna pita s piščancem, zelenjavo in omako.
+*   **Šampitonova pita:** Pita s šampijoni, česnom in paradižnikom.
+*   **Jablkove ali krušne pite:** Za sladke ljubitelje.
+
+**Jedilni pribor:**
+*   **Piščanca:** Pečen ali kušan.
+*   **Zelenjavo:** Pečena ali kuhana (krompir, bučke, paprika, čebula, strok).
+*   **Omake:** Zelenjavne, kvasne, omake iz piščanca.
+*   **Sad:** Jabolka, hruje, grozdje.
+
+**Sladice:**
+*   **Kremni piški:** Tradicionalna velikonočna sladica.
+*   **Svečke:** Za okrasitev pletenih ali papirnatih jajc.
+*   **Sveže pečene kruhe:** Za popestritev.
+
+**Druge dejavnosti:**
+*   **Poslikavanje velikonočnih jajc:** Z barvnikom za tekstil ali pisanimi šabloni.
+*   **Izrada velikonočnih simbolov:** Izvezenih ali iz papirja.
+*   **Poslikavanje velikonočnih jajc:** Z barvnikom za tekstil ali pisanimi šabloni.
+*   **Iskanje velikonočnih jajc:** Za otroke.
+
+With context:
+Okay, here are a few recipe suggestions for Great Night (Velika noč) based on the provided snippets:
+
+**1. Linški piškoti (from Snippet 10):** These are a classic Slovenian treat and are perfect for a festive occasion like Great Night. They’re relatively easy to make and visually appealing.
+
+**2. Piškotki (from Snippet 10):**  Simple, classic cookies are always a good choice, especially for a family celebration. You can decorate them creatively.
+
+**3. Panettone (from Snippet 9):** This Italian sweet bread is traditionally enjoyed during the Christmas and New Year period, and it’s a beautiful and delicious option for Great Night, especially if you want something a bit more special.  The text mentions it's a good choice for making gifts too.
+
+**4. Linški piškoti (from Snippet 10):**  These are a staple in Slovenia and are a great choice for a traditional celebration.
+
+To help me narrow down the best suggestion for *you*, could you tell me:
+
+*   **What kind of flavors do you enjoy?** (e.g., nutty, fruity, chocolatey, etc.)
+*   **How much time do you have to spend baking?** (e.g., quick and easy, or something more involved)
+
+
+
+-----------------------------

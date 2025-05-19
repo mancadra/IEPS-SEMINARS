@@ -1,0 +1,37 @@
+Potrebujem recept za arašidovčke.
+Recept za jabolčni kompot.
+Kako se naredi bananino torto.
+Vrni mi recept za bavarsko kremo.
+Navodila za čokoladne ježke.
+
+# Z besedo sestavine
+Katere sestavine potrebuješ za arašidovčke?
+Katere sestavine potrebuješ za jabolčni kompot?
+Katere sestavine potrebuješ za bananino torto?
+Katere sestavine potrebuješ za bavarsko kremo?
+Katere sestavine potrebuješ za čokoladne ježke?
+
+# Z besedo postopek
+Kako se naredi arašidovčke?
+Kakšen je postopek za peko arašidovčkov?
+Kako se naredi jabolčni kompot?
+Kakšen je postopek za kuhanje jabolčnega kompota?
+Kako se speče bananino torto?
+Kakšen je postopek peke bananine torte?
+Kako bi naredili bavarsko kremo po korakih?
+
+
+# Z besedo priprava
+Kako se pripravi arašidovčke?
+Kako se pripravi jabolčni kompot?
+Kako se pripravi bananino torto?
+Kako se pripravi bavarsko kremo?
+Kako se pripravi čokoladne ježke?
+
+
+# Splošna vprašanja
+Potrebujem recept, ki traja največ eno uro.
+Mi lahko svetuješ kaj pripraviti za praznike?
+Mi lahko svetuješ kaj pripraviti za božič?
+Mi lahko svetuješ kaj pripraviti za piknik?
+Mi lahko svetuješ kaj pripraviti za veliko noč?

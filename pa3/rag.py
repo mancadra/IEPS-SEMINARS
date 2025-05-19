@@ -14,20 +14,22 @@ def query_database(query):
 
 class RAG(dspy.Module):
     def __init__(self):
-        self.respond = dspy.ChainOfThought('context, question -> answer: str')
+        self.respond = dspy.ChainOfThought('context, question -> reasoning, answer : str')
 
     def forward(self, question):
         context = query_database(question)
         return self.respond(context=context, question=question)
 
-lm = dspy.LM(f"ollama_chat/{model_name}", api_base='http://localhost:11434', api_key='')
+lm = dspy.LM(f"ollama_chat/{model_name}", api_base='http://localhost:11434', api_key='', cache=False)
 dspy.configure(lm=lm)
 
-naive_rag = dspy.ChainOfThought('question -> answer: str')
+naive_rag = dspy.ChainOfThought('question -> answer')
 rag = RAG()
 
 def ask_question(question):
-    return naive_rag(question=question).answer
+    p = naive_rag(question=question)
+    return p.answer
     
 def ask_question_with_context(question):
-    return rag(question=question).answer
+    p = rag(question=question)
+    return p.answer

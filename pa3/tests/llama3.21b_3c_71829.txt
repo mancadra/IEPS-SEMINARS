@@ -1,0 +1,443 @@
+Language model: llama3.2:1b
+Context size: 3
+
+- - - - - - - - - - - - - - -
+Question: Potrebujem recept za arašidovčke.
+
+No context:
+Poznatim receptom za arašidovečke bi bilo: [Ugledano je da se koristi recept za arašidovečke koja sadrži 2 cipke arašida, 1 cipku citrona i 1 cipku vrećaka. Uređajima koji su potrebni su: 1 uređaj slicanja, 1 uređaj različite vrste arašida, 1 uređaj različite vrste citrona, 1 uređaj različite vrste vrećaka].
+
+With context:
+answer = "Spremljeno recept za arašidovčke je: Piškoti z arašidovim maslom po moje."
+
+
+- - - - - - - - - - - - - - -
+Question: Recept za jabolčni kompot.
+
+No context:
+Recept za jabolčni kompot:
+
+- 250g jaja
+- 125g masline
+- 100g kreme
+- 1 citron
+- 1 ciklamska šljuka
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+- 1 ciklamski slatkar
+-
+
+With context:
+{answer}
+
+Recept za jabolčni kompot je zelo lepo in posebej, zaradi različnih sestavin in uporabe različnih naravnih materialov. Zato je lahko uporabljen kot posebna oblažje za jabolčne in druge potrebe.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se naredi bananino torto.
+
+No context:
+Naredite bananinu na kockavi ili krunidi.
+
+With context:
+{answer}
+
+
+- - - - - - - - - - - - - - -
+Question: Vrni mi recept za bavarsko kremo.
+
+No context:
+Recept za bavarsko kremo: sleđa 200g, sirva 100g, cerna cernina 150g, kreme 250ml. Preporučujem da se upotrijbujte sve sredove u odredu.
+
+With context:
+{answer}
+Bavarska kremo je ena najbolje znanih in zelo popularnih kreme, ki so zelo okusna in zelo dobro poznan. To je lahko zgrajena s raznimi sastojki, kot so rumenjaki, sladkorja, žličke vanilijevega ekstrakta in sladka smetana.
+
+
+- - - - - - - - - - - - - - -
+Question: Navodila za čokoladne ježke.
+
+No context:
+Answer: Čokolada.
+
+With context:
+{answer}
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za arašidovčke?
+
+No context:
+Arašidovčke
+
+With context:
+Arašidovčke potrebujate za recepte z avokadom, kot je zvezki z avokadom, in za recepte z super piškotki, kot je Cookiji z arašidi.
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za jabolčni kompot?
+
+No context:
+jabolčni kompot
+
+With context:
+{answer}
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za bananino torto?
+
+No context:
+Banane.
+
+With context:
+{testo}
+{krema}
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za bavarsko kremo?
+
+No context:
+Sestavnine potrebne za bavarsko kremo so: mleko, vla, krem na vaniljo, praline in krem na vaniljo.
+
+With context:
+{answer}
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za čokoladne ježke?
+
+No context:
+sprememno
+
+With context:
+Sestavine za čokoladne ježke so:
+
+* 100 gramov surovega masla
+* 60 gramov sladkorja
+* 160 gramov moke
+* 1 vanilijev puding
+* 2 rumenjaka
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se naredi arašidovčke?
+
+No context:
+Arašidovčke su organska zdravstvena povezava između ljudi i životinja. Većina arašidova je prisutna u vodi, a neki su prisutni na zemlji, posebno u vodonosnim podrumima.
+
+With context:
+Da bomo na eni odlični arašidovičke, moramo proucitati lepo razgraditev sestavnih materialov. Za to moramo:
+
+- Prepremiti 130 gramov beljakov v kuhinjo.
+- Prepremiti 180 gramov sladkorja v kuhinjo.
+- Prepremiti 165 gramov moke v kuhinjo.
+- Dodati 1 decilitrov mleka in 1 decilitrov olja v kuhinjo.
+- Dodati 1 vanilijev sladkor in 1 pecilni prašek v kuhinjo.
+- Dodati pest orehov (jedrca) in pest rozine v kuhinjo.
+
+
+- - - - - - - - - - - - - - -
+Question: Kakšen je postopek za peko arašidovčkov?
+
+No context:
+Postopek za peko arašidovčkov se odlikuje njihovim posebnim karakteristikama, kotome: njihova raznoliko različite naravi, raznolikost njihove raznolikosti in njihova posebna kemija. Zato se uporablja za izdelavo novnih proizvodov, kotome: postopek za peko arašidovčkov je lahko uporabljen za proizvodnjo novih proizvodov, kotome: postopek za peko arašidovčkov se uporablja za proizvodnjo novih proizvodov.
+
+With context:
+Zelo simetrično postopek za peko arašidovčkov je zelo simetrično postopek za peko arašidovčkov.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se naredi jabolčni kompot?
+
+No context:
+Jabolčni kompot je zbirica jahovine, kremi, sirve in
+
+With context:
+{answer}
+
+
+- - - - - - - - - - - - - - -
+Question: Kakšen je postopek za kuhanje jabolčnega kompota?
+
+No context:
+Kuhenjajbolčni kompot v kuhelju pri temperaturi 60-70°C. V zvezdu se lahko uporoditi postopek za kuhanje jabolčnega kompota, ki ga je potrebno preprosto zamenjati s postopekom za kuhanje jabolčnega kompota.
+
+With context:
+Jabolčni kompot je postopek, ki se lahko pripravi z različnimi variantami jabolčne sladke. Zato je lahko preveden na:
+
+* Apple crisp
+* Pečena jabolka s kostanjevo kremo
+* Jabolčna puding krema
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se speče bananino torto?
+
+No context:
+Ovo je jedan od najboljih smislenih smena kada se banane i torte spajaju. To je jedan od najboljih načinova za upotrijebiti banane u vašoj kulinarskoj kreativnosti.
+
+With context:
+Bananino torto se spreča s različnimi sestavnmi, kot so maslo, moke, sladkorja, pecilni prašek, mleko in vode. Za prelevanje tih sestavnov se uporavi različne metode, kot so zmešavanje masla, zamestanje sladkorja in zamestanje mokrog vode.
+
+
+- - - - - - - - - - - - - - -
+Question: Kakšen je postopek peke bananine torte?
+
+No context:
+Kakšen je postopek peke bananine torte?
+
+With context:
+Tretja fazo postopeka peke bananine torte je najbolj zanimiva. V tej fazi se premešajo čokolado in marmelado v obliku kisla smetani, ki se prekrije na ognju, dokler se čokolada ne raztopi.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako bi naredili bavarsko kremo po korakih?
+
+No context:
+1. Preparacijo kremi: Krem se spreminja v naravi z uporabo različnih sredstev, kot so citron, limon, jambolka in others.
+2. Ustvarjanje kremne kombinacije: Krem se spreminja v naravi z uporabno kombinacijo različnih sredstev, ki so odgovorečno za njegovo spreminjanje.
+3. Uporaba kremne kombinacije na korakih: Krem se spreminja v naravi na korakih, kot so 1, 2, 3 in tako naprej.
+
+With context:
+bavarska krema se lahko nareji v korakih:
+
+1. Prepremijanje mleka
+2. Narejenje želatine
+3. Preparacija rumenjake
+4. Dodajanje mleka in sladkorja
+5. Vmes in odstranite sladkorja
+6. Preparacija smetane za stepanje
+7. Dodajanje vanilije in sladkorja
+8. Vmes in odstranite sladkorja
+9. Preparacija čokolade za dekorecije
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se pripravi arašidovčke?
+
+No context:
+Arašidovčke se lahko pripravi s pomočjo raznovrsnih naravnih materialov, kot so kemijski proizvodi, kemikaliji in materiali za upolnitev. Zato je potrebno izbrati zgodnje naravne materialove, ki so v strogem odgovorenostni za upravljanje in obratne.
+
+With context:
+{answer}
+
+Recept za arašide oblikuje se sestavno:
+
+1. Zmešamo vse mokre sestavine (moke, sladkor, sol, maslo) in jim dodamo moko in mlete orehe.
+2. Na koncu primešamo še čokolado in arašide, ki jih samo razpomnimo in jih ne sekljamo.
+3. Dovolj je že da arašid samo razljubijo in tako dobimo dve polovici jedrca.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se pripravi jabolčni kompot?
+
+No context:
+Pripravi jabolčni kompot pripremi 2 lita jabolčnega soka, 1 cipronikeli, 1 cimicen, 1 cebula, 2 cehla, 1 cekan, 1 cekano, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana, 1 cekana
+
+With context:
+{answer}
+
+Jabolčni kompot se pripravi z različnimi deli, ki so potrebni za njegovo prilagodno in obogateno pripravo. Potrebne so:
+
+- 5 jabolk
+- 2 žlici rozin
+- sladkor po okusu
+- 1 vanilin sladkor
+- 2 decilitrov vina
+- 1 litrov vode
+- sok 1/2 limone
+- kandirane pomarančne lupine
+- ščep kandirane pomarančne lupine
+- 2 žlici ruma
+- začimbne mešanice za kuhano vino
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se pripravi bananino torto?
+
+No context:
+Pripravi bananino torto pripravljenim bananom, ki so narejani v obroku, pašča, ali na mokri potabi.
+
+With context:
+{answer}
+
+Bananina torta se pripravi s preprekami, ki so potrebne za zgraditev torte. V primeru prvej recepti, so potrebno:
+
+* 11 dkg masla
+* 22 dkg moke
+* 1/2 pecilnega praška
+* 7 dkg sladkorja
+* 2 rumenjaka
+
+V drugi recepti, so potrebno:
+
+* 850 gramov Petit beure piškotov
+* 0,5 litrov sladke smetane
+* 1 kilogramov banan
+* mleko
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se pripravi bavarsko kremo?
+
+No context:
+Bavarski krem se priprava s mlekom, sirnom i vrećima. Mleko se upotrebljuje kao glavni sastojak, dok sirna je upotrebljiva za dodatnu kiseljinu i sredinu. Vrećima se upotrebuje posebno kremni tiska, koji su bili upotrijebeni za nareći kremovi.
+
+With context:
+Bavarsko kremo se pripravi s prevedenim postopekom:
+
+1. Raztopimo 250 gramov sladkorja v mleku.
+2. Dodamo vanilijev sladkor in rumenjake, ko se sladkor raztopi in nastane karamel.
+3. Narahlo zmešamo vse narahlo in nalijemo v modelčke.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se pripravi čokoladne ježke?
+
+No context:
+Čokoladne ježke su posebno različite od čokolade, jer imali su manje kremu i više kakovega drugog sastojka. Čokolada je jedan od najboljih izbornih čokolada, a čokoladni ježki su jedan od njihovih najboljih izdanja.
+
+With context:
+{answer}
+
+Priprava čokoladnih ježek:
+
+1. Iz surovega masla, soli, sladkorja in moke vgnetemo krhko testo.
+2. Za dve uri ga postavimo v hladilnik, da se ohladi.
+3. Pečico ogrejemo na 200 stopinj.
+4. Testo razvaljamo na 1/2 cm debelo in ga izrežemo v obliki (solze) ježkov.
+5. Pečemo na srednji temperaturi 8-10 minut.
+6. Puding zmešamo s 3 žlicami mleka in rumenjakoma.
+7. Preostalo mleko zavremo, primešamo puding ter sladkor.
+8. Pustimo, da nekajkrat zakipi, odstavimo in ohladimo.
+9. Surove maslo penasto umešamo.
+10. Ko ima enako temperaturo kot puding, puding po žlicah dodajamo maslu ter stalno mešamo.
+11. Dodamo kakav ter ostanek biskvita zrežemo ter polijemo s 1/2 skodelice vode, v kateri je stopljen sladkor na osnovah.
+12. Oblikujemo ježke, vanje zapičimo mandlje ter jih oblijemo z glazuro.
+
+
+- - - - - - - - - - - - - - -
+Question: Potrebujem recept, ki traja največ eno uro.
+
+No context:
+Recept, ki traja največ eno uro, je: [Recept za 1-2 urošnje].
+
+With context:
+{answer}
+
+
+- - - - - - - - - - - - - - -
+Question: Mi lahko svetuješ kaj pripraviti za praznike?
+
+No context:
+Sveteti se, da je zelo importantno, da se spoznanje s tem, ki ga je vam preneslo, uporavi za razumevanje in spretnostjo v njegovi obliku. To lahko pomeni, da se spoznanje s tem, ki ga je vam preneslo, uporavi za razumevanje in spretnostjo v njegovi obliku.
+
+With context:
+{answer}
+
+
+- - - - - - - - - - - - - - -
+Question: Mi lahko svetuješ kaj pripraviti za božič?
+
+No context:
+Da.
+
+With context:
+Pripravi za božič moramo izbrati zelo različne sestavine, ki so potrebne za oblikovanje in uporabo. Zato moramo izbrati:
+
+- Pecivo za sladkosnede in ljubitelje čokolade in kokosa (kushtravčki)
+- Testo za božič (božično pecivo)
+- Kolač za pust (marmelada za lepljenje trakov)
+
+
+- - - - - - - - - - - - - - -
+Question: Mi lahko svetuješ kaj pripraviti za piknik?
+
+No context:
+Krem na slatke, zvezde, vino in čevapi.
+
+With context:
+Pripravi za piknik smo se zadevali, da bi bamo lahko spreminjamo recepte za različne snige. Na primer, pri pripravi lahko lahko uporabljate različite type maslenih keksov, kot so biskvit, ko je zelo uhtezen, ali malinovo pecivo, če si takšno načalo.
+
+
+- - - - - - - - - - - - - - -
+Question: Mi lahko svetuješ kaj pripraviti za veliko noč?
+
+No context:
+Da, veliko noč je odločitev o kateri zadeji se izvršit. Možno je potrebno spretno srečanje s prijatelji, spretno srečanje s prijatelji, ali lahko lahko se preklicamo na druga zadeja.
+
+With context:
+{answer}
+
+
+
+-----------------------------

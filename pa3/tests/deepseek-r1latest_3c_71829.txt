@@ -1,0 +1,403 @@
+Language model: deepseek-r1:latest
+Context size: 3
+
+
+- - - - - - - - - - - - - - -
+Question: Potrebujem recept za arašidovčke.
+
+No context:
+Ako tražите receptor za arašidovčke, možete pretražiti na Hrvatskoj e-biznis-u na stranici [Strana sa primjerom](#). Ovaj primjer će vam pomoci pronaći odgovarajuću接待nu jedinku.
+
+With context:
+To prepare the apricot kroglices (kokosovе kroglice), follow these steps:
+
+1. **Preparation Time:** 30 minutes
+2. **Difficulty Level:** Lahek
+
+**Ingredients:**
+- 250 grams mletih piknik keksov
+- 200 grams masla
+- 150 grams sladkorja
+- 50 grams grenkega kakava
+- 2 vanilina sladkorja
+- 1 jušna žlica ruma
+- 1 jušna žlica limoninega soka
+- mleko po potrebi
+- kokosova moka
+
+**Instructions:**
+1. Melt the masla and mix it with the sladkorja.
+2. Combine the piknik keksov, Grenkega kakava, ruma, and limonini soki in a separate bowl.
+3. Mix all ingredients until well combined.
+4. Shape the mixture into small balls or shapes suitable for kroglice.
+5. Form the balls into kroglice using the kokosova moka as a mold.
+6. Cook them in an oven at 190°C (170°C fan) for 15-17 minutes until golden brown.
+
+Enjoy your apricot kroglices!
+
+
+- - - - - - - - - - - - - - -
+Question: Recept za jabolčni kompot.
+
+No context:
+Recept za blackberski kompot:
+
+1. Preprati zabeležke i prekriži ih u malim dijelovima.
+2. U kabuši vise šećerice (1-2 kružnice po kilogramu zabeležaka).
+3. Prilepite kabušu, kapustu i lemu.
+4. Pobori do temperaturei 90-100°C, koristeci se kabuše i rukama.
+5. Počekaj do 2-3 sati, dok se kompot postavi u mjesto.
+
+With context:
+Recept za jablčni kompot:
+
+1. Prepravite jable: odstranimo stršištico in jih razrežemo na koseče.
+2. Naredimo vodo v tankih 3 litrih, pridobimo 10 deciliterov sladjana ali drugega premikovanega izvoda.
+3. Gremo jable v vodom 5-10 minut, doba da se osnoži in spustimo temperature.
+4. Dodamo 20 gramov pectine (npr. gumbo) in 100 gramov hlede ali drugega premikovanega izvoda.
+5. Zavrtimo kompot na stole 30 minut, doba da se osnoži.
+6. Po 1 ure, gremo kompot do 80-85% težavnosti in ga prekličemo z hotodom ali drugega premikovanega izvoda.
+7. Kromlamo kompot na stole 30 minut, doba da se osnoži.
+8. Po 1 ure, gremo ga ponovno do 65-70% težavnosti in ga prekličemo z hotodom ali drugega premikovanega izvoda.
+9. Kromlamo ga na stole 30 minut, doba da se osnoži.
+10. Po 2 ure, gremo ga do 50% težavnosti in ga prekličemo z hotodom ali drugega premikovanega izvoda.
+11. Kromlamo ga na stole 30 minute in ga spremljamo v posodico za ulaz.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se naredi bananino torto.
+
+No context:
+Kako se naredi bananino torto:
+1. Prehetaj kabla u 350°F (175°C).
+2. Prilepite kapal i prilagodite guste.
+3. Smetaj 2 kupsa mraza, 1 kups granulirani suhiftar, 3 mali kapale i 2 velike ūrite u smišljenom mrtvom.
+4. Smetaj 1/2 kupsa mačke ili oleja sa muškošću do prilagodbe gustine.
+5. Dodajte 1 teško kapustu reži i složite sve do dobarog odgleda.
+
+With context:
+To make a delicious banana cake (or torte), follow these steps:
+
+1. **Ingredients:**
+   - 2 eggs
+   - 100g sugar
+   - 200g flour
+   - 50g butter, softened
+   - 100ml cream cheese, softened
+   - 2-3 tbsp rumenjaka (optional)
+   - 2-3 tbsp sladkorja (optional)
+
+2. **Instructions:**
+   - Preheat the oven to 180°C (350°F).
+   - Grease and flour a round or square cake tin.
+   - In a mixing bowl, combine the sugar, flour, butter, cream cheese, rumenjaka, and sladkorja. Mix until smooth.
+   - Add the eggs one at a time, mixing well after each addition.
+   - Pour the batter into the prepared tin and bake for 30-40 minutes or until a toothpick inserted comes out clean.
+
+3. **Optional Notes:**
+   - For a richer texture, add more rumenjaka or sladkorja to the batter before baking.
+   - Allow the cake to cool completely before frosting or serving.
+
+This recipe provides a basic structure for making a banana cake with optional additions based on the provided contexts.
+
+
+- - - - - - - - - - - - - - -
+Question: Vrni mi recept za bavarsko kremo.
+
+No context:
+Krećemo se od osnovnih elemenata bavarske kreme: mreža, gradnja, kemijska formula i koristjenost.
+
+With context:
+**Recept za bavarsko kremo:**
+
+**Opis recepta:** Bavarska kremna sladica  
+**Čas priprave:** 45 min  
+**Težavnost:** srednje težek  
+
+**Postopek:**
+1. Penasto vmešamo rumenjake, sladkor in konjak v gosto kremo.
+2. Mleko skuhamo z ekstraktom vanilije.
+3. Še vroče dodamo rumenjakom, a stalno mešamo.
+4. To zdaj narahlo kuhamo, par minut, a pazimo, da se ne prime.
+5. V še vročo kremo vmešamo želatino, ki smo jo predhodno razpustili v hladni vodi.
+6. Malo ohladimo. Ta čas stepemo sladko smetano in jo vmešamo v kremo.
+7. Damo v posodice in pustimo v hladilniku vsaj 3 ure.
+
+**Sestavine:**
+- 250 mililitrov mleka
+- 4 rumenjaki
+- 100 gramov sladkorja
+- 2 - 3 žličke vanilijevega ekstrakta
+- malo soli
+- vrečka želatine
+- malo konjaka ali ruma
+- 200 mililitrov sladke smetane
+
+**Komentarji:**
+- balonka: Jaz to kremo zelo dobro poznam in je zelo okusna. Uporabim jo za rezino samo (kombinacija rjavega biskvita in kreme), da ji dodam še rozine kuhane v rumo. Pride zelo lepo in zelo dobro, sočno.
+- gringa: Ja res je...prav pride za vsako moč! Kot krema v pecivih ali pa kar sama tako! Lepo zgleda in okusna je! Pa z dodatki je lahko vsakic drugacnega okusa!!! Gringa
+
+
+- - - - - - - - - - - - - - -
+Question: Navodila za čokoladne ježke.
+
+No context:
+10
+
+With context:
+To create chocolate chip ježki, follow this recipe:
+
+**Ingredients:**
+- 2 cups all-purpose flour
+- 1/3 cup granulated sugar
+- 1/4 cup unsalted butter, softened
+- 1 teaspoon baking soda
+- 1/2 teaspoon salt
+- 2 large eggs
+- 3/4 cup milk
+- 2 tablespoons semisweet chocolate chips
+
+**Instructions:**
+1. Preheat the oven to 375°F (190°C).
+2. In a large bowl, mix together the flour, sugar, butter, baking soda, and salt.
+3. Add the eggs one at a time, mixing well after each addition.
+4. Combine the milk and chocolate chips; pour into the dry ingredients and mix until just combined.
+5. Drop rounded tablespoons of dough onto ungreased baking sheets.
+6. Bake for 10-12 minutes or until golden brown.
+
+This recipe can be adjusted by using less dough to create smaller ježki if needed.
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za arašidovčke?
+
+No context:
+Arašidovčke možemo biti vrhunsko-smetljive rešetke sestavine, uključujući osnovne zgrade kao što su kamen, mokro vodomak, beli mokro vodomak i beli kamari. Ovaj tip rešetke je posebno važan jer omogućava dobar pristup u potrebama.
+
+With context:
+Arašidovčke potrebujemo **200 gramov karkoličine** in **100 gramov arašidov**.
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za jabolčni kompot?
+
+No context:
+A jable compote requires the following ingredients: apples, sugar, water, cinnamon, and optionally milk or lemon juice.
+
+With context:
+The sestavine for the jabolčni kompot is as follows:
+
+- 1 liter vode
+- 2 žlici rožine
+- 1/4 vrečke aromatične mešanice za kuhano vino
+- 1 vanilin sladkor
+- 2 decilitra vina
+- 1 litar vode
+- 1/2 limonin olup
+- Kandirano lupino
+- Cimetova skorjica
+- Par kličков
+- 2 žlici ruma
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za bananino torto?
+
+No context:
+The necessary ingredients for making a banana cake are: flour, sugar, bananas, eggs, and optionally baking powder or soda along with vanilla extract.
+
+With context:
+
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za bavarsko kremo?
+
+No context:
+Kestevi baryonyx za Easter treba:
+- Marmalade (osnovna sestavina)
+- Mađar (najčešće mleketno mađar)
+- Dve kocke kroše (ili druga vrsta pločke) kao osnova
+- Boja za prsten
+
+With context:
+The ingredients required are:
+- 250 ml milk
+- 4 rumenjaki (plum slices)
+- 100 grams sladkorja (sugar)
+- Eggs
+- Flour
+- Salt
+- Vanilla extract
+
+
+- - - - - - - - - - - - - - -
+Question: Katere sestavine potrebuješ za čokoladne ježke?
+
+No context:
+Flour, sugar, butter, eggs, baking soda, salt, vanilla extract, and chocolate chips.
+
+With context:
+The required ingredients for making chocolate éclairs are:
+- 100 gramov surovega masla (butter)
+- 60 gramov sladkorja (sugar) + 150 gramov sladkorja (additional sugar) + 50 gramov sladkorja (salt)
+- 4 jajca (eggs)
+- 1/2 litrov mleka (milk)
+- 2 rumenjaka
+- 160 gramov moke (flour)
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se naredi arašidovčke?
+
+No context:
+Predaži ardeničke rasteće začinjete sa istraživanjem dobar kvalitetne loše i osvajanja mokroza. Potom birate odabrani vrste rasteća, prepravite ih u pravi oblik i zaslužite ih na terenu. Zatim ih vynesite u potrebno vreme prema klimatskoj godini. Poslednje važno je da ih osigurate priličan broj mokraza, osvajajući ih od strane padnog veka i koristimo ih za zaslužiti osnovu.
+
+With context:
+Arašidovčke se naredijo s predpostoki:
+- 100 gramov masla (butter)
+- 50 gramov arašidov masla (chocolate butter)
+- 70gramov rjavega sladkorja (dark chocolate)
+- 2 jajci
+- 350gramov moke
+- 1 vrečka vanilijeve esence
+- 2 pesti mletih lešnikov ali orehov
+- 200gramov koščkov mlečne čokolade ali čok. kapljic
+- 100gramov arašidov
+
+Spostopek:
+1. Zmešamo vse mokre sestavine v gladko testo.
+2. Na pomokani površini razvaljamo testo na pol cm debelo in izrežemo piškotke poljubnih oblik.
+3. Spečemo jih zlato - rjavo pri 170-180 stopinjah, čas pečenja je 10-15 minut.
+4. Spečene in ohlajene še do polovice pomočimo v čokolado.
+
+
+- - - - - - - - - - - - - - -
+Question: Kakšen je postopek za peko arašidovčkov?
+
+No context:
+Ko si htijas postopki za peko arašidovčkov, lahko izberi dve količini tebe in prilegašte s moško. Potem je potrebno osupiti tebe, prilagajati vmesni del, ki je moška, in ga postavi med dvema tebojoma.
+
+With context:
+Postopek za peko arašidovčkov je:
+1. Pravimo mesto za agar: 100 gramov koščkov mlečne čokolade ali čok. kapljic + 200 gramov arašidov.
+2. Spremljamo 50 gramov sladkorja v prahu.
+3. Dodajemo 2 jajce in 140 gramov mehkega masla ali kokosove maščobe.
+4. Popripravimo mleko do 350 gramov, dodamo soli (pol čajne žličke) in pecilni prašek.
+5. Pekemo na 190 stopinjah za 15-17 minute.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se naredi jabolčni kompot?
+
+No context:
+Strukturna formula je \boxed{C_6H_{10}O_7}.
+
+With context:
+Komentarji:
+- Vsebujemo 1 kg jabolka, 70 g surokega sladkorja, 1,25 dl limoninumske sokom, 10 g lehačne okolice in 2,5 dl rumenjaka ali druge smetane.
+- Priljetno je dodat 1/4 dl vode za prilagajeno mesto.
+- Sestavljamo ga na naslednji način: jabolka razdelimo na male klice, mhxemo v vodom, dodamo sladkor in limoninumsko, potem se strdi z rumenjaki ali smetano. Kremo je priljetno dopolnil s druge okolice in naredimo izjemno več karizmi.
+
+
+- - - - - - - - - - - - - - -
+Question: Kakšen je postopek za kuhanje jabolčnega kompota?
+
+No context:
+Postopek za kuhanje jabolčnega kompota je zelo pregleden in direktno:
+1. Prepravite jabuke v malke kocke ali ugotovljive oblike.
+2. Gremo vodo ali ribače do 30-40 minuta, ko se bo dosegel prilagajeni temperature.
+3. Dodačno suho (npr. ribačko suho) ali ribačko mleko premikajte v gromljeni vodom.
+4. Gremo je treba do 20-30 minut, da bi ga postavili v prilagajeno hitrost.
+5. Dodačno suho možemo dodati še krople (npr. ribačko kropla) za boljo osnovno osnovno osnovno osnovno osnovno osnovno osnovno osnovno osnovno osnovno osновno osnovno osnovno osnovno osnovno osnovno osnovno osnovno osnovno osnovно osnovno osnovno osnovno osnovно osnovno osnovno osnovно osnovно osnovno osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно osnovно os
+
+With context:
+Postopek za kuhanje jabolčnega kompota je slednji:
+1. Prepravite jabuke na kockice velikosti približno 2-3 mm.
+2. Dodajte limonin sok, sladkor (sugar), cimet (kakšen je izjemni) in ingver.
+3. Postopek potem izračunajte nad 45 min.
+4. Medtem v polivinil vrečki zdrobimo marmelado ter ga spredamo v sklopi.
+5. Vržemo ga do 15-20 minut na 200 stopinj.
+6. Po želji lahko okrasimo tudi z malo Sladkega greha, okus čokolada.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se speče bananino torto?
+
+No context:
+Banano torta se priprema na sljedećim korakima:  
+1. Prepravi mčevane banane u mašu i dodajte suženo mlijivo.  
+2. Dodajte suženo mlijivo s ulaglom liše.  
+3. Ako želite, dodajte kapaline i/ili kapićane mleko.  
+4. Prilagodite gustost i smjer torte prema potrebama.
+
+With context:
+To make a caramel-filled banana tart:
+
+1. Preheat the oven to 180°C (350°F).
+2. In a saucepan, melt the butter over medium heat. Add the caramel and stir until smooth.
+3. In a bowl, combine the sugar with the melted caramel mixture.
+4. Stir in the ginger snaps and chips until well coated.
+5. Pour the mixture into a tart pan lined with parchment paper, smoothing the top.
+6. Bake for 25 minutes or until golden brown.
+
+Let the tart cool slightly before serving. You can add a topping of your choice if desired.
+
+
+- - - - - - - - - - - - - - -
+Question: Kakšen je postopek peke bananine torte?
+
+No context:
+{answer}
+
+With context:
+Kakšen je postopek peke bananine torte?
+
+Postopek je slednji:
+1. Prilagajte mleko, kislo smetano in lecureur.
+2. Premešajte v osnovno mrežo.
+3. Postavite ga na stolek in pekete do prasevanja.
+4. Po praskih ga napakujte z kremo in lecureurjem.
+5. Potem ga premešajte z bananami in vloži v torto.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako bi naredili bavarsko kremo po korakih?
+
+No context:
+Kako bi naredili bavarsko kremo po korakih?
+
+1. **Gather Ingredients**: Kupite fresh lamb mince (70% fatne), mlijekvo, rukavica, parsijske grane, mješa, dils i moška.
+2. **Prepare Marinade**: Prilagodite mixture sa sojmom, mlijekmom, kolićnikom, glilićom, cuminom, paprikom i olivirom.
+3. **Shape Lamb**: Podijelite lamb u male kocke ili lopte za jedniformnu snagu.
+4. **Marinate**: Postavi mlijeku u mixture i ulожi u refridžerator za 12-24 sati.
+5. **Cook**: Grilite bavare sa 4-5 minuta po strani, ili bakaljte na 200°C (400°F) za 15-20 minuta.
+
+With context:
+1. Spustite rumenjake v 250 mililitrov mleku.
+2. Dodajte polovico sladkorja (ali tudi 100 gramov konjaka).
+3. Dodajte preostalo sladko: vanilin sladkor, mleko in rumenjake.
+4. Zavrtete osnovno mesto do 3/4, vložite 60 ml vode.
+5. Prilivajte beljake, beljanske dele in maslo.
+6. Zavrtete krem do temperature 116 stopinj, odstavi beljake.
+7. Vložite beljanske dele in beljake.
+8. Spustite krem v hladilniku za 30 min or 2 ure.
+
+
+- - - - - - - - - - - - - - -
+Question: Kako se pripravi arašidovčke?
+
+No context:
+Maraton priprava obično znači 4-6 meseci trening. Vaš plan trening treba biti strukturiран sa kombinacijom bolnih, temperiranih i jednostavnih rešenja. Nutricija trebuje osupljen ulazak (povremena) i veća količina proteinova i vodom. Značajan broj trening sati može omogućiti bolju gotovost i rast mljednosti. Vaš krojer trening treba dobro prilagoditi vašim sposobnostima i potrebama, a takav pristup može omogućiti bolju gotovost i rast mljednosti.
+
+With context:
+Arašidovčke (a type of toddler porridge) can be prepared using the following steps:
+
+1. **Mix the ingredients**: Combine 2 jajci (eggs), 0,25 litrov toplega mleka (milk), 30 gramov kvasa (baking powder), 1 ščep soli (salt), 50 gramov masla (olive oil), 50 gramov sladkorja (sugar), 500 ml moke (water), and limonina lupina (lemon juice) in a bowl.
+2. **Prepare the porridge**: Dissolve the sladkorja in the milk, then mix it with the other ingredients until well combined.
+3. **Heat the mixture**: Pour the mixture into a pan over low heat, stirring continuously to prevent lumps.
+4. **Add buhtlje (pudding)**: Mix 2 jajci (eggs), limonina lupina, vanilijev sladkor (vanilla extract), marmelada (marmelade), and moke (water) separately, then combine them to form the buhtlje.
+5. **Combine everything**: Pour the buhtlje over the heated mixture and stir gently until fully incorporated.
+
+The final product is a thick, sweet porridge suitable for toddlers.
+
