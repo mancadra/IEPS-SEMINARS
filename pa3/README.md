@@ -1,114 +1,86 @@
 # Question Answering API
 
-This project provides a RESTful API built with FastAPI for handling question-answering requests. It includes a simple web interface built with Bootstrap for user interaction.
-
-The system accepts user questions and provides placeholder responses based on a boolean flag indicating whether to simulate the use of a Retrieval-Augmented Generation (RAG) system.
-
----
-
-## Features
-
-- `POST /question` endpoint accepting:
-  - `question` (string): the user query
-  - `use_rag` (boolean): whether to simulate RAG-based response generation
-- Simple, responsive web interface using Bootstrap 5
-- Static group and bot identification:
-  - Group: **Group DEMO**
-  - RAG system name: **Demo-bot**
+Projekt `pa3` je integrira podatkovno bazo iz projekta `pa2` z jezikovnim modelom.
+Dodan je preprost spletni vmesnik, ki omogoča uporabniku, da vnese vprašanje in prejme odgovor generiran z jezikovnim modelom.
+Uporabnik se lahko odloči ali bo model prejen dodaten kontekts pridobljen iz podatkovne baze.
 
 ---
 
-## Project Structure
+## Navodila za namestitev in zagon
 
-```
-your_project/
-├── main.py
-├── requirements.txt
-├── README.md
-└── templates/
-    └── index.html
-```
+### Namestitev
 
----
-
-## Setup Instructions
-
-### 1. Clone the Repository
+Za zagon projekta `pa3` morate imeti nameščen Python, PostgreSQL in Docker. Poskrbite, da so na sistemu nameščene vse potrebne knjižnice. Te dobite v datoteki `requirements.txt` znotraj glavne mape IEPS-SEMINARS. Po potrebi lahko ustvarite tudi virtual environment na sledeč način
 
 ```bash
-git clone <repository-url>
-cd your_project
+py -m venv .venv
 ```
-
-### 2. Create and Activate a Virtual Environment (optional but recommended)
-
+in ga zaženete s spodnjim ukazom
 ```bash
-python -m venv venv
-source venv/bin/activate # On Windows: venv\Scripts\activate
+.\.venv\Scripts\activate
 ```
-
-### 3. Install Dependencies
-
+Knjižnjice naložite z zagonom izraza 
 ```bash
 pip install -r requirements.txt
 ```
+Namestite ollama[https://ollama.com/] in uporabite naslednji ukazom:
+```bash
+ollama pull gemma3
+```
+Če je v datoteki `config.ini` naveden drugačen model, potem tega namestite na isti način.
+
+Docker container ustvarite z naslednjim ukazom
+```bash
+docker run --name <ime_containerja> \
+-e POSTGRES_PASSWORD=<vase_geslo>\
+-e POSTGRES_USER=<vas_username> \
+-e POSTGRES_DB=<ime_vase_baze> \
+-v //c/<pot_do_folderja_pa1>/pa1/db/pgdata:/var/lib/postgresql/data \
+-v //c/<pot_do_folderja_pa1>/pa1/db/init-scripts:/docker-entrypoint-initdb.d \
+-p 5434:5432 \
+-d pgvector/pgvector:pg16
+```
+Vrata in vse v zašiljenih oklepajih priredite sebi.
+Po ustvarjenem docker containerju, ga povežite s PostgreSQL na vašem sistemu.
+
+Ustvarite datoteko `config.ini` znotraj mape `pa3` in prilagodite parametre. Ta naj izgleda tako
+```
+[DATABASE]
+DB_NAME = <ime_vase_baze>
+USER = <vas_username>
+PASSWORD = <vase_geslo>
+HOST = localhost
+PORT = 5434
+
+[MODEL]
+; labse , sloberta, openai, croslo, distilbert
+MODEL_NAME = labse
+; cosine, L1, inner_product
+SIMILARITY_METRIC = inner_product
+; llama3.2:1b, gemma3:latest, deepseek-r1:latest
+; qwen3:latest, phi4, llama4:latest; hf.co/tknez/GaMS-9B-Instruct-GGUF:latest
+LANGUAGE_MODEL = gemma3:latest
+CONTEXT_SIZE = 3
+```
+
+### Obnovitev baze
+Povezava do kopije baze se nahaja v mapi `extraction-db`.
+Po prenosu kopije, lahko bazo obnovite znotraj pgAdmina in sicer:
+Z desnim klikom na bazo, ki smo jo ustvarili z docker containerjom, izberite `Restore`
+Izberite preneseno datoteko. Pod query_options obklukajte `Clean before restore` in pod `Options` onemogočite `Triggers`.
+Nato lahko bazo obnovite s klikom na gumb `Restore`.
 
 ---
 
-## Running the Application
+### Zagon spletnega vmesnika
 
-To start the server:
+Da zaženete strežnik znotraj mape `pa3` uporabite naslednji ukaz:
 
 ```bash
 python main.py
 ```
 
-The application will be accessible at:  
+Aplikacija bo dostopna na spletni povezavi:
 http://localhost:8000
 
-The web interface is available at the root URL and allows users to input a question and select whether to use RAG-based logic.
-
 ---
-
-## API Usage
-
-### Endpoint
-
-**POST** `/question`
-
-### Request Body
-
-```json
-{
-  "question": "What is the capital of France?",
-  "use_rag": false
-}
-```
-
-### Response
-
-```json
-{
-  "answer": "Simple answer to: 'What is the capital of France?'"
-}
-```
-
----
-
-## Dependencies
-
-The following Python packages are required (as listed in `requirements.txt`):
-
-```
-fastapi
-uvicorn
-```
-
-Other packages may be added as the application is extended.
-
----
-
-## Notes
-
-- The current implementation uses placeholder logic for answering questions. To integrate actual RAG functionality, connect the logic in `main.py` to an appropriate backend system such as LangChain or an OpenAI API.
-- The HTML interface is located at `templates/index.html` and can be customized to match specific branding or design requirements.

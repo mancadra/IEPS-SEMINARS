@@ -9,7 +9,7 @@ similarity_metric = config['MODEL']['SIMILARITY_METRIC']
 model_name = config['MODEL']['LANGUAGE_MODEL']
 context_size = config['MODEL']['CONTEXT_SIZE']
 
-with open("test_questions4.txt", "r", encoding="utf8") as file:
+with open("tests/test_questions4.txt", "r", encoding="utf8") as file:
     text = file.read()
     questions = text.split("\n")
     questions = list(filter(lambda x : (not ('#' in x)) and x != "", questions))
