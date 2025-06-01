@@ -27,7 +27,7 @@ Namestite ollama[https://ollama.com/] in uporabite naslednji ukazom:
 ```bash
 ollama pull gemma3
 ```
-Če je v datoteki `config.ini` naveden drugačen model, potem tega namestite na isti način.
+Če je v datoteki `config.ini` naveden drugačen model, potem tega namestite na enak način.
 
 Docker container ustvarite z naslednjim ukazom
 ```bash
