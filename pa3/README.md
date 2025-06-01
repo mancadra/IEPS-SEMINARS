@@ -1,6 +1,6 @@
 # Question Answering API
 
-Projekt `pa3` je integrira podatkovno bazo iz projekta `pa2` z jezikovnim modelom.
+Projekt `pa3` integrira podatkovno bazo iz projekta `pa2` z jezikovnim modelom.
 Dodan je preprost spletni vmesnik, ki omogoča uporabniku, da vnese vprašanje in prejme odgovor generiran z jezikovnim modelom.
 Uporabnik se lahko odloči ali bo model prejen dodaten kontekts pridobljen iz podatkovne baze.
 
